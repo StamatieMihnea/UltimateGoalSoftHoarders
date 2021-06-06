@@ -1,0 +1,176 @@
+package org.firstinspires.ftc.teamcode.Autonomous.Utils;
+
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+
+import org.firstinspires.ftc.teamcode.Autonomous.A;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
+import org.firstinspires.ftc.teamcode.Autonomous.B;
+import org.firstinspires.ftc.teamcode.Autonomous.C;
+import org.firstinspires.ftc.teamcode.Autonomous.GeneralAutoParameters;
+import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
+import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
+import org.firstinspires.ftc.teamcode.Utils.Logics.CmToInch;
+
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeAcc;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeVel;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeX;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeY;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootAngle;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootPoseX;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootPoseY;
+import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.wobbleMidPosition;
+
+public class Trajectories {
+    public static Trajectory returnBack,returnBack1,returnBack2;
+    private static MyMecanumDrive drive;
+    private static Pose2d startPose;
+
+    public static void setDrive(MyMecanumDrive drive) {
+        Trajectories.drive = drive;
+        NormalizeImuAngle.setDrive(drive);
+    }
+
+    public static void setStartPose(Pose2d startPose) {
+        Trajectories.startPose = startPose;
+    }
+
+    public static Trajectory rightPowerShot(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineTo(new Vector2d(CmToInch.convert(PowerShots.firstPowerShootPositionX),
+                        CmToInch.convert(PowerShots.firstPowerShootPositionY)))
+                .build();
+    }
+
+    public static Trajectory middlePowerShot(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineTo(new Vector2d(CmToInch.convert(PowerShots.firstPowerShootPositionX),
+                                CmToInch.convert(PowerShots.firstPowerShootPositionY - PowerShots.distanceBetweenPowerShoots)),
+                        MyMecanumDrive.getVelocityConstraint(40, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(40))
+                .build();
+    }
+
+    public static Trajectory leftPowerShot(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineTo(new Vector2d(CmToInch.convert(PowerShots.firstPowerShootPositionX),
+                                CmToInch.convert(PowerShots.firstPowerShootPositionY - PowerShots.distanceBetweenPowerShoots * 2 + PowerShots.offsetLastPowerShot)),
+                        MyMecanumDrive.getVelocityConstraint(40, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(40))
+                .build();
+    }
+
+    public static Trajectory firstWobbleReleaseC(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(CmToInch.convert(C.firstWobbleX), CmToInch.convert(C.firstWobbleY), NormalizeImuAngle.heading(C.firstWobbleHeading)))
+                .addTemporalMarker(0.5, () -> {
+                    Wobble.motorArmToPosition(true, wobbleMidPosition);
+                })
+                .build();
+    }
+    public static Trajectory firstWobbleReleaseB(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(CmToInch.convert(B.firstWobbleX), CmToInch.convert(B.firstWobbleY), NormalizeImuAngle.heading(B.firstWobbleHeading)))
+                .addTemporalMarker(0.5, () -> {
+                    Wobble.motorArmToPosition(true, wobbleMidPosition);
+                })
+                .build();
+    }
+
+    public static Trajectory firstWobbleReleaseA(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(CmToInch.convert(A.firstWobbleX), CmToInch.convert(A.firstWobbleY), NormalizeImuAngle.heading(A.firstWobbleHeading)))
+                .build();
+    }
+
+    public static Trajectory returnBackC1 (Pose2d pose2d){
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(new Pose2d(CmToInch.convert(C.firstWobbleX),10,NormalizeImuAngle.heading(180)))
+                .build();
+    }
+
+    public static Trajectory returnBackC2 (Pose2d pose2d){
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(new Pose2d(38,10,NormalizeImuAngle.heading(180)))
+                .build();
+    }
+
+    public static Trajectory returnBackC(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .splineToLinearHeading(new Pose2d(38, 20, NormalizeImuAngle.heading(180)), Math.toRadians(130),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .build();
+    }
+
+    public static Trajectory returnBackA(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .splineToLinearHeading(new Pose2d(38, 20, NormalizeImuAngle.heading(180)), Math.toRadians(130),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .build();
+    }
+
+
+    public static Trajectory returnBackB(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .splineToLinearHeading(new Pose2d(38, 20, NormalizeImuAngle.heading(180)), Math.toRadians(100),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .build();
+    }
+
+
+
+    public static Trajectory secondWobbleCollect(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToConstantHeading(new Vector2d(AutoCase.wobblePos2X, AutoCase.wobblePos2Y), MyMecanumDrive.getVelocityConstraint(AutoCase.wobbleVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(AutoCase.wobbleAcc))
+                .addTemporalMarker(1.4, () -> {
+                    Wobble.motorArmToPosition(true, GeneralAutoParameters.wobbleCollectPosition + 80);
+                    Wobble.close();
+                })
+                .build();
+    }
+
+    public static Trajectory diskCollect(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(new Pose2d(intakeX, intakeY, NormalizeImuAngle.heading(200)), MyMecanumDrive.getVelocityConstraint(intakeVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(intakeAcc))
+                .build();
+    }
+
+    public static Trajectory shootPoseTrajectory(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(shootPoseX, shootPoseY, Math.toRadians(shootAngle)))
+                .addTemporalMarker(0.1, AutoUtil::stopIntakeMotor)
+                .addTemporalMarker(1.5, AutoUtil::stopIntakeServo)
+                .build();
+    }
+
+    public static Trajectory secondWobbleReleaseC(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(new Pose2d(CmToInch.convert(C.secondWobbleX), CmToInch.convert(C.secondWobbleY), NormalizeImuAngle.heading(C.secondWobbleHeading)))
+                .addTemporalMarker(0.3, () -> {
+                    Wobble.motorArmToPosition(true, wobbleMidPosition);
+                })
+                .build();
+    }
+
+    public static Trajectory secondWobbleReleaseA(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(CmToInch.convert(A.secondWobbleX), CmToInch.convert(A.secondWobbleY), NormalizeImuAngle.heading(A.secondWobbleHeading)))
+                .build();
+    }
+
+    public static Trajectory secondWobbleReleaseB(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(CmToInch.convert(B.secondWobbleX), CmToInch.convert(B.secondWobbleY), NormalizeImuAngle.heading(B.secondWobbleHeading)))
+                .build();
+    }
+
+
+}
