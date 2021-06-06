@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Utils.Hardware;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -152,11 +153,13 @@ public class HardwareUtil {
     public static void OpenCVSetup(HardwareMap hm, OpenCvPipeline process, Telemetry telemetry, WebcamName webcam) throws InterruptedException {
         if (webcam != null && process != null) {
 
+
             int cameraMonitorID = hm.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hm.appContext.getPackageName());
             telemetry.addLine("Monitor ID DONE!");
             telemetry.update();
 
             Hardware.cvCamera = OpenCvCameraFactory.getInstance().createWebcam(webcam, cameraMonitorID);
+            FtcDashboard.getInstance().startCameraStream(Hardware.cvCamera,60);
 
             telemetry.addLine("CVCam initialisation DONE!");
             telemetry.update();

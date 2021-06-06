@@ -24,22 +24,27 @@ public class VisualizerC {
                 .followTrajectorySequence(drive ->
                         {
                             return drive.trajectorySequenceBuilder(new Pose2d(-61.5, -14.6, Math.toRadians(180)))
-                                    .strafeTo(new Vector2d(CmToInch.convert(0), CmToInch.convert(-12)))
+                                    .lineTo(new Vector2d(CmToInch.convert(5), CmToInch.convert(48))) //right powershot
                                     .waitSeconds(0.2)
-                                    .strafeTo(new Vector2d(CmToInch.convert(0), CmToInch.convert(-12 - 17)))
+                                    .lineTo(new Vector2d(CmToInch.convert(5), CmToInch.convert(48 - 20.5))) //middle powershot
                                     .waitSeconds(0.2)
-                                    .strafeTo(new Vector2d(CmToInch.convert(0), CmToInch.convert(-12 - 17 * 2)))
+                                    .lineTo(new Vector2d(CmToInch.convert(5), CmToInch.convert(48 - 20.5 * 2 + 0.5))) //left powershot
                                     .waitSeconds(0.2)
 
-                                    .lineToLinearHeading(new Pose2d(CmToInch.convert(-100), CmToInch.convert(60), Math.toRadians(200))) //wobble release
+                                    .lineToSplineHeading(new Pose2d(CmToInch.convert(-140f), CmToInch.convert(100f), Math.toRadians(180f))) //wobble release
+                                    .waitSeconds(0.2)
 
-                                    .splineToSplineHeading(new Pose2d(-38, -20, Math.toRadians(180)), Math.toRadians(160)) //return back
+                                    .splineToConstantHeading(new Vector2d(-38, -20), Math.toRadians(80)) //return back
 
-                                    .lineToLinearHeading(new Pose2d(CmToInch.convert(19), CmToInch.convert(30), Math.toRadians(200))) //collect pos
+                                    .lineToConstantHeading(new Vector2d(-38, -37)) //second wobble collect
+                                    .waitSeconds(0.2)
 
-                                    .lineToSplineHeading(new Pose2d(CmToInch.convert(10.5),CmToInch.convert(36),Math.toRadians(180)))
+                                    .lineToLinearHeading(new Pose2d(-20, -37, Math.toRadians(200))) //disk collect
 
-                                    .lineToSplineHeading(new Pose2d(CmToInch.convert(-80),CmToInch.convert(75),Math.toRadians(220)))
+                                    .lineToSplineHeading(new Pose2d(-10.5, -34.5, Math.toRadians(180))) //shoot
+                                    .waitSeconds(0.2)
+
+                                    .splineToLinearHeading(new Pose2d(CmToInch.convert(-105f), CmToInch.convert(132f), Math.toRadians(270f)), Math.toRadians(160)) //second wobble release
 
 //                                    .lineToConstantHeading(new Vector2d(-39, -40))
 //                                    .lineToLinearHeading(new Pose2d(-20, -35, Math.toRadians(200)))
