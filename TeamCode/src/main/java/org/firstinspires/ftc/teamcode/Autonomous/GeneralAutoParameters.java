@@ -15,15 +15,16 @@ public class GeneralAutoParameters {
     public static int wobbleArmSleep = 150;
     public static int sleepForGrabbing = 600;
 
-    public static double wobblePos2X = 38; //40.5
-    public static double wobblePos2Y = 38.5;
+    public static double wobblePos2X = 39; //40.5
+    public static double wobblePos2Y = 39;
     public static double wobbleVel = 20;
     public static double wobbleAcc = 20;
 
-    public static double shootSpeed = 1900;
+    public static double shootSpeed = 1400;
     public static double shootPoseX = 10.5;
-    public static double shootPoseY = 34.5;
+    public static double shootPoseY = 35;
     public static double shootAngle = 180;
 
-    public static double shooterAngleTower = 0.56; //0.6
+    public static double intakeAngle = 0.5;
+    public static double shooterAngleTower = 0.595; //0.6
 }

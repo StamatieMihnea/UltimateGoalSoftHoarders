@@ -10,11 +10,10 @@ public class AutoIntakeShoot {
     public static void start(LinearOpMode opMode) {
         AutoUtil.startIntake();
         drive.followTrajectory(Trajectories.diskCollect(drive.getPoseEstimate()));
-
+        AutoUtil.shooterAngle(shooterState.SHOOT);
         drive.followTrajectory(Trajectories.shootPoseTrajectory(drive.getPoseEstimate()));
 
-        AutoUtil.startShooting(AutoCase.shootSpeed);
-        opMode.sleep(200);
+
         AutoUtil.shoot3Disks();
     }
 }

@@ -12,6 +12,13 @@ public class Wobble {
 
     private static final double front_grabPosition = 0.75f;
     private static final double front_freePosition = 0.45f;
+
+    public static int wobbleArmAutoOffset = 500;
+
+    private static final int wobbleUpPose = 20 - wobbleArmAutoOffset;
+    private static final int wobbleDownPose = 600 - wobbleArmAutoOffset;
+    private static final int wobbleMidPose = 250 - wobbleArmAutoOffset;
+
     private static final ServoCommandGroup backServo = new ServoCommandGroup(Hardware.grabber_back, back_freePosition, back_grabPosition);
     private static final ServoCommandGroup frontServo = new ServoCommandGroup(Hardware.grabber_front, front_freePosition, front_grabPosition);
     private static final ServoToPosition grabberServos = new ServoToPosition(backServo, frontServo);
@@ -62,8 +69,8 @@ public class Wobble {
 
     public static void wobbleControl(Gamepad gamepad) {
         servoPositions(gamepad.x);
-        motorArmToPosition(gamepad.dpad_down, 600);
-        motorArmToPosition(gamepad.dpad_up, 0);
-        motorArmToPosition(gamepad.dpad_right, 250);
+        motorArmToPosition(gamepad.dpad_up, wobbleUpPose);
+        motorArmToPosition(gamepad.dpad_right, wobbleMidPose);
+        motorArmToPosition(gamepad.dpad_down, wobbleDownPose);
     }
 }

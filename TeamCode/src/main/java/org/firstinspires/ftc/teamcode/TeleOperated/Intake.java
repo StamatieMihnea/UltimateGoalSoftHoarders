@@ -28,10 +28,9 @@ public class Intake {
     public static void oneSpeedIntake(boolean button) {
         boolean activate = intakeButton.onPress(button);
         if (distanceSensor.shouldIntake) {
-
             intakeState.changeMotorState(activate, 1, Hardware.intake);
             intakeState.changeServoState(activate, 1, Hardware.shooter_booster);
-            diskNormalizer.changeMotorStateSpeed(button, -500, Hardware.shooter_left, Hardware.shooter_right);
+            diskNormalizer.changeMotorStateSpeed(activate, -500, Hardware.shooter_left, Hardware.shooter_right);
         }
         stopIntake();
     }

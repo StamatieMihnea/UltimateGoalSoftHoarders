@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
+import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
@@ -52,9 +53,7 @@ public class MainAuto extends LinearOpMode {
         autoCase.releaseSecondWobble();
 
         PoseStorage.currentPose = drive.getPoseEstimate();
+        Wobble.wobbleArmAutoOffset = Hardware.grabber.getCurrentPosition();
 
-        while (opModeIsActive() && !isStopRequested()) {
-            idle();
-        }
     }
 }

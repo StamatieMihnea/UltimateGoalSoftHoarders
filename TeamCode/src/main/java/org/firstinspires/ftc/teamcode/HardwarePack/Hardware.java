@@ -18,12 +18,10 @@ public class Hardware extends HardwareMapping {
         HardwareUtil.setTelemetry(telemetry);
         telemetry.addLine("Initializing...");
 
-
         hardwareMapping(hm);
         telemetry.addLine("Hardware Mapping Done!");
 
-
-        ResetEncoders(grabber, shooter_right, shooter_left, intake);
+        ResetEncoders( shooter_right, shooter_left, intake);
         RunToPosition(grabber);
 
         directionChanging(shooter_right, intake);

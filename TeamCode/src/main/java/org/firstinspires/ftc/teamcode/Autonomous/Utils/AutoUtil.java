@@ -72,6 +72,8 @@ public class AutoUtil {
             case POWER_SHOTS:
                 ChangeShootingAngle.AngleControl(PowerShots.shooterAnglePowerShoot);
                 break;
+            case INTAKE:
+                ChangeShootingAngle.AngleControl(AutoCase.intakeAngle);
         }
     }
 
@@ -133,8 +135,8 @@ public class AutoUtil {
     }
 
     public static void startIntake() {
-        Hardware.shooter_booster.setPower(1);
         Hardware.intake.setPower(1);
+        Hardware.shooter_booster.setPower(1);
         shoot_leftEX.setVelocity(-500);
         shoot_rightEX.setVelocity(-500);
     }

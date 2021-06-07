@@ -33,6 +33,7 @@ public interface AutoCase {
     double shootAngle = GeneralAutoParameters.shootAngle;
 
     double shooterAngleTower = GeneralAutoParameters.shooterAngleTower;
+    double intakeAngle = GeneralAutoParameters.intakeAngle;
 
     void releaseFirstWobble();
 

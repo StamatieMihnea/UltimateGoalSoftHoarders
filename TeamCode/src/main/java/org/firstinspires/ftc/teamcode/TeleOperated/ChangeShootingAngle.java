@@ -26,7 +26,7 @@ public class ChangeShootingAngle {
     }
 
 
-    private static double absPosition = 0;
+    private static double absPosition = genericPosition;
     private static final OneTap up = new OneTap();
     private static final OneTap down = new OneTap();
 

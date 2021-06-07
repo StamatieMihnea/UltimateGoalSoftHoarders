@@ -11,14 +11,14 @@ import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 @Config
 public class PowerShots {
 
-    public static double shooterAnglePowerShoot = 0.635; //0.67
+    public static double shooterAnglePowerShoot = 0.63; //0.67
     public static int shootingSpeed = 1150;
 
     public static double firstPowerShootPositionY = 42;
     public static double firstPowerShootPositionX = 5;
 
-    public static double distanceBetweenPowerShoots = 20.5; //20.5
-    public static double offsetLastPowerShot = 0;
+    public static double distanceBetweenPowerShoots = 20; //20.5
+    public static double offsetLastPowerShot = 0.5;
 
     private static MyMecanumDrive drive;
 
@@ -48,6 +48,6 @@ public class PowerShots {
         FollowTrajectoryAndShoot(Trajectories.leftPowerShot(drive.getPoseEstimate()), drive, true);
 
         AutoUtil.stopShooting();
-        AutoUtil.shooterAngle(shooterState.SHOOT);
+        AutoUtil.shooterAngle(shooterState.INTAKE);
     }
 }

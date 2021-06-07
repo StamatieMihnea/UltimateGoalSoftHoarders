@@ -93,7 +93,7 @@ public class Trajectories {
                 .lineToSplineHeading(new Pose2d(pose2d.getX(), 36,Math.toRadians(180)),
                         MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         MyMecanumDrive.getAccelerationConstraint(35))
-                .splineToConstantHeading(new Vector2d(38,20),Math.toRadians(0),
+                .splineToConstantHeading(new Vector2d(38,21),Math.toRadians(20),
                         MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         MyMecanumDrive.getAccelerationConstraint(35))
                 .addTemporalMarker(2,()->{
@@ -155,13 +155,16 @@ public class Trajectories {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(new Pose2d(shootPoseX, shootPoseY, Math.toRadians(shootAngle)))
                 .addTemporalMarker(0.1, AutoUtil::stopIntakeMotor)
-                .addTemporalMarker(1.5, AutoUtil::stopIntakeServo)
+                .addTemporalMarker(0.8, AutoUtil::stopIntakeServo)
+                .addTemporalMarker(1.0, ()->{
+                    AutoUtil.startShooting(AutoCase.shootSpeed);
+                })
                 .build();
     }
 
     public static Trajectory secondWobbleReleaseC(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .splineToLinearHeading(new Pose2d(CmToInch.convert(C.secondWobbleX), CmToInch.convert(C.secondWobbleY), NormalizeImuAngle.heading(C.secondWobbleHeading)),Math.toRadians(160))
+                .splineToSplineHeading(new Pose2d(CmToInch.convert(C.secondWobbleX), CmToInch.convert(C.secondWobbleY), NormalizeImuAngle.heading(C.secondWobbleHeading)),Math.toRadians(160))
                 .addTemporalMarker(0.3, () -> {
                     Wobble.motorArmToPosition(true, wobbleMidPosition);
                 })
