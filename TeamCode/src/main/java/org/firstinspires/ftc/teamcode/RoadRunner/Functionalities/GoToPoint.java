@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.RoadRunner.Functionalities;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.firstinspires.ftc.teamcode.Main.Teleoperated;
+import org.firstinspires.ftc.teamcode.Main.driveCase;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
@@ -18,9 +20,12 @@ public class GoToPoint {
                     .splineToSplineHeading(new Pose2d(x, y, heading), 0,
                             MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             MyMecanumDrive.getAccelerationConstraint(35))
+                    .addDisplacementMarker(()->{
+                        Teleoperated.currentCase = driveCase.DRIVE;
+                    })
                     .build();
-
-            drive.followTrajectory(trajectory);
+            Teleoperated.currentCase = driveCase.AUTO;
+            drive.followTrajectoryAsync(trajectory);
         }
     }
     public static void spline(boolean button,Pose2d pose2d, MyMecanumDrive drive) {
@@ -31,9 +36,12 @@ public class GoToPoint {
                     .splineToSplineHeading(pose2d, 0,
                             MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             MyMecanumDrive.getAccelerationConstraint(35))
+                    .addDisplacementMarker(()->{
+                        Teleoperated.currentCase = driveCase.DRIVE;
+                    })
                     .build();
-
-            drive.followTrajectory(trajectory);
+            Teleoperated.currentCase = driveCase.AUTO;
+            drive.followTrajectoryAsync(trajectory);
         }
     }
 
@@ -45,9 +53,28 @@ public class GoToPoint {
                     .lineToSplineHeading(new Pose2d(x, y, heading),
                             MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             MyMecanumDrive.getAccelerationConstraint(35))
+                    .addDisplacementMarker(()->{
+                        Teleoperated.currentCase = driveCase.DRIVE;
+                    })
                     .build();
-
-            drive.followTrajectory(trajectory);
+            Teleoperated.currentCase = driveCase.AUTO;
+            drive.followTrajectoryAsync(trajectory);
+        }
+    }
+    public static void strafe(boolean button, double x, double y, double heading, MyMecanumDrive drive, double accel, double vel) {
+        OneTap oneTap = new OneTap();
+        if (oneTap.onPress(button)) {
+            Pose2d poseEstimate = drive.getPoseEstimate();
+            Trajectory trajectory = drive.trajectoryBuilder(poseEstimate)
+                    .lineToSplineHeading(new Pose2d(x, y, heading),
+                            MyMecanumDrive.getVelocityConstraint(vel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                            MyMecanumDrive.getAccelerationConstraint(accel))
+                    .addDisplacementMarker(()->{
+                        Teleoperated.currentCase = driveCase.DRIVE;
+                    })
+                    .build();
+            Teleoperated.currentCase = driveCase.AUTO;
+            drive.followTrajectoryAsync(trajectory);
         }
     }
     public static void strafe(boolean button,Pose2d pose2d, MyMecanumDrive drive) {
@@ -59,8 +86,8 @@ public class GoToPoint {
                             MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                             MyMecanumDrive.getAccelerationConstraint(35))
                     .build();
-
-            drive.followTrajectory(trajectory);
+            Teleoperated.currentCase = driveCase.AUTO;
+            drive.followTrajectoryAsync(trajectory);
         }
     }
 

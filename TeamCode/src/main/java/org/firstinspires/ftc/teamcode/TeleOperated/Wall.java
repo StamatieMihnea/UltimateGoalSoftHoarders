@@ -16,15 +16,38 @@ public class Wall {
     private static final double right_extendedPosition = 0.13f;
     private static final double right_middlePosition = 0.5f;
 
-    private static final ServoCommandGroup leftWall = new ServoCommandGroup(Hardware.wall_left, left_extendedPosition, left_middlePosition);
-    private static final ServoCommandGroup rightWall = new ServoCommandGroup(Hardware.wall_right, right_extendedPosition, right_middlePosition);
-    private static final ServoToPosition wallServoControl = new ServoToPosition(leftWall, rightWall);
+    private static final ServoCommandGroup leftWall = new ServoCommandGroup(Hardware.wall_left, left_middlePosition, left_extendedPosition);
+    private static final ServoCommandGroup rightWall = new ServoCommandGroup(Hardware.wall_right, right_middlePosition, right_extendedPosition);
+    private static final ServoToPosition wallServoControlLeft = new ServoToPosition(leftWall);
+    private static final ServoToPosition wallServoControlRight = new ServoToPosition(rightWall);
 
     public static void wallControl(@NotNull Gamepad gamepad) {
-        wallServoControl.modifyPosition(gamepad.y);
+        wallServoControlLeft.modifyPosition(gamepad.x);
+        wallServoControlRight.modifyPosition(gamepad.b);
+        wallClose(gamepad.y);
+        wallOpen(gamepad.left_bumper);
     }
 
-    public static void Vertical(){
+    public static void wallClose(boolean activate) {
+        if (activate) {
+            Hardware.wall_left.setPosition(left_retractedPosition);
+            Hardware.wall_right.setPosition(right_retractedPosition);
+            wallServoControlLeft.ResetForSecond();
+            wallServoControlRight.ResetForSecond();
+        }
+    }
+
+    public static void wallOpen(boolean activate){
+        if (activate) {
+            Hardware.wall_left.setPosition(left_extendedPosition);
+            Hardware.wall_right.setPosition(right_extendedPosition);
+            wallServoControlLeft.ResetForFirst();
+            wallServoControlRight.ResetForFirst();
+        }
+    }
+
+
+    public static void Vertical() {
         Hardware.wall_right.setPosition(right_middlePosition);
         Hardware.wall_left.setPosition(left_middlePosition);
 

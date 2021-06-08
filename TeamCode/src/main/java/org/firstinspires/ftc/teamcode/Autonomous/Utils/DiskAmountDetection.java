@@ -22,19 +22,19 @@ public class DiskAmountDetection {
 
 
     public static int getDiskAmount(double redAmount) {
-        if (redAmount < 123) {
+        if (redAmount < 119) {
             return 0;
-        } else if (redAmount < 128) {
+        } else if (redAmount < 125) {
             return 1;
         } else {
             return 4;
         }
     }
-    // 0 -- 112-111
+    // 0 -- 117--118
 
-    // 1 -- 115
+    // 1 -- 123
 
-    // 4 -- 123 - 124
+    // 4 -- 130
 
     public static class UltimateGoalPipeline extends OpenCvPipeline {
 

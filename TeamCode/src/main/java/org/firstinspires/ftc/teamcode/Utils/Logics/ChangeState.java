@@ -8,6 +8,7 @@ public class ChangeState {
 
     private boolean isMotorRunning = false;
     private boolean isServoRunning = false;
+    private boolean isMotorSpeedRunning = false;
 
     public static boolean getIsMotorRunning(DcMotor dcMotor) {
         return Math.abs(((DcMotorEx)dcMotor).getVelocity())>200;
@@ -16,6 +17,7 @@ public class ChangeState {
     public void updateState(){
         isMotorRunning = !isMotorRunning;
         isServoRunning = !isServoRunning;
+        isMotorSpeedRunning = !isMotorSpeedRunning;
     }
 
     public void changeMotorState(boolean activate, double power, DcMotor... dcMotors) {
@@ -36,16 +38,16 @@ public class ChangeState {
 
     public void changeMotorStateSpeed(boolean activate, double speed, DcMotor... dcMotors) {
         if (activate) {
-            if (isMotorRunning || Math.abs(dcMotors[0].getPower()) >= 0.05) {
+            if (isMotorSpeedRunning || Math.abs(dcMotors[0].getPower()) >= 0.05) {
                 for (DcMotor dcMotor : dcMotors) {
                     ((DcMotorEx) dcMotor).setVelocity(0f);
                 }
-                isMotorRunning = false;
+                isMotorSpeedRunning = false;
             } else {
                 for (DcMotor dcMotor : dcMotors) {
                     ((DcMotorEx) dcMotor).setVelocity(speed);
                 }
-                isMotorRunning = true;
+                isMotorSpeedRunning = true;
             }
         }
     }

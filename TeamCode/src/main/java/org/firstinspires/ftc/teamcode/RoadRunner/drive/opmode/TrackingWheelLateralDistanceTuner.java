@@ -62,8 +62,8 @@ import org.firstinspires.ftc.teamcode.RoadRunner.drive.Odometry;
  * slightly but your heading will still be fine. This does not affect your overall tracking
  * precision. The heading should still line up.
  */
-//@Disabled
-@Config
+@Disabled
+//@Config
 @TeleOp(group = "drive")
 public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
     public static int NUM_TURNS = 10;

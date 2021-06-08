@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.Logics.ChangeState;
-
+@Disabled
 @TeleOp(name = "TrowTest", group = "Tests")
 public class AruncareTest extends LinearOpMode {
     private static final double push = 0.05;

@@ -5,11 +5,13 @@ package org.firstinspires.ftc.teamcode.Tests;
 //Impotam pachetele care contin clasele ale caror instante sunt folosite in scrierea codului
 //Importul se face automat la apelarea unui obiect cu definitie in afara clasei
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Disabled
 @TeleOp(name = "TestRecruti", group = "TeleOps")
 //Se foloseste pentru o mai usoara indentificare a clasei in aplicatia mobila
 //numele clasei si SuperClass-ul acesteia -- LinearOpMode

@@ -17,7 +17,7 @@ public class Intake {
 
     private static final ChangeState intakeState = new ChangeState();
     private static final ChangeState outtakeState = new ChangeState();
-    public static final ChangeState diskNormalizer = new ChangeState();
+    //public static final ChangeState diskNormalizer = new ChangeState();
 
     public static void IntakeOneSpeed(Gamepad gamepad) {
 
@@ -30,7 +30,7 @@ public class Intake {
         if (distanceSensor.shouldIntake) {
             intakeState.changeMotorState(activate, 1, Hardware.intake);
             intakeState.changeServoState(activate, 1, Hardware.shooter_booster);
-            diskNormalizer.changeMotorStateSpeed(activate, -500, Hardware.shooter_left, Hardware.shooter_right);
+            intakeState.changeMotorStateSpeed(activate, -500, Hardware.shooter_left, Hardware.shooter_right);
         }
         stopIntake();
     }
@@ -54,7 +54,7 @@ public class Intake {
     }
 
     public static void OutTakeOneSpeed(Gamepad gamepad) {
-        if (!ChangeState.getIsMotorRunning(Hardware.shooter_left) && distanceSensor.shouldIntake) {
+        if (!ChangeState.getIsMotorRunning(Hardware.shooter_left)) {
             oneSpeedOutTake(gamepad.right_bumper);
         }
     }

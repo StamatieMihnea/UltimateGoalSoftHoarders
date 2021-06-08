@@ -3,14 +3,11 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
-import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
@@ -50,10 +47,11 @@ public class MainAuto extends LinearOpMode {
         AutoCase.collectSecondWobble(this);
         autoCase.IntakeShoot();
 
+        PoseStorage.wobbleArmAutoOffset = Hardware.grabber.getCurrentPosition();
         autoCase.releaseSecondWobble();
 
-        PoseStorage.currentPose = drive.getPoseEstimate();
-        Wobble.wobbleArmAutoOffset = Hardware.grabber.getCurrentPosition();
+        PoseStorage.imuOffset = NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
+        PoseStorage.currentPose = new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), Math.toRadians(PoseStorage.imuOffset));
 
     }
 }

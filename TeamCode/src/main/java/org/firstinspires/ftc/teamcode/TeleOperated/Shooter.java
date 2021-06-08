@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOperated;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,7 +19,7 @@ public class Shooter {
     public static final double push = 0.72;
     public static double shootTargetVelocity;
     public static final double free = 1;
-    public static final double shootSpeed = 1750;
+    public static final double shootSpeed = 1550;
     private static final int shootTime = 100;
     private static final int returnTime = 125;
     private static final OneTap idlerSequential = new OneTap();
@@ -35,8 +36,9 @@ public class Shooter {
         return timer;
     }
 
-    public static void shooterInitialization() {
+    public static void shooterInitialization(LinearOpMode opMode) {
         Devices.setServoPosition(Hardware.shooter_idler, "shooter_idler", free);
+        AutoUtil.setOpMode(opMode);
     }
 
 

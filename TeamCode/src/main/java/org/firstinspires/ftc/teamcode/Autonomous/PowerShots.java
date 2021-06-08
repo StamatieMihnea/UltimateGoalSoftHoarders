@@ -28,24 +28,24 @@ public class PowerShots {
         AutoUtil.startShooting();
     }
 
-    private static void PowerShootDown(boolean lastPowerShot) {
+    private static void PowerShootDown() {
         AutoUtil.waitForShooting(drive);
-        AutoUtil.shoot(!lastPowerShot, true);
+        AutoUtil.shoot(false, true);
     }
 
-    private static void FollowTrajectoryAndShoot(Trajectory trajectory, MyMecanumDrive drive, boolean lastPowerShot) {
+    private static void FollowTrajectoryAndShoot(Trajectory trajectory, MyMecanumDrive drive) {
 
         drive.followTrajectory(trajectory);
-        PowerShootDown(lastPowerShot);
+        PowerShootDown();
     }
 
     public static void run() {
 
-        FollowTrajectoryAndShoot(Trajectories.rightPowerShot(drive.getPoseEstimate()), drive, false);
+        FollowTrajectoryAndShoot(Trajectories.rightPowerShot(drive.getPoseEstimate()), drive);
 
-        FollowTrajectoryAndShoot(Trajectories.middlePowerShot(drive.getPoseEstimate()), drive, false);
+        FollowTrajectoryAndShoot(Trajectories.middlePowerShot(drive.getPoseEstimate()), drive);
 
-        FollowTrajectoryAndShoot(Trajectories.leftPowerShot(drive.getPoseEstimate()), drive, true);
+        FollowTrajectoryAndShoot(Trajectories.leftPowerShot(drive.getPoseEstimate()), drive);
 
         AutoUtil.stopShooting();
         AutoUtil.shooterAngle(shooterState.INTAKE);
