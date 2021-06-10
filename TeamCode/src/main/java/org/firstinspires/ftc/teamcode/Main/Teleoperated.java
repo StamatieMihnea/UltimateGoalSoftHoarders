@@ -54,6 +54,11 @@ public class Teleoperated extends LinearOpMode {
         Wall.initialization();
         Shooter.shooterInitialization(this);
         movementInitialization();
+        NormalizeImuAngle.setDrive(drive);
+        GoToPoint.init(this, drive);
+        telemetry.addData("Pose Stored", PoseStorage.currentPose.toString());
+        telemetry.addData("Wobble pose Stored", PoseStorage.imuAndWobble.getY());
+        telemetry.update();
     }
 
 
@@ -72,12 +77,12 @@ public class Teleoperated extends LinearOpMode {
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
-            GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(165, true), drive, 35, 60);
-            GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70);
-
+            GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false);
+            GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true);
+            GoToPoint.POWERSHOTS(gamepad2.dpad_left, drive);
             //MOVEMENT
 
-            if(currentCase == driveCase.DRIVE){
+            if (currentCase == driveCase.DRIVE) {
                 Movement.slowMovement(gamepad1, 3);
                 Movement.driving(gamepad1);
             }
@@ -100,7 +105,12 @@ public class Teleoperated extends LinearOpMode {
             Debugs.shouldIntakeDebug(telemetry, false);
             Debugs.distanceSensorDebug(telemetry, false);
             Movement.localize(false);
-            Instruction.Commands(telemetry, true);
+            Instruction.Commands(telemetry, false);
+            telemetry.addData("IMU RAW: ", Hardware.imu.getAngularOrientation().firstAngle);
+            telemetry.addData("IMU NORMALIZED ANGLE", NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle));
+            telemetry.addData("RoadRunner Angle", Math.toDegrees(drive.getPoseEstimate().getHeading()));
+            telemetry.addData("Heading", Math.toDegrees(NormalizeImuAngle.heading(90, true)));
+            telemetry.update();
 
 
         }

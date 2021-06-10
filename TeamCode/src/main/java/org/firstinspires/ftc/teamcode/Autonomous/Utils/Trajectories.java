@@ -25,7 +25,7 @@ import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootPoseY;
 import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.wobbleMidPosition;
 
 public class Trajectories {
-    public static Trajectory returnBack;//,returnBack1,returnBack2;
+    public static Trajectory returnBack,trajectory;//,returnBack1,returnBack2;
     private static MyMecanumDrive drive;
     private static Pose2d startPose;
 
@@ -74,7 +74,7 @@ public class Trajectories {
     public static Trajectory firstWobbleReleaseB(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(new Pose2d(CmToInch.convert(B.firstWobbleX), CmToInch.convert(B.firstWobbleY), NormalizeImuAngle.heading(B.firstWobbleHeading)))
-                .addTemporalMarker(0.5, () -> {
+                .addTemporalMarker(0, () -> {
                     Wobble.motorArmToPosition(true, wobbleMidPosition);
                 })
                 .build();
@@ -83,6 +83,9 @@ public class Trajectories {
     public static Trajectory firstWobbleReleaseA(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(new Pose2d(CmToInch.convert(A.firstWobbleX), CmToInch.convert(A.firstWobbleY), NormalizeImuAngle.heading(A.firstWobbleHeading)))
+                .addTemporalMarker(0, () -> {
+                    Wobble.motorArmToPosition(true, wobbleMidPosition);
+                })
                 .build();
     }
 
@@ -156,19 +159,22 @@ public class Trajectories {
                 .lineToSplineHeading(new Pose2d(shootPoseX, shootPoseY, Math.toRadians(shootAngle)))
                 .addTemporalMarker(0.1, AutoUtil::stopIntakeMotor)
                 .addTemporalMarker(0.8, AutoUtil::stopIntakeServo)
-                .addTemporalMarker(1.0, ()->{
+                .addTemporalMarker(0.9, ()->{
                     AutoUtil.startShooting(AutoCase.shootSpeed);
                 })
                 .build();
     }
 
     public static Trajectory secondWobbleReleaseC(Pose2d pose2d) {
-        return drive.trajectoryBuilder(pose2d)
+                 trajectory = drive.trajectoryBuilder(pose2d)
                 .splineToSplineHeading(new Pose2d(CmToInch.convert(C.secondWobbleX), CmToInch.convert(C.secondWobbleY), NormalizeImuAngle.heading(C.secondWobbleHeading)),Math.toRadians(160))
                 .addTemporalMarker(0.3, () -> {
                     Wobble.motorArmToPosition(true, wobbleMidPosition);
                 })
+                .addTemporalMarker(2.1, Wobble::wobbleRelease)
                 .build();
+
+        return trajectory;
     }
 
     public static Trajectory secondWobbleReleaseA(Pose2d pose2d) {

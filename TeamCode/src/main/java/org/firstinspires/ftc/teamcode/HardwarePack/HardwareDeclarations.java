@@ -24,5 +24,6 @@ public class HardwareDeclarations {
     public static Servo wall_left, wall_right;
     public static DistanceSensor disk_distance;
     public static OpenCvCamera cvCamera;
+    public static CRServo intakeBooster_left,intakeBooster_right;
 }
 

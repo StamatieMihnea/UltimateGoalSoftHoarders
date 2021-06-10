@@ -42,5 +42,8 @@ public class HardwareMapping extends HardwareDeclarations {
         wall_right = getServo("wall_right", hardwareMap);
 
         disk_distance = getDistanceSensor("disk_distance", hardwareMap);
+
+        intakeBooster_left = getCRServo("intakeBooster_left", hardwareMap);
+        intakeBooster_right = getCRServo("intakeBooster_right", hardwareMap);
     }
 }

@@ -22,7 +22,7 @@ public class DiskAmountDetection {
 
 
     public static int getDiskAmount(double redAmount) {
-        if (redAmount < 119) {
+        if (redAmount < 123) {
             return 0;
         } else if (redAmount < 125) {
             return 1;

@@ -9,22 +9,18 @@ import org.firstinspires.ftc.teamcode.Utils.Logics.ServoCommandGroup;
 import org.firstinspires.ftc.teamcode.Utils.Logics.ServoToPosition;
 
 
-enum wobblePosition {
-    UP, MID, DOWN;
-}
-
 public class Wobble {
-    private static final double back_grabPosition = 0.25f;
-    private static final double back_freePosition = 0.55f;
+    private static final double back_grabPosition = 0.31f;
+    private static final double back_freePosition = 0.67f;
 
-    private static final double front_grabPosition = 0.75f;
-    private static final double front_freePosition = 0.45f;
+    private static final double front_grabPosition = 0.67f;
+    private static final double front_freePosition = 0.3f;
 
     private static final int correctionIncrementValue = 50;
     private static wobblePosition currentPose = wobblePosition.UP;
 
-    private static int wobbleUpPose = 20;
-    private static int wobbleDownPose = 600;
+    private static int wobbleUpPose = 0;
+    private static int wobbleDownPose = 620;
     private static int wobbleMidPose = 250;
 
     private static final OneTap sumUp = new OneTap();
@@ -49,10 +45,13 @@ public class Wobble {
     }
 
     public static void initialization() {
+        wobbleUpPose = 20;
+       wobbleDownPose = 600;
+       wobbleMidPose = 250;
 
-        wobbleUpPose -= PoseStorage.wobbleArmAutoOffset;
-        wobbleDownPose -= PoseStorage.wobbleArmAutoOffset;
-        wobbleMidPose -= PoseStorage.wobbleArmAutoOffset;
+        wobbleUpPose -= PoseStorage.imuAndWobble.getY();
+        wobbleDownPose -= PoseStorage.imuAndWobble.getY();
+        wobbleMidPose -= PoseStorage.imuAndWobble.getY();
 
         Hardware.grabber.setTargetPosition(0);
         Hardware.grabber.setPower(1);
@@ -73,8 +72,8 @@ public class Wobble {
 
 
     public static void close() {
-        Hardware.grabber_front.setPosition(front_grabPosition + 0.1);
-        Hardware.grabber_back.setPosition(back_grabPosition - 0.1);
+        Hardware.grabber_front.setPosition(front_grabPosition + 0.05);
+        Hardware.grabber_back.setPosition(back_grabPosition - 0.05);
     }
 
     public static void motorArmToPosition(boolean button, wobblePosition position) {

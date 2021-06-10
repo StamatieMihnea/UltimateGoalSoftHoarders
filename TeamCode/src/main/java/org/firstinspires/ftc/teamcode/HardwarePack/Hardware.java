@@ -21,10 +21,12 @@ public class Hardware extends HardwareMapping {
         hardwareMapping(hm);
         telemetry.addLine("Hardware Mapping Done!");
 
-        ResetEncoders( shooter_right, shooter_left, intake);
+        ResetEncoders(shooter_right, shooter_left, intake,grabber);
         RunToPosition(grabber);
 
         directionChanging(shooter_right, intake);
+        directionChanging(intakeBooster_left);
+
         telemetry.addLine("Direction changing for DCMotors Done!");
 
 
@@ -58,6 +60,8 @@ public class Hardware extends HardwareMapping {
         RunToPosition(grabber);
 
         directionChanging(shooter_right, intake);
+        directionChanging(intakeBooster_left);
+
         telemetry.addLine("Direction changing for DCMotors Done!");
 
 

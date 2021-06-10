@@ -6,14 +6,14 @@ import com.acmerobotics.dashboard.config.Config;
 public class GeneralAutoParameters {
     public static double intakeX = 19;
     public static double intakeY = 31.5;
-    public static double intakeVel = 20;
-    public static double intakeAcc = 20;
+    public static double intakeVel = 35;
+    public static double intakeAcc = 25;
 
     public static int wobble2ArmPosition = 500;
     public static int wobbleMidPosition = 600;
     public static int wobbleCollectPosition = 820;
-    public static int wobbleArmSleep = 150;
-    public static int sleepForGrabbing = 600;
+    public static int wobbleArmSleep = 0;
+    public static int sleepForGrabbing = 0;
 
     public static double wobblePos2X = 39;
     public static double wobblePos2Y = 39; //39

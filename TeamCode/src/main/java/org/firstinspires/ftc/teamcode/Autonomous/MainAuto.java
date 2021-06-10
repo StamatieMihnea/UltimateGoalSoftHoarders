@@ -47,11 +47,16 @@ public class MainAuto extends LinearOpMode {
         AutoCase.collectSecondWobble(this);
         autoCase.IntakeShoot();
 
-        PoseStorage.wobbleArmAutoOffset = Hardware.grabber.getCurrentPosition();
         autoCase.releaseSecondWobble();
+        sleep(50);
 
-        PoseStorage.imuOffset = NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
-        PoseStorage.currentPose = new Pose2d(drive.getPoseEstimate().getX(), drive.getPoseEstimate().getY(), Math.toRadians(PoseStorage.imuOffset));
+
+        PoseStorage.imuAndWobble = new Pose2d(Math.toDegrees(drive.getPoseEstimate().getHeading()), Hardware.grabber.getCurrentPosition(), 0);
+        PoseStorage.currentPose = drive.getPoseEstimate();
+
+        while (opModeIsActive() && !isStopRequested()) {
+         idle();
+        }
 
     }
 }

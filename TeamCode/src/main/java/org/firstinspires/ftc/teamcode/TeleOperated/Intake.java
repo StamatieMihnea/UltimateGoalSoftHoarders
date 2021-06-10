@@ -29,7 +29,7 @@ public class Intake {
         boolean activate = intakeButton.onPress(button);
         if (distanceSensor.shouldIntake) {
             intakeState.changeMotorState(activate, 1, Hardware.intake);
-            intakeState.changeServoState(activate, 1, Hardware.shooter_booster);
+            intakeState.changeServoState(activate, 1, Hardware.shooter_booster, Hardware.intakeBooster_right, Hardware.intakeBooster_left);
             intakeState.changeMotorStateSpeed(activate, -500, Hardware.shooter_left, Hardware.shooter_right);
         }
         stopIntake();
@@ -38,13 +38,15 @@ public class Intake {
     public static void oneSpeedOutTake(boolean button) {
         boolean activate = outtakeButton.onPress(button);
         outtakeState.changeMotorState(activate, -1, Hardware.intake);
-        outtakeState.changeServoState(activate, -1, Hardware.shooter_booster);
+        outtakeState.changeServoState(activate, -1, Hardware.shooter_booster, Hardware.intakeBooster_right, Hardware.intakeBooster_left );
     }
 
     public static void stopIntake() {
         boolean stop = stopWhenFull.onPress(!distanceSensor.shouldIntake);
         if (stop) {
             Hardware.intake.setPower(0);
+            Hardware.intakeBooster_left.setPower(0);
+            Hardware.intakeBooster_right.setPower(0);
             Hardware.shooter_booster.setPower(0);
             ((DcMotorEx) (Hardware.shooter_left)).setVelocity(Shooter.shootSpeed);
             ((DcMotorEx) (Hardware.shooter_right)).setVelocity(Shooter.shootSpeed);

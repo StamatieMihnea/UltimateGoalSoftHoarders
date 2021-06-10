@@ -16,15 +16,17 @@ public class ServoToPosition {
         commandList.addAll(Arrays.asList(servoCommandGroups));
     }
 
-    public void ResetForSecond(){
+    public void ResetForSecond() {
         wasPressed = false;
     }
 
-    public void ResetForFirst(){wasPressed = true; }
+    public void ResetForFirst() {
+        wasPressed = true;
+    }
 
     public void modifyPosition(boolean button) {
         if (tap.onPress(button)) {
-            if (wasPressed ) {
+            if (wasPressed) {
                 for (ServoCommandGroup command :
                         commandList) {
                     command.servo.setPosition(command.firstPosition);

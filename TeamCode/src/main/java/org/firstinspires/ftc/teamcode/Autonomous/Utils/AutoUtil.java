@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.PowerShots.shootingSpeed;
+import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.intakeBooster_left;
 import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.shooter_left;
 import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.shooter_right;
 
@@ -28,21 +29,23 @@ public class AutoUtil {
     private static final int speedTolerance = 41;
 
     public static final double leftWallDown = 1.0;
-    public static final double leftWallVertical = 0.6;
+    public static final double leftWallVertical = 0.7;
     public static final double leftWallInside = 0;
 
     public static final double rightWallDown = 0;
-    public static final double rightWallVertical = 0.5;
+    public static final double rightWallVertical = 0.40;
     public static final double rightWallInside = 1.0;
 
     private static LinearOpMode opMode;
     public static DcMotorEx shoot_leftEX;
     public static DcMotorEx shoot_rightEX;
 
-    private final static double P = 36f;
-    private final static double I = 0;
-    private final static double D = 0;
-    private final static double F = 13.45;
+    public final static double P = 36f;
+    public final static double I = 0;
+    public final static double D = 0;
+    public final static double F = 13.45;
+
+    public final static PIDFCoefficients shooterPid =  new PIDFCoefficients(P,I,D,F);
 
     public static void setOpMode(LinearOpMode opMode) {
         AutoUtil.opMode = opMode;
@@ -53,8 +56,8 @@ public class AutoUtil {
         shoot_rightEX = (DcMotorEx) (shooter_right);
         shoot_rightEX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shoot_leftEX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        shoot_rightEX.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(P, I, D, F));
-        shoot_leftEX.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(P, I, D, F));
+        shoot_rightEX.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, shooterPid);
+        shoot_leftEX.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, shooterPid);
         shoot_leftEX.setPower(1);
         shoot_rightEX.setPower(1);
         shoot_leftEX.setVelocity(0);
@@ -137,13 +140,16 @@ public class AutoUtil {
     public static void startIntake() {
         Hardware.intake.setPower(1);
         Hardware.shooter_booster.setPower(1);
+        Hardware.intakeBooster_right.setPower(1);
+        Hardware.intakeBooster_left.setPower(1);
         shoot_leftEX.setVelocity(-500);
         shoot_rightEX.setVelocity(-500);
     }
 
     public static void stopIntakeMotor() {
         Hardware.intake.setPower(0);
-
+        Hardware.intakeBooster_right.setPower(0);
+        Hardware.intakeBooster_left.setPower(0);
     }
 
     public static void stopIntakeServo() {

@@ -11,8 +11,13 @@ public class NormalizeImuAngle {
         NormalizeImuAngle.drive = drive;
     }
 
+    public static double convertAuto(double angle) {
+        return (angle+180);
+    }
+
     public static double convert(double angle) {
-        return (180 + angle > 360) ? (180 + angle) - 360 : 180 + angle;
+
+        return (angle + PoseStorage.imuAndWobble.getX() >360?angle+PoseStorage.imuAndWobble.getX()-360 :angle+ PoseStorage.imuAndWobble.getX());
     }
 
     public static double heading(double angle) {
@@ -20,7 +25,7 @@ public class NormalizeImuAngle {
     }
 
     public static double heading(double angle, boolean execute) {
-        return Math.toRadians(angle - convert(Hardware.imu.getAngularOrientation().firstAngle) + Math.toDegrees(drive.getPoseEstimate().getHeading())-  PoseStorage.imuOffset);
+        return Math.toRadians(angle - convert(Hardware.imu.getAngularOrientation().firstAngle) + Math.toDegrees(drive.getPoseEstimate().getHeading()));
     }
 
 }

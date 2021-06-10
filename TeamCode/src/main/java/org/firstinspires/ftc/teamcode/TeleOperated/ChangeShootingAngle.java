@@ -55,10 +55,21 @@ public class ChangeShootingAngle {
 
     }
 
+    public static void update(){
+        LimitAngle();
+        AngleControl(absPosition);
+    }
+
     public static void AngleControl(@NotNull Gamepad gamepad) {
         LimitAngle();
         AngleControl(absPosition);
         generalPose(gamepad.a);
+
+    }
+
+    public static void changeAngle(boolean button, double position){
+        if(button)
+        absPosition = position;
 
     }
 

@@ -13,7 +13,7 @@ public class Wall {
     private static final double left_middlePosition = 0.6f;
 
     private static final double right_retractedPosition = 1.0f;
-    private static final double right_extendedPosition = 0.13f;
+    private static final double right_extendedPosition = 0.1f;
     private static final double right_middlePosition = 0.5f;
 
     private static final ServoCommandGroup leftWall = new ServoCommandGroup(Hardware.wall_left, left_middlePosition, left_extendedPosition);

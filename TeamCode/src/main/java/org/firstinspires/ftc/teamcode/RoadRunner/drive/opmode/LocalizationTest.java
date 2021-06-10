@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
 /**
@@ -16,15 +17,15 @@ import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
 
-@Disabled
+//@Disabled
 @TeleOp(group = "drive")
 public class LocalizationTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         MyMecanumDrive drive = new MyMecanumDrive(hardwareMap);
-
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        Hardware.init(hardwareMap, telemetry);
+        drive.setPoseEstimate(new Pose2d(0,0,Math.toRadians(180)));
         waitForStart();
 
         while (!isStopRequested()) {
@@ -41,7 +42,8 @@ public class LocalizationTest extends LinearOpMode {
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
-            telemetry.addData("heading", poseEstimate.getHeading());
+            telemetry.addData("heading", Math.toRadians(poseEstimate.getHeading()));
+            telemetry.addData("imu",Hardware.imu.getAngularOrientation().firstAngle);
             telemetry.update();
         }
     }
