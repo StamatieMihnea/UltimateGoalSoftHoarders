@@ -140,8 +140,8 @@ public class AutoUtil {
     public static void startIntake() {
         Hardware.intake.setPower(1);
         Hardware.shooter_booster.setPower(1);
-        Hardware.intakeBooster_right.setPower(1);
-        Hardware.intakeBooster_left.setPower(1);
+        //Hardware.intakeBooster_right.setPower(1);
+        //Hardware.intakeBooster_left.setPower(1);
         shoot_leftEX.setVelocity(-500);
         shoot_rightEX.setVelocity(-500);
     }

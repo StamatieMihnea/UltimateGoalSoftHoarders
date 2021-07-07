@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Utils;
 
+import com.acmerobotics.dashboard.config.Config;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAuto;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -11,10 +13,11 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-
+@Config
 public class DiskAmountDetection {
 
-    public static double pointDiff = 0f;
+    public static double multiplyVal = 19f;
+    public static double redMeanThreshold = 6.3;
 
     public static void stopDetection() {
         Hardware.cvCamera.stopStreaming();
@@ -22,9 +25,9 @@ public class DiskAmountDetection {
 
 
     public static int getDiskAmount(double redAmount) {
-        if (redAmount < 123) {
+        if (redAmount < 1000) {
             return 0;
-        } else if (redAmount < 125) {
+        } else if (redAmount < 70000) {
             return 1;
         } else {
             return 4;
@@ -63,8 +66,7 @@ public class DiskAmountDetection {
             // Point firstPoint = new Point(n / 2 - 20 + pointDiff, m / 2 - 10 + pointDiff),
             //       secondPoint = new Point(n / 2 + 20 + pointDiff, m / 2 + 30 + pointDiff);
             Point firstPoint = new Point(n / 2 - 35, m / 2 + 40), secondPoint = new Point(n / 2, m / 2);
-            Mat finalMat = RedMat.submat(new Rect(firstPoint, secondPoint));
-
+            Mat finalMat = new Mat(RedMat, new Rect(firstPoint,secondPoint));
 
             Imgproc.rectangle(
                     RedMat,
@@ -73,10 +75,23 @@ public class DiskAmountDetection {
                     BLUE,
                     1
             );
-            double redAmount = 0f;
+            double redMean = (int) Core.sumElems(finalMat).val[0];
+            redMean /= (n * m);
+            telemetry.addData("The readMean is: ", redMean);
+            for (int i = 0; i < finalMat.height(); i++) {
+                for (int j = 0; j< finalMat.width() ; j++) {
 
-            redAmount = (int) Core.mean(finalMat).val[0];
+                    if ((finalMat.get(i, j))[0] > redMean * multiplyVal && redMean > redMeanThreshold) {
+                        finalMat.put(i, j, finalMat.get(i, j)[0] * 5);
+                    } else {
+                    finalMat.put(i, j, 0);
+                    }
+                }
+            }
 
+            //TODO : increase the multiplier (18-19) and make the result 0 when all the mat is white
+
+            double redAmount = (int) Core.sumElems(finalMat).val[0];
             MainAuto.diskAmount = getDiskAmount(redAmount);
 
             telemetry.addData("The red amount is:", redAmount);

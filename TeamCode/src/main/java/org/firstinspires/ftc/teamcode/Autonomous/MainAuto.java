@@ -26,7 +26,7 @@ public class MainAuto extends LinearOpMode {
 
         DiskAmountDetection.stopDetection();
 
-        PowerShots.initialization(drive);
+        PowerShots.initialization(drive, this);
         PowerShots.run();
 
 
@@ -41,22 +41,25 @@ public class MainAuto extends LinearOpMode {
                 MainAuto.autoCase = new C(this);
                 break;
         }
+        autoCase = new C(this);
 
         autoCase.releaseFirstWobble();
 
         AutoCase.collectSecondWobble(this);
+
+
         autoCase.IntakeShoot();
+//
+//        autoCase.releaseSecondWobble();
+//        sleep(50);
+//
+//
+//        PoseStorage.imuAndWobble = new Pose2d(Math.toDegrees(drive.getPoseEstimate().getHeading()), Hardware.grabber.getCurrentPosition(), 0);
+//        PoseStorage.currentPose = drive.getPoseEstimate();
 
-        autoCase.releaseSecondWobble();
-        sleep(50);
-
-
-        PoseStorage.imuAndWobble = new Pose2d(Math.toDegrees(drive.getPoseEstimate().getHeading()), Hardware.grabber.getCurrentPosition(), 0);
-        PoseStorage.currentPose = drive.getPoseEstimate();
-
-        while (opModeIsActive() && !isStopRequested()) {
-         idle();
-        }
+//        while (opModeIsActive() && !isStopRequested()) {
+//            idle();
+//        }
 
     }
 }

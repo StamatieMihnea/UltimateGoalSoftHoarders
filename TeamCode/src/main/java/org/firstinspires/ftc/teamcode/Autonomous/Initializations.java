@@ -28,6 +28,9 @@ public class Initializations {
 
     private static void HardwareInit(LinearOpMode  opMode){
         Hardware.init(opMode.hardwareMap, opMode.telemetry, new DiskAmountDetection.UltimateGoalPipeline(opMode.telemetry, true));
+
+        //TODO: NOW it's without image detection
+        //Hardware.init(opMode.hardwareMap, opMode.telemetry);
     }
 
     public static void AutoInit(LinearOpMode opMode){

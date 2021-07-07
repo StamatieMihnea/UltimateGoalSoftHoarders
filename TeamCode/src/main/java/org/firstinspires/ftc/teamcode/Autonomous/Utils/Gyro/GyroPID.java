@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -7,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
+@Config
 public class GyroPID {
 
 /*    private static final double P = 0.025;
@@ -25,9 +27,9 @@ public class GyroPID {
 //
 
     public static MyMecanumDrive drive;
-    private static final double P = 0.03;
-    private static final double I = 0.01;
-    private static final double D = 0.25;
+    public static double P = 0.05; //0.33
+    public static double I = 0.032;
+    public static double D = 0.3; //0.25
 
 
     private static final double AdmittedError = 0.15f;
