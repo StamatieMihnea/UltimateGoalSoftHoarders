@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.apache.commons.math3.geometry.euclidean.twod.Line;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -16,6 +17,7 @@ public class MainAuto extends LinearOpMode {
 
     public static int diskAmount = 0;
     public static AutoCase autoCase;
+
 
     @Override
     public void runOpMode() throws InterruptedException {

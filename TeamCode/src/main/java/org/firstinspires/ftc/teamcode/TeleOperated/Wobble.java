@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
+import android.util.Pair;
+
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -10,11 +12,21 @@ import org.firstinspires.ftc.teamcode.Utils.Logics.ServoToPosition;
 
 
 public class Wobble {
-    private static final double back_grabPosition = 0.31f;
-    private static final double back_freePosition = 0.67f;
+    //TODO: // RED --> Right
+    // BLUE --> Left
+    private static int lastLeftGrabberPosition = 0;
+    private static int lastRightGrabberPosition = 0;
 
-    private static final double front_grabPosition = 0.67f;
-    private static final double front_freePosition = 0.3f;
+    private static final double grabRightBlocker = 0;
+    private static final double freeRightBlocker = 0;
+    private static final double grabLeftBlocker = 0;
+    private static final double freeLeftBlocker = 0;
+
+    private static final double leftGrabPosition = 0f;
+    private static final double leftFreePosition = 0.82f;
+
+    private static final double rightGrabPosition = 0f;
+    private static final double rightFreePosition = 0.82f;
 
     private static final int correctionIncrementValue = 50;
     private static wobblePosition currentPose = wobblePosition.UP;
@@ -26,17 +38,74 @@ public class Wobble {
     private static final OneTap sumUp = new OneTap();
     private static final OneTap sumDown = new OneTap();
 
-    private static final ServoCommandGroup backServo = new ServoCommandGroup(Hardware.grabber_back, back_grabPosition, back_freePosition);
-    private static final ServoCommandGroup frontServo = new ServoCommandGroup(Hardware.grabber_front,front_grabPosition,front_freePosition);
-    private static final ServoToPosition grabberServos = new ServoToPosition(backServo, frontServo);
+    private static final ServoCommandGroup rightServo = new ServoCommandGroup(Hardware.servo_wobble_right, rightGrabPosition, rightFreePosition);
+    private static final ServoCommandGroup leftServo = new ServoCommandGroup(Hardware.servo_wobble_left, leftGrabPosition, leftFreePosition);
+    private static final ServoToPosition grabberServoLeft = new ServoToPosition(leftServo);
+    private static final ServoToPosition grabberServoRight = new ServoToPosition(rightServo);
+
+    private static armCase grabberCase = armCase.RIGHT;
+
+    public static armCase getGrabberCase() {
+        return grabberCase;
+    }
+
+    public static void setGrabberCase(armCase grabberCase) {
+        Wobble.grabberCase = grabberCase;
+        selectArm();
+    }
+
+    public static void changeGrabberCase() {
+        if (grabberCase == armCase.LEFT) {
+            setGrabberCase(armCase.RIGHT);
+        } else {
+            setGrabberCase(armCase.LEFT);
+        }
+    }
+    public static void selectArm() {
+
+        if (grabberCase == armCase.RIGHT) {
+            Hardware.stopper_right.setPosition(freeRightBlocker);
+            Hardware.stopper_left.setPosition(grabLeftBlocker);
+        } else {
+            Hardware.stopper_right.setPosition(grabRightBlocker);
+            Hardware.stopper_left.setPosition(freeLeftBlocker);
+        }
+    }
+
+    public static void SetSArmTargetPosition(int position) {
+        if (grabberCase == armCase.LEFT) {
+            Hardware.grabber.setTargetPosition(Hardware.grabber.getCurrentPosition() - (position + lastLeftGrabberPosition));
+            lastLeftGrabberPosition = Hardware.grabber.getCurrentPosition();
+        } else {
+            Hardware.grabber.setTargetPosition(Hardware.grabber.getCurrentPosition() + (position - lastRightGrabberPosition));
+            lastRightGrabberPosition = Hardware.grabber.getCurrentPosition();
+        }
+    }
+
+    public static void SetGrabberPosition(grabberPosition position) {
+        Pair<grabberPosition, armCase> grabberPositionCasePair = new Pair<>(position, grabberCase);
+        if (new Pair<>(grabberPosition.FREE, armCase.LEFT).equals(grabberPositionCasePair)) {
+            Hardware.servo_wobble_left.setPosition(leftFreePosition);
+        } else if (new Pair<>(grabberPosition.FREE, armCase.RIGHT).equals(grabberPositionCasePair)) {
+            Hardware.servo_wobble_left.setPosition(rightFreePosition);
+        } else if (new Pair<>(grabberPosition.GRAB, armCase.LEFT).equals(grabberPositionCasePair)) {
+            Hardware.servo_wobble_left.setPosition(leftGrabPosition);
+        } else if (new Pair<>(grabberPosition.GRAB, armCase.RIGHT).equals(grabberPositionCasePair)) {
+            Hardware.servo_wobble_left.setPosition(rightGrabPosition);
+        }
+    }
+
 
     public static void wobbleRelease() {
-        Hardware.grabber_front.setPosition(front_freePosition);
-        Hardware.grabber_back.setPosition(back_freePosition);
+        SetGrabberPosition(grabberPosition.FREE);
     }
 
     public static void servoPositions(boolean button) {
-        grabberServos.modifyPosition(button);
+        if (grabberCase == armCase.LEFT) {
+            grabberServoLeft.modifyPosition(button);
+        }else {
+            grabberServoRight.modifyPosition(button);
+        }
     }
 
     public static void motorArm(double up, double down) {
@@ -45,18 +114,20 @@ public class Wobble {
     }
 
     public static void initialization() {
+        selectArm();
         wobbleUpPose = 20;
-       wobbleDownPose = 600;
-       wobbleMidPose = 250;
+        wobbleDownPose = 600;
+        wobbleMidPose = 250;
 
         wobbleUpPose -= PoseStorage.imuAndWobble.getY();
         wobbleDownPose -= PoseStorage.imuAndWobble.getY();
         wobbleMidPose -= PoseStorage.imuAndWobble.getY();
 
-        Hardware.grabber.setTargetPosition(0);
-        Hardware.grabber.setPower(1);
-        Hardware.grabber_front.setPosition(front_grabPosition - 0.1);
-        Hardware.grabber_back.setPosition(back_grabPosition + 0.1);
+        SetSArmTargetPosition(0);
+        SetGrabberPosition(grabberPosition.GRAB);
+
+        Hardware.servo_wobble_left.setPosition(leftGrabPosition - 0.1);
+        Hardware.servo_wobble_right.setPosition(rightGrabPosition + 0.1);
         Hardware.grabber.setTargetPosition(wobbleUpPose);
     }
 
@@ -64,17 +135,16 @@ public class Wobble {
     public static void initializationAuto() {
         Hardware.grabber.setTargetPosition(0);
         Hardware.grabber.setPower(1);
-        Hardware.grabber_back.setPosition(back_grabPosition);
-        Hardware.grabber_front.setPosition(front_grabPosition);
+        Hardware.servo_wobble_right.setPosition(rightGrabPosition);
         //Hardware.grabber_front.setPosition(front_grabPosition - 0.05);
         //Hardware.grabber_back.setPosition(back_grabPosition + 0.05);
     }
 
 
     public static void close() {
-        Hardware.grabber_front.setPosition(front_grabPosition + 0.05);
-        Hardware.grabber_back.setPosition(back_grabPosition - 0.05);
+        Hardware.servo_wobble_right.setPosition(rightGrabPosition - 0.05);
     }
+
 
     public static void motorArmToPosition(boolean button, wobblePosition position) {
         if (button) {
@@ -105,13 +175,15 @@ public class Wobble {
     private static void positionUpdate() {
         switch (currentPose) {
             case UP:
-                Hardware.grabber.setTargetPosition(wobbleUpPose);
+                SetSArmTargetPosition(wobbleUpPose);
+
                 break;
             case MID:
-                Hardware.grabber.setTargetPosition(wobbleMidPose);
+                SetSArmTargetPosition(wobbleMidPose);
+
                 break;
             case DOWN:
-                Hardware.grabber.setTargetPosition(wobbleDownPose);
+                SetSArmTargetPosition(wobbleDownPose);
                 break;
         }
     }

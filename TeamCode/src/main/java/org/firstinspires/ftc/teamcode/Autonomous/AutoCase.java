@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
 public interface AutoCase {
+    
     double intakeX = GeneralAutoParameters.intakeX;
     double intakeY = GeneralAutoParameters.intakeY;
     double intakeVel = GeneralAutoParameters.intakeVel;

@@ -15,8 +15,10 @@ public class HardwareMapping extends HardwareDeclarations {
     protected static void hardwareMapping(HardwareMap hardwareMap) {
 
         grabber = getDC("grabber", hardwareMap);
-        grabber_back = getServo("grabber_back", hardwareMap);
-        grabber_front = getServo("grabber_front", hardwareMap);
+        servo_wobble_right = getServo("servo_wobble_right", hardwareMap);
+        servo_wobble_left = getServo("servo_wobble_left", hardwareMap);
+        stopper_left = getServo("stopper_left", hardwareMap);
+        stopper_right = getServo("stopper_right", hardwareMap);
 
         intake = getDC("intake", hardwareMap);
 

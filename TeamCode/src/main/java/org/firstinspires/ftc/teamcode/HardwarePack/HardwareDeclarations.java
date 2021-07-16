@@ -15,7 +15,8 @@ public class HardwareDeclarations {
     public static DcMotor intake;
     public static Servo angle_control_left_s, angle_control_right_s;
     public static Servo shooter_idler;
-    public static Servo grabber_front, grabber_back;
+    public static Servo servo_wobble_left, servo_wobble_right;
+    public static Servo stopper_right,stopper_left;
     public static CRServo shooter_booster;
     public static WebcamName webcam;
     public static BNO055IMU imu;

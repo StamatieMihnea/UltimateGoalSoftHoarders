@@ -70,10 +70,13 @@ public class Teleoperated extends LinearOpMode {
 
         while (!isStopRequested() && opModeIsActive()) {
 
+
             drive.update();
 
             //WOBBLE
-            Wobble.wobbleArmControl(gamepad2);
+
+            //TODO:
+            //Wobble.wobbleArmControl(gamepad2);
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
