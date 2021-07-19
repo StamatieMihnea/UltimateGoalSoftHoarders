@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
 import org.firstinspires.ftc.teamcode.Debugs.Debugs;
 import org.firstinspires.ftc.teamcode.Debugs.Instruction;
@@ -23,17 +24,9 @@ import org.firstinspires.ftc.teamcode.TeleOperated.distanceSensor;
 @TeleOp(name = "TeleOp", group = "TeleOp's")
 public class Teleoperated extends LinearOpMode {
 
-    //TODO wobble arm after auto
-    //       NOT SURE IF IT WORKS -without reset encoder
-    //        NEAH -touch sensor ?????????
-    //       DONE -manual
-    //TODO wall on separate buttons
-    //TODO wall inside for wobble delivery
-
     MyMecanumDrive drive;
     public static driveCase currentCase = driveCase.DRIVE;
-
-    //public static Pose2d shootPose = new Pose2d(8, 5, Math.toRadians(163));
+    //public static Pose2d shootPose =  new Pose2d(8, 5, Math.toRadians(163));
     public static double wobbleX = 58;
 
 
@@ -76,7 +69,7 @@ public class Teleoperated extends LinearOpMode {
             //WOBBLE
 
             //TODO:
-            //Wobble.wobbleArmControl(gamepad2);
+            Wobble.wobbleArmControl(gamepad2);
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
@@ -109,6 +102,7 @@ public class Teleoperated extends LinearOpMode {
             Debugs.distanceSensorDebug(telemetry, false);
             Movement.localize(false);
             Instruction.Commands(telemetry, false);
+            telemetry.addData("grabber pos is: ", Hardware.grabber.getCurrentPosition());
             telemetry.addData("IMU RAW: ", Hardware.imu.getAngularOrientation().firstAngle);
             telemetry.addData("IMU NORMALIZED ANGLE", NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle));
             telemetry.addData("RoadRunner Angle", Math.toDegrees(drive.getPoseEstimate().getHeading()));
