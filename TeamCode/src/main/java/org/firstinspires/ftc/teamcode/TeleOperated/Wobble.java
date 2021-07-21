@@ -32,8 +32,8 @@ public class Wobble {
     private static wobblePosition currentPose = wobblePosition.UP;
 
     private static int wobbleUpPose = 0;
-    private static int wobbleDownPose = 620;
-    private static int wobbleMidPose = 250;
+    private static int wobbleDownPose = 620*3;
+    private static int wobbleMidPose = 250*3;
 
     private static final OneTap sumUp = new OneTap();
     private static final OneTap sumDown = new OneTap();
@@ -144,7 +144,7 @@ public class Wobble {
 
     public static void initializationAuto() {
         Hardware.grabber.setTargetPosition(0);
-        Hardware.grabber.setPower(1);
+        Hardware.grabber.setPower(0.5);
         Hardware.servo_wobble_right.setPosition(rightGrabPosition);
         //Hardware.grabber_front.setPosition(front_grabPosition - 0.05);
         //Hardware.grabber_back.setPosition(back_grabPosition + 0.05);
