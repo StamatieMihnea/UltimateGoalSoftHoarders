@@ -32,8 +32,8 @@ public class Wobble {
     private static wobblePosition currentPose = wobblePosition.UP;
 
     private static int wobbleUpPose = 0;
-    private static int wobbleDownPose = 620*3;
-    private static int wobbleMidPose = 250*3;
+    private static int wobbleDownPose = 1280;
+    private static int wobbleMidPose = 580;
 
     private static final OneTap sumUp = new OneTap();
     private static final OneTap sumDown = new OneTap();
@@ -75,12 +75,12 @@ public class Wobble {
     }
 
     public static void SetSArmTargetPosition(int position) {
-
+        int targetPosition=Hardware.grabber.getTargetPosition();
         if (grabberCase == armCase.LEFT) {
-            Hardware.grabber.setTargetPosition(Hardware.grabber.getCurrentPosition() - (position + lastLeftGrabberPosition));
+            Hardware.grabber.setTargetPosition(targetPosition - (position + lastLeftGrabberPosition));
             lastLeftGrabberPosition = -position;
         } else {
-            Hardware.grabber.setTargetPosition(Hardware.grabber.getCurrentPosition() + (position - lastRightGrabberPosition));
+            Hardware.grabber.setTargetPosition(targetPosition + (position - lastRightGrabberPosition));
             lastRightGrabberPosition = position;
         }
     }
@@ -126,8 +126,8 @@ public class Wobble {
 
         selectArm();
         wobbleUpPose = 0;
-        wobbleDownPose = 600;
-        wobbleMidPose = 250;
+        wobbleDownPose = 1280;
+        wobbleMidPose = 580;
 
         wobbleUpPose -= PoseStorage.imuAndWobble.getY();
         wobbleDownPose -= PoseStorage.imuAndWobble.getY();

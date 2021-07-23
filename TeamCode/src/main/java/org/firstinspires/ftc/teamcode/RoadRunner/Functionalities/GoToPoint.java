@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.RoadRunner.Functionalities;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.GyroPID;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 import org.firstinspires.ftc.teamcode.Main.driveCase;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
@@ -18,6 +21,7 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 
 public class GoToPoint {
     private static LinearOpMode opMode;
+    private static final Vector2d towerCoordinates  = new Vector2d(-65,20);
 
     public static void init(LinearOpMode opMode, MyMecanumDrive drive) {
         GyroPID.setDrive(drive);
@@ -124,5 +128,15 @@ public class GoToPoint {
             GyroPID.rotate(4, opMode.telemetry, opMode);
             AutoUtil.shoot(true, true);
         }
+    }
+
+    public static void HighGoalAutoOrientation (boolean button, MyMecanumDrive drive){
+            OneTap oneTap = new OneTap();
+            if(oneTap.onPress(button)){
+                Pose2d robotPosition = drive.getPoseEstimate();
+                double absolutRotationNeeded = Math.atan2(robotPosition.getX()-towerCoordinates.getX(),robotPosition.getY()-towerCoordinates.getY());
+                double neededForStraightening = PoseStorage.currentPose.getHeading() - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
+                GyroPID.rotate(absolutRotationNeeded+neededForStraightening, opMode.telemetry, opMode);
+            }
     }
 }
