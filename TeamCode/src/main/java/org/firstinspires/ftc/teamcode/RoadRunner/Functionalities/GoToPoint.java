@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RoadRunner.Functionalities;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -19,9 +20,11 @@ import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 
+@Config
 public class GoToPoint {
     private static LinearOpMode opMode;
     private static final Vector2d towerCoordinates = new Vector2d(-65, 20);
+    public static double allowedDistance = 15f;
 
     public static void init(LinearOpMode opMode, MyMecanumDrive drive) {
         GyroPID.setDrive(drive);
@@ -134,18 +137,20 @@ public class GoToPoint {
         OneTap oneTap = new OneTap();
         if (oneTap.onPress(button)) {
             Pose2d robotPosition = drive.getPoseEstimate();
-            double absolutRotationNeeded = Math.atan2(robotPosition.getX() - towerCoordinates.getX(), robotPosition.getY() - towerCoordinates.getY());
+            double absolutRotationNeeded = Math.atan((robotPosition.getX() - towerCoordinates.getX()) / (robotPosition.getY() - towerCoordinates.getY()));
             double neededForStraightening = PoseStorage.currentPose.getHeading() - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
-            GyroPID.rotate(absolutRotationNeeded + neededForStraightening, opMode.telemetry, opMode);
+            opMode.telemetry.addData("ANGLE FOR TURN!!!!!!! ", neededForStraightening+ absolutRotationNeeded);
+            opMode.telemetry.update();
+            //GyroPID.rotate(absolutRotationNeeded + neededForStraightening, opMode.telemetry, opMode);
         }
     }
 
     public static boolean FieldWallDistanceCheck(MyMecanumDrive drive) {
-        double allowedDistance = 10f;
         Pose2d currentPosition = drive.getPoseEstimate();
-        return (currentPosition.getX() - allowedDistance <= PoseStorage.cornerLeftUp.getX() || currentPosition.getY() + allowedDistance >= PoseStorage.cornerLeftUp.getY() ||
-                currentPosition.getX() - allowedDistance <= PoseStorage.cornerLeftDown.getX() || currentPosition.getY() - allowedDistance <= PoseStorage.cornerLeftDown.getY() ||
-                currentPosition.getX() - allowedDistance >= PoseStorage.cornerRightUp.getX() || currentPosition.getY() + allowedDistance >= PoseStorage.cornerRightUp.getY() ||
-                currentPosition.getX() - allowedDistance >= PoseStorage.cornerRightDown.getX() || currentPosition.getY() - allowedDistance <= PoseStorage.cornerRightDown.getY());
+        return (Math.abs(PoseStorage.cornerLeftUp.getX() - currentPosition.getX()) <= allowedDistance ||
+                Math.abs(PoseStorage.cornerRightUp.getX() - currentPosition.getX()) <= allowedDistance ||
+                Math.abs(PoseStorage.cornerLeftUp.getY() - currentPosition.getY()) <= allowedDistance ||
+                Math.abs(PoseStorage.cornerRightDown.getY() - currentPosition.getY()) <= allowedDistance);
+        //currentPosition.getY()+allowedDistance <= PoseStorage.cornerLeftUp.getY() && currentPosition.getY() - allowedDistance >= PoseStorage.cornerRightDown.getY() );
     }
 }

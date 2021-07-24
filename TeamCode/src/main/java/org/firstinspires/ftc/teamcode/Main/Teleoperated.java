@@ -44,7 +44,7 @@ public class Teleoperated extends LinearOpMode {
     private void initialization() {
         Hardware.init(hardwareMap, telemetry);
         Wobble.initialization();
-        //Wall.initialization();
+        Wall.initialization();
         Shooter.shooterInitialization(this);
         movementInitialization();
         NormalizeImuAngle.setDrive(drive);
@@ -74,7 +74,7 @@ public class Teleoperated extends LinearOpMode {
 
             //ROAD RUNNER
 
-//            GoToPoint.HighGoalAutoOrientation(gamepad1.back,drive);
+            GoToPoint.HighGoalAutoOrientation(gamepad1.back,drive);
 
             GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false);
             GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true);
@@ -98,19 +98,20 @@ public class Teleoperated extends LinearOpMode {
             distanceSensor.update();
 
             //WALL
-            //Wall.wallControl(gamepad2);
+            Wall.wallControl(gamepad2);
 
             //DEBUGS
             Debugs.shouldIntakeDebug(telemetry, false);
             Debugs.distanceSensorDebug(telemetry, false);
             Movement.localize(false);
-            Instruction.Commands(telemetry, false);
+
+            /*Instruction.Commands(telemetry, false);
             telemetry.addData("grabber pos is: ", Hardware.grabber.getCurrentPosition());
             telemetry.addData("IMU RAW: ", Hardware.imu.getAngularOrientation().firstAngle);
             telemetry.addData("IMU NORMALIZED ANGLE", NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle));
             telemetry.addData("RoadRunner Angle", Math.toDegrees(drive.getPoseEstimate().getHeading()));
             telemetry.addData("Heading", Math.toDegrees(NormalizeImuAngle.heading(90, true)));
-            telemetry.update();
+            telemetry.update();*/
 
 
         }
