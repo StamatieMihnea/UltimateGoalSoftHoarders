@@ -44,7 +44,7 @@ public class Teleoperated extends LinearOpMode {
     private void initialization() {
         Hardware.init(hardwareMap, telemetry);
         Wobble.initialization();
-        Wall.initialization();
+        //Wall.initialization();
         Shooter.shooterInitialization(this);
         movementInitialization();
         NormalizeImuAngle.setDrive(drive);
@@ -98,7 +98,7 @@ public class Teleoperated extends LinearOpMode {
             distanceSensor.update();
 
             //WALL
-            Wall.wallControl(gamepad2);
+            //Wall.wallControl(gamepad2);
 
             //DEBUGS
             Debugs.shouldIntakeDebug(telemetry, false);

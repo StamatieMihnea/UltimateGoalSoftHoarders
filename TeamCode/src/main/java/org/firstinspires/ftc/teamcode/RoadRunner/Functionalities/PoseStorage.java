@@ -8,10 +8,17 @@ public class PoseStorage {
     //Right is considered the tower
     //Up is considered the closest point to the powershots
 
-    public static Vector2d cornerLeftDown= new Vector2d(1f,2f);
-    public static Vector2d cornerLeftUp= new Vector2d(1f,2f);
-    public static Vector2d cornerRightDown= new Vector2d(1f,2f);
-    public static Vector2d cornerRightUp= new Vector2d(1f,2f);
+    /*
+        LeftUp: x:61.5; y:-16
+LeftDown: x:61.5; y:61
+
+RightUp: x: -62.76; y: -17.08
+
+     */
+    public static Vector2d cornerLeftDown = new Vector2d(1f, 2f);
+    public static Vector2d cornerLeftUp = new Vector2d(1f, 2f);
+    public static Vector2d cornerRightDown = new Vector2d(1f, 2f);
+    public static Vector2d cornerRightUp = new Vector2d(1f, 2f);
 
     public static Pose2d imuAndWobble = new Pose2d(180, 0, 0);
     public static Pose2d currentPose = new Pose2d(61.5, 14.6, Math.toRadians(180));
