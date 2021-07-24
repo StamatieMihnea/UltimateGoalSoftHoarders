@@ -73,6 +73,9 @@ public class Teleoperated extends LinearOpMode {
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
+
+//            GoToPoint.HighGoalAutoOrientation(gamepad1.back,drive);
+
             GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false);
             GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true);
             GoToPoint.POWERSHOTS(gamepad2.dpad_left, drive);

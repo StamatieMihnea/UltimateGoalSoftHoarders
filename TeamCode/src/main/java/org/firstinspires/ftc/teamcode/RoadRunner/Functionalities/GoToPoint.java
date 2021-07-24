@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 
 public class GoToPoint {
     private static LinearOpMode opMode;
-    private static final Vector2d towerCoordinates  = new Vector2d(-65,20);
+    private static final Vector2d towerCoordinates = new Vector2d(-65, 20);
 
     public static void init(LinearOpMode opMode, MyMecanumDrive drive) {
         GyroPID.setDrive(drive);
@@ -130,13 +130,22 @@ public class GoToPoint {
         }
     }
 
-    public static void HighGoalAutoOrientation (boolean button, MyMecanumDrive drive){
-            OneTap oneTap = new OneTap();
-            if(oneTap.onPress(button)){
-                Pose2d robotPosition = drive.getPoseEstimate();
-                double absolutRotationNeeded = Math.atan2(robotPosition.getX()-towerCoordinates.getX(),robotPosition.getY()-towerCoordinates.getY());
-                double neededForStraightening = PoseStorage.currentPose.getHeading() - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
-                GyroPID.rotate(absolutRotationNeeded+neededForStraightening, opMode.telemetry, opMode);
-            }
+    public static void HighGoalAutoOrientation(boolean button, MyMecanumDrive drive) {
+        OneTap oneTap = new OneTap();
+        if (oneTap.onPress(button)) {
+            Pose2d robotPosition = drive.getPoseEstimate();
+            double absolutRotationNeeded = Math.atan2(robotPosition.getX() - towerCoordinates.getX(), robotPosition.getY() - towerCoordinates.getY());
+            double neededForStraightening = PoseStorage.currentPose.getHeading() - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
+            GyroPID.rotate(absolutRotationNeeded + neededForStraightening, opMode.telemetry, opMode);
+        }
+    }
+
+    public static boolean FieldWallDistanceCheck(MyMecanumDrive drive) {
+        double allowedDistance = 10f;
+        Pose2d currentPosition = drive.getPoseEstimate();
+        return (currentPosition.getX() - allowedDistance <= PoseStorage.cornerLeftUp.getX() || currentPosition.getY() + allowedDistance >= PoseStorage.cornerLeftUp.getY() ||
+                currentPosition.getX() - allowedDistance <= PoseStorage.cornerLeftDown.getX() || currentPosition.getY() - allowedDistance <= PoseStorage.cornerLeftDown.getY() ||
+                currentPosition.getX() - allowedDistance >= PoseStorage.cornerRightUp.getX() || currentPosition.getY() + allowedDistance >= PoseStorage.cornerRightUp.getY() ||
+                currentPosition.getX() - allowedDistance >= PoseStorage.cornerRightDown.getX() || currentPosition.getY() - allowedDistance <= PoseStorage.cornerRightDown.getY());
     }
 }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
+import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.GoToPoint;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
 public class Movement {
@@ -45,10 +46,10 @@ public class Movement {
         }
     }
 
-    public static void slowMovement(Gamepad gamepad, int factor){
-        if(gamepad.right_trigger>0.01){
+    public static void slowMovement(Gamepad gamepad, int factor) {
+        if (gamepad.right_trigger > 0.01 || GoToPoint.FieldWallDistanceCheck(drive)) {
             slowFactor = factor;
-        }else{
+        } else {
             slowFactor = 1;
         }
     }
