@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
+import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 
 public class NormalizeAngleGyro { //Gyro
 
     private static final double NormalizeValue = 180f;
 
     public static double GetAngle() {
-        return (Normalize(Hardware.imu));
+       // return (Normalize(Hardware.imu));
+        return Math.toDegrees(Teleoperated.drive.getPoseEstimate().getHeading());
     }
 
     public static double GetRawAngle(BNO055IMU imu) {
@@ -17,6 +19,7 @@ public class NormalizeAngleGyro { //Gyro
     }
 
     private static double Normalize(BNO055IMU imu) {
+
         return GetRawAngle(imu) + NormalizeValue;
     }
 }

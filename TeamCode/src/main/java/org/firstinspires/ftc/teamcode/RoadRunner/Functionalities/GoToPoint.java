@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.GyroPID;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
-import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 import org.firstinspires.ftc.teamcode.Main.driveCase;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
@@ -23,12 +21,19 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 @Config
 public class GoToPoint {
     private static LinearOpMode opMode;
-    private static final Vector2d towerCoordinates = new Vector2d(-65, 20);
+    private static final Vector2d towerCoordinates = new Vector2d(-74, 37);
+    public static double a = -0.0018;
+    public static double b = 0.76;
     public static double allowedDistance = 15f;
 
     public static void init(LinearOpMode opMode, MyMecanumDrive drive) {
         GyroPID.setDrive(drive);
         GoToPoint.opMode = opMode;
+    }
+
+    public static double distanceBetween2Points(Vector2d pos1, Vector2d pos2) {
+        return Math.sqrt(Math.abs(pos1.getX() - pos2.getX()) * Math.abs(pos1.getX() -
+                pos2.getX()) + Math.abs(pos1.getY() - pos2.getY()) * Math.abs(pos1.getY() - pos2.getY()));
     }
 
     //unused
@@ -136,13 +141,25 @@ public class GoToPoint {
     public static void HighGoalAutoOrientation(boolean button, MyMecanumDrive drive) {
         OneTap oneTap = new OneTap();
         if (oneTap.onPress(button)) {
+
             Pose2d robotPosition = drive.getPoseEstimate();
-            double absolutRotationNeeded = Math.atan((robotPosition.getX() - towerCoordinates.getX()) / (robotPosition.getY() - towerCoordinates.getY()));
-            double neededForStraightening = PoseStorage.currentPose.getHeading() - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
-            opMode.telemetry.addData("ANGLE FOR TURN!!!!!!! ", neededForStraightening+ absolutRotationNeeded);
+            double absolutRotationNeeded = Math.atan((robotPosition.getY() - towerCoordinates.getY()) / (robotPosition.getX() - towerCoordinates.getX()));
+            double neededForStraightening = 180 - Math.toDegrees(Teleoperated.drive.getPoseEstimate().getHeading());
+            opMode.telemetry.addData("ANGLE FOR TURN!!!!!!! ", neededForStraightening + absolutRotationNeeded);
             opMode.telemetry.update();
-            //GyroPID.rotate(absolutRotationNeeded + neededForStraightening, opMode.telemetry, opMode);
+            GyroPID.rotate(neededForStraightening + Math.toDegrees(absolutRotationNeeded), opMode.telemetry, opMode);
+
         }
+    }
+
+    public static double shootingAngleForDistance() {
+        //double a = -0.0015;
+        //double b = 0.64; // 0.582
+        return a * distanceBetweenRobotAndTower() + b;
+    }
+
+    public static double distanceBetweenRobotAndTower() {
+        return distanceBetween2Points(new Vector2d(Teleoperated.drive.getPoseEstimate().getX(), Teleoperated.drive.getPoseEstimate().getY()), towerCoordinates);
     }
 
     public static boolean FieldWallDistanceCheck(MyMecanumDrive drive) {

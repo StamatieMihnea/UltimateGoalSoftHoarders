@@ -5,10 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
 import org.firstinspires.ftc.teamcode.Debugs.Debugs;
-import org.firstinspires.ftc.teamcode.Debugs.Instruction;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.GoToPoint;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
@@ -24,7 +22,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.distanceSensor;
 @TeleOp(name = "TeleOp", group = "TeleOp's")
 public class Teleoperated extends LinearOpMode {
 
-    MyMecanumDrive drive;
+    public static MyMecanumDrive drive;
     public static driveCase currentCase = driveCase.DRIVE;
     //public static Pose2d shootPose =  new Pose2d(8, 5, Math.toRadians(163));
     public static double wobbleX = 58;
@@ -48,6 +46,7 @@ public class Teleoperated extends LinearOpMode {
         Shooter.shooterInitialization(this);
         movementInitialization();
         NormalizeImuAngle.setDrive(drive);
+        ChangeShootingAngle.AngleControlInit();
         GoToPoint.init(this, drive);
         telemetry.addData("Pose Stored", PoseStorage.currentPose.toString());
         telemetry.addData("Wobble pose Stored", PoseStorage.imuAndWobble.getY());
@@ -74,7 +73,7 @@ public class Teleoperated extends LinearOpMode {
 
             //ROAD RUNNER
 
-            GoToPoint.HighGoalAutoOrientation(gamepad1.back,drive);
+            GoToPoint.HighGoalAutoOrientation(gamepad1.back, drive);
 
             GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false);
             GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true);
@@ -91,6 +90,8 @@ public class Teleoperated extends LinearOpMode {
 
             //SHOOT ANGLE
             ChangeShootingAngle.AngleControl(gamepad2);
+            //ChangeShootingAngle.AutomaticDistanceAngle(gamepad2);
+            ChangeShootingAngle.AutomaticDistanceAngle();
 
             //INTAKE
             Intake.IntakeOneSpeed(gamepad1);
@@ -104,6 +105,7 @@ public class Teleoperated extends LinearOpMode {
             Debugs.shouldIntakeDebug(telemetry, false);
             Debugs.distanceSensorDebug(telemetry, false);
             Movement.localize(false);
+            telemetry.addLine("ANGLE CONTROL POS :" + String.valueOf(Hardware.angle_control_left_s.getPosition()));
 
             /*Instruction.Commands(telemetry, false);
             telemetry.addData("grabber pos is: ", Hardware.grabber.getCurrentPosition());

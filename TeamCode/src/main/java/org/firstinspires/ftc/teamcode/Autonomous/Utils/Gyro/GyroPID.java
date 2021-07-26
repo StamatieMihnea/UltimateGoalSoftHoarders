@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
+import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
 @Config
@@ -66,6 +67,11 @@ public class GyroPID {
 //         telemetry.addData("velocity: ", error);
 //        telemetry.update();
         error = target - NormalizeAngleGyro.GetAngle();
+        if (error > 180) {
+            error -= 360;
+        } else if (error < -180) {
+            error += 360;
+        }
         Sum += error;
         double IEffect = Sum * I;
         if (IEffect > ILimit) {
@@ -76,11 +82,6 @@ public class GyroPID {
             IEffect = -ILimit;
         }
         double errorDifference = error - lastError;
-        if (error > 180) {
-            error -= 360;
-        } else if (error < -180) {
-            error += 360;
-        }
         double output = P * error + D * errorDifference + IEffect;
         if (nr == ControlNumber) {
             output = 0;
@@ -94,6 +95,7 @@ public class GyroPID {
     public static void rotate(double command, Telemetry telemetry, LinearOpMode opMode) {
         StartPID(command);
         while (opMode.opModeIsActive() && !(opMode.isStopRequested()) && (Math.abs(error) > AdmittedError || Math.abs(Hardware.imu.getAngularVelocity().yRotationRate) > AdmittedVelocity)) {
+            Teleoperated.drive.update();
             RunPID(telemetry);
         }
         Rotate(0);
