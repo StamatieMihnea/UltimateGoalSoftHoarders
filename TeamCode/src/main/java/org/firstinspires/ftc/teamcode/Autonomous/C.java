@@ -15,7 +15,7 @@ import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 @Config
 public class C implements AutoCase {
 
-    public static double firstWobbleX = -160f;
+    public static double firstWobbleX = -157f; // -160f
     public static double firstWobbleY = 100f;
     public static double firstWobbleHeading = 180f;
 

@@ -90,11 +90,11 @@ public class Wobble {
         if (new Pair<>(grabberPosition.FREE, armCase.LEFT).equals(grabberPositionCasePair)) {
             Hardware.servo_wobble_left.setPosition(leftFreePosition);
         } else if (new Pair<>(grabberPosition.FREE, armCase.RIGHT).equals(grabberPositionCasePair)) {
-            Hardware.servo_wobble_left.setPosition(rightFreePosition);
+            Hardware.servo_wobble_right.setPosition(rightFreePosition);
         } else if (new Pair<>(grabberPosition.GRAB, armCase.LEFT).equals(grabberPositionCasePair)) {
             Hardware.servo_wobble_left.setPosition(leftGrabPosition);
         } else if (new Pair<>(grabberPosition.GRAB, armCase.RIGHT).equals(grabberPositionCasePair)) {
-            Hardware.servo_wobble_left.setPosition(rightGrabPosition);
+            Hardware.servo_wobble_right.setPosition(rightGrabPosition);
         }
     }
 
@@ -125,9 +125,6 @@ public class Wobble {
     public static void initialization() {
 
         selectArm();
-        wobbleUpPose = 0;
-        wobbleDownPose = 1280;
-        wobbleMidPose = 580;
 
         wobbleUpPose -= PoseStorage.imuAndWobble.getY();
         wobbleDownPose -= PoseStorage.imuAndWobble.getY();
@@ -143,11 +140,13 @@ public class Wobble {
 
 
     public static void initializationAuto() {
-        Hardware.grabber.setTargetPosition(0);
-        Hardware.grabber.setPower(0.5);
-        Hardware.servo_wobble_right.setPosition(rightGrabPosition);
-        //Hardware.grabber_front.setPosition(front_grabPosition - 0.05);
-        //Hardware.grabber_back.setPosition(back_grabPosition + 0.05);
+
+        //TODO: very weird behaviour
+        selectArm();
+        Hardware.grabber.setTargetPosition(wobbleUpPose);
+        Hardware.grabber.setPower(1);
+        SetGrabberPosition(grabberPosition.GRAB);
+
     }
 
 

@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.sun.tools.javac.Main;
 
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
@@ -40,7 +41,7 @@ public interface AutoCase {
 
     static void collectSecondWobble(LinearOpMode opMode) {
         Wobble.motorArmToPosition(true, wobbleCollectPosition);
-        switch (MainAuto.diskAmount) {
+        switch (DetectionCase.diskAmount) {
             case 0:
                 Trajectories.returnBack = Trajectories.returnBackA(drive.getPoseEstimate());
                 break;

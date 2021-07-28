@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Utils;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAuto;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -17,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class DiskAmountDetection {
 
     public static double multiplyVal = 19f;
-    public static double redMeanThreshold = 6.3;
+    public static double redMeanThreshold = 7; // it was 6.3
 
     public static void stopDetection() {
         Hardware.cvCamera.stopStreaming();
@@ -43,10 +46,12 @@ public class DiskAmountDetection {
 
         Telemetry telemetry;
         boolean update;
+        LinearOpMode opMode;
 
-        public UltimateGoalPipeline(Telemetry telemetry, boolean update) {
-            this.telemetry = telemetry;
+        public UltimateGoalPipeline(LinearOpMode opMode, boolean update) {
+            this.telemetry = opMode.telemetry;
             this.update = update;
+            this.opMode = opMode;
         }
 
         final Scalar BLUE = new Scalar(0, 0, 255);
@@ -92,10 +97,10 @@ public class DiskAmountDetection {
             //TODO : increase the multiplier (18-19) and make the result 0 when all the mat is white
 
             double redAmount = (int) Core.sumElems(finalMat).val[0];
-            MainAuto.diskAmount = getDiskAmount(redAmount);
-
+            DetectionCase.diskAmount = getDiskAmount(redAmount);
+            DetectionCase.updateAutoCase(opMode);
             telemetry.addData("The red amount is:", redAmount);
-            telemetry.addData("The number of disks is:", MainAuto.diskAmount);
+            telemetry.addData("The number of disks is:", DetectionCase.diskAmount);
             if (update) {
                 telemetry.update();
             }

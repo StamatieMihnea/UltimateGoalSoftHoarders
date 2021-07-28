@@ -55,11 +55,11 @@ public class PowerShots {
 
         FollowTrajectoryAndShoot(Trajectories.rightPowerShot(drive.getPoseEstimate()), drive);
 
-        //FollowTrajectoryAndShoot(Trajectories.middlePowerShot(drive.getPoseEstimate()), drive);
+       // FollowTrajectoryAndShoot(Trajectories.middlePowerShot(drive.getPoseEstimate()), drive);
 
         //FollowTrajectoryAndShoot(Trajectories.leftPowerShot(drive.getPoseEstimate()), drive);
 
-        //AutoUtil.stopShooting();
-        //AutoUtil.shooterAngle(shooterState.INTAKE);
+        AutoUtil.stopShooting();
+        AutoUtil.shooterAngle(shooterState.INTAKE);
     }
 }

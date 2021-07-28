@@ -4,14 +4,15 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Main.Teleoperated;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
 public class NormalizeAngleGyro { //Gyro
 
     private static final double NormalizeValue = 180f;
 
-    public static double GetAngle() {
+    public static double GetAngle(MyMecanumDrive drive) {
        // return (Normalize(Hardware.imu));
-        return Math.toDegrees(Teleoperated.drive.getPoseEstimate().getHeading());
+        return Math.toDegrees(drive.getPoseEstimate().getHeading());
     }
 
     public static double GetRawAngle(BNO055IMU imu) {

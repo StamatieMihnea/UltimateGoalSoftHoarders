@@ -52,13 +52,13 @@ public class GyroPID {
     }
 
     public static void StartPID(double command) {
-        target = command + NormalizeAngleGyro.GetAngle();
+        target = command + NormalizeAngleGyro.GetAngle(drive);
         if (target > 360) {
             target -= 360;
         } else if (target < 0) {
             target += 360;
         }
-        error = target - NormalizeAngleGyro.GetAngle();
+        error = target - NormalizeAngleGyro.GetAngle(drive);
         lastError = error;
         nr = 0;
     }
@@ -66,7 +66,7 @@ public class GyroPID {
     public static void RunPID(Telemetry telemetry) {
 //         telemetry.addData("velocity: ", error);
 //        telemetry.update();
-        error = target - NormalizeAngleGyro.GetAngle();
+        error = target - NormalizeAngleGyro.GetAngle(drive);
         if (error > 180) {
             error -= 360;
         } else if (error < -180) {
@@ -95,7 +95,7 @@ public class GyroPID {
     public static void rotate(double command, Telemetry telemetry, LinearOpMode opMode) {
         StartPID(command);
         while (opMode.opModeIsActive() && !(opMode.isStopRequested()) && (Math.abs(error) > AdmittedError || Math.abs(Hardware.imu.getAngularVelocity().yRotationRate) > AdmittedVelocity)) {
-            Teleoperated.drive.update();
+            drive.update();
             RunPID(telemetry);
         }
         Rotate(0);
