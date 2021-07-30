@@ -1,2 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two;public class TrajIntermTwo {
+package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two;
+
+public class TrajIntermTwo {
 }

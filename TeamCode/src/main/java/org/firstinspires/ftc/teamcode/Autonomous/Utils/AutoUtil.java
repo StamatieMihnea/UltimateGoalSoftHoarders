@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
+import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.PowerShots.shootingSpeed;
 import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.intakeBooster_left;
@@ -51,7 +52,7 @@ public class AutoUtil {
         AutoUtil.opMode = opMode;
     }
 
-    public static void initialization() {
+    public static void initialization(armCase armCase) {
         shoot_leftEX = (DcMotorEx) (shooter_left);
         shoot_rightEX = (DcMotorEx) (shooter_right);
         shoot_rightEX.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -63,7 +64,7 @@ public class AutoUtil {
         shoot_leftEX.setVelocity(0);
         shoot_rightEX.setVelocity(0);
         Hardware.shooter_idler.setPosition(idlerFreePosition);
-        Wobble.initializationAuto();
+        Wobble.initializationAuto(armCase);
 
     }
 

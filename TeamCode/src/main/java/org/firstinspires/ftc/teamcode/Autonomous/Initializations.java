@@ -9,20 +9,20 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
+import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
 public class Initializations {
 
     public static MyMecanumDrive drive;
-    public static Pose2d startPose = new Pose2d(61.5, 14.6, Math.toRadians(180));
 
-    private static void MovementInit(LinearOpMode opMode){
+    private static void MovementInit(LinearOpMode opMode, Pose2d startPose){
         drive = new MyMecanumDrive(opMode.hardwareMap);
         drive.setPoseEstimate(startPose);
     }
 
-    private static void UtilsInit(LinearOpMode opMode){
+    private static void UtilsInit(LinearOpMode opMode, armCase armCase){
         AutoUtil.setOpMode(opMode);
-        AutoUtil.initialization();
+        AutoUtil.initialization(armCase);
         AutoUtil.wallPosition(wallState.INSIDE);
     }
 
@@ -33,12 +33,11 @@ public class Initializations {
         //Hardware.init(opMode.hardwareMap, opMode.telemetry);
     }
 
-    public static void AutoInit(LinearOpMode opMode){
+    public static void AutoInit(LinearOpMode opMode, armCase armCase, Pose2d startPose){
         HardwareInit(opMode);
-        MovementInit(opMode);
-        UtilsInit(opMode);
+        MovementInit(opMode, startPose);
+        UtilsInit(opMode, armCase);
         Trajectories.setDrive(drive);
-        Trajectories.setStartPose(startPose);
     }
 
 }

@@ -53,7 +53,7 @@ public class PowerShots {
 
     public static void run() {
 
-        FollowTrajectoryAndShoot(Trajectories.rightPowerShot(drive.getPoseEstimate()), drive);
+       // FollowTrajectoryAndShoot(Trajectories.rightPowerShot(drive.getPoseEstimate()), drive);
 
        // FollowTrajectoryAndShoot(Trajectories.middlePowerShot(drive.getPoseEstimate()), drive);
 

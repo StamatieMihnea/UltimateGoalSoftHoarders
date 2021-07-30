@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate;
+package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -10,7 +10,7 @@ public class Intermediate2RED extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Initializations.AutoInit(this,armCase.LEFT);
+
 
         waitForStart();
 

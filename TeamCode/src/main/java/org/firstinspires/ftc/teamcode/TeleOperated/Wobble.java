@@ -139,10 +139,10 @@ public class Wobble {
     }
 
 
-    public static void initializationAuto() {
+    public static void initializationAuto(armCase armCase) {
 
         //TODO: very weird behaviour
-        selectArm();
+        setGrabberCase(armCase);
         Hardware.grabber.setTargetPosition(wobbleUpPose);
         Hardware.grabber.setPower(1);
         SetGrabberPosition(grabberPosition.GRAB);
