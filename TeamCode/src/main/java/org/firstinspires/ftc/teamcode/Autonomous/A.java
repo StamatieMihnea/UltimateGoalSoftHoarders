@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
+import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
@@ -33,6 +34,10 @@ public class A extends AutoCase {
                 break;
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.releaseATrajectory(drive.getPoseEstimate()));
+                Wobble.motorArmToPosition(true, wobblePosition.MID);
+                //opMode.sleep(wobbleArmSleep);
+                //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
+                //opMode.sleep(wobbleArmSleep);
                 break;
             case INTERMEDIATE2:
 

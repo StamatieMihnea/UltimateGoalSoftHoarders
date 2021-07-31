@@ -26,5 +26,5 @@ public class GeneralAutoParameters {
     public static double shootAngle = 180;
 
     public static double intakeAngle = 0.5;
-    public static double shooterAngleTower = 0.59;
+    public static double shooterAngleTower = 0.66; //era 0.59, valoarea aste este pt REDintermediate1 TODO
 }

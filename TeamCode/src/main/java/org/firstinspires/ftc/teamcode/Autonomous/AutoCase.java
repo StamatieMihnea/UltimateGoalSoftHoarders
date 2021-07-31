@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
@@ -51,6 +53,7 @@ public abstract class AutoCase {
     public abstract void releaseFirstWobble();
 
     static void collectSecondWobble(LinearOpMode opMode) {
+
 //        Wobble.motorArmToPosition(true, wobbleCollectPosition);
 //        switch (DetectionCase.diskAmount) {
 //            case 0:
@@ -95,7 +98,11 @@ public abstract class AutoCase {
 
                 break;
             case INTERMEDIATE1:
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shooterAngle(shooterState.SHOOT);
                 drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
 

@@ -160,6 +160,10 @@ public class Wobble {
             currentPose = position;
         }
     }
+    public static void motorArmToPosition(wobblePosition position) {
+        currentPose = position;
+        positionUpdate();
+    }
 
     public static void motorArmToPosition(boolean button, int position) {
         if (button) {

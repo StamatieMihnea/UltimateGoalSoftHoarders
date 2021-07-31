@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 public class PowerShots {
 
     public static double shooterAnglePowerShoot = 0.63; //0.67
-    public static int shootingSpeed = 1150;
+    public static int shootingSpeed = 1250;
 
     public static double firstPowerShootPositionY = 37;
     public static double firstPowerShootPositionX = 5;
