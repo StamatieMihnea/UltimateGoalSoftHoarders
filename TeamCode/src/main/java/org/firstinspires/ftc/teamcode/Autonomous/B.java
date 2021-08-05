@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoIntakeShoot;
@@ -30,17 +31,17 @@ public class B extends AutoCase {
     public void releaseFirstWobble() {
         switch (autoScene){
             case FULL:
-
+                drive.followTrajectory(TrajFull.releaseBTrajectory(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE1:
 //                Wobble.motorArmToPosition(true, wobblePosition.MID);
                 drive.followTrajectory(TrajIntermOne.releaseBTrajectory(drive.getPoseEstimate()));
-                Wobble.motorArmToPosition(true, wobblePosition.MID);
+                //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 break;
 
             case INTERMEDIATE2:
-//                drive.followTrajectory(TrajIntermTwo.releaseBTrajectory(drive.getPoseEstimate()));
-//                Wobble.motorArmToPosition(true, wobblePosition.MID);
+                drive.followTrajectory(TrajIntermTwo.releaseBTrajectory(drive.getPoseEstimate()));
+                //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 break;
                 //opMode.sleep(wobbleArmSleep);
                 //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
@@ -58,7 +59,7 @@ public class B extends AutoCase {
     public void returnBack() {
         switch (autoScene){
             case FULL:
-
+                drive.followTrajectory(TrajFull.returnBackB(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE1:
 
@@ -78,7 +79,7 @@ public class B extends AutoCase {
 
         switch (autoScene){
             case FULL:
-
+                drive.followTrajectory(TrajFull.secondWobbleTrajB(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE1:
 

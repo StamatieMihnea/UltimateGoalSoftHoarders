@@ -19,16 +19,16 @@ import org.firstinspires.ftc.teamcode.Utils.Logics.CmToInch;
 public class TrajIntermOne extends Trajectories {
 
     //inch and rad
-    public static Pose2d shootPose = new Pose2d(7,52,Math.toRadians(190));//TODO
-    public static Pose2d releaseAPose = new Pose2d(-5,52,Math.toRadians(60));//TODO
-    public static Pose2d releaseBPose = new Pose2d(-40,52,Math.toRadians(180));//TODO
-    public static Pose2d releaseCPose = new Pose2d(-48,52,Math.toRadians(50));//TODO
-    public static Pose2d parkPose = new Pose2d(2,56,Math.toRadians(180));//TODO
+    public static Pose2d shootPose = new Pose2d(7,52,Math.toRadians(190));
+    public static Pose2d releaseAPose = new Pose2d(-5,52,Math.toRadians(60));
+    public static Pose2d releaseBPose = new Pose2d(-40,52,Math.toRadians(180));
+    public static Pose2d releaseCPose = new Pose2d(-48,52,Math.toRadians(50));
+    public static Pose2d parkPose = new Pose2d(2,56,Math.toRadians(180));
     public static ColorCase colorCase;
 
     public static void initSpecificTraj(ColorCase colorCase){
         TrajIntermOne.colorCase = colorCase;
-        setStartPose(new Pose2d(61.5, 57.87,Math.toRadians(180)), colorCase);//TODO
+        setStartPose(new Pose2d(61.5, 57.87,Math.toRadians(180)), colorCase);
     }
 
     public static Trajectory shootTrajectory(Pose2d pose2d) {

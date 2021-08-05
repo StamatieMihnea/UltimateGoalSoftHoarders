@@ -1,18 +1,12 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.sun.tools.javac.Main;
-
-import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
-import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
@@ -83,14 +77,23 @@ public abstract class AutoCase {
     public static void Intake() {
         switch (autoScene){
             case FULL:
-
+                AutoUtil.startIntake();
+                drive.followTrajectory(TrajFull.diskCollectTrajectory(drive.getPoseEstimate()));
+                AutoUtil.stopIntakeMotor();
+                AutoUtil.stopIntakeServo();
                 break;
             case INTERMEDIATE1:
 
                 break;
             case INTERMEDIATE2:
-//                AutoUtil.startIntake();
-//                drive.followTrajectory(TrajIntermTwo.diskCollect(drive.getPoseEstimate()));
+                AutoUtil.startIntake();
+                drive.followTrajectory(TrajIntermTwo.diskCollectTrajectory(drive.getPoseEstimate()));
+                AutoUtil.stopIntakeMotor();
+                AutoUtil.stopIntakeServo();
+                //maybe trajectory 2 for the 4th disk
+                //drive.followTrajectory(TrajIntermTwo.diskCollect2(drive.getPoseEstimate()));
+                //AutoUtil.stopIntakeMotor();
+                //AutoUtil.stopIntakeServo();
                 break;
             case WORST:
 
@@ -101,7 +104,11 @@ public abstract class AutoCase {
     public static void Shoot() {
         switch (autoScene){
             case FULL:
-
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                //hopefully it will be in a good enough position in order to shoot
+                //drive.followTrajectory(TrajFull.shootPoseTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE1:
                 AutoUtil.wallPosition(wallState.VERTICAL);
@@ -111,10 +118,11 @@ public abstract class AutoCase {
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
-//                AutoUtil.shooterAngle(shooterState.SHOOT);
-//                drive.followTrajectory(TrajIntermTwo.shootPoseTrajectory(drive.getPoseEstimate()));
-//                AutoUtil.shoot3Disks();
-//                AutoUtil.wallPosition(wallState.INSIDE);
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                //hopefully it will be in a good enough position in order to shoot
+                //drive.followTrajectory(TrajIntermTwo.shootPoseTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case WORST:
                 AutoUtil.wallPosition(wallState.VERTICAL);
@@ -137,11 +145,10 @@ public abstract class AutoCase {
                 drive.followTrajectory(TrajIntermOne.parkTrajectory(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE2:
-
+                drive.followTrajectory(TrajIntermTwo.parkTrajectory(drive.getPoseEstimate()));
                 break;
             case WORST:
-                drive.followTrajectory(TrajWorst.firstParkTrajectory(drive.getPoseEstimate()));
-                drive.followTrajectory(TrajWorst.secondParkTrajectory(drive.getPoseEstimate()));
+                drive.followTrajectory(TrajWorst.ParkTrajectory(drive.getPoseEstimate()));
                 break;
         }
 

@@ -21,8 +21,8 @@ public class Intermediate1RED extends LinearOpMode {
         Initializations.AutoInit(this, armCase.LEFT, TrajIntermOne.getStartPose());
         waitForStart();
         DiskAmountDetection.stopDetection();
-
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE1);
+
         AutoCase.Shoot();
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();

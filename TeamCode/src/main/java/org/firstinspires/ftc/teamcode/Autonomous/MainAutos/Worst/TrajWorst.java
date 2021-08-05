@@ -5,38 +5,35 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+
 public class TrajWorst extends Trajectories {
     //inch and rad
-    public static Pose2d shootPose = new Pose2d(7,52,Math.toRadians(180));
-    public static Pose2d parkPose = new Pose2d(-5,10,Math.toRadians(180));
+    public static Pose2d shootPose = new Pose2d(7, 52, Math.toRadians(190));
+    public static Pose2d parkPose = new Pose2d(2, 56, Math.toRadians(180));
     public static ColorCase colorCase;
 
     public static void initSpecificTraj(ColorCase colorCase){
-        TrajWorst.colorCase = colorCase;
+        TrajIntermOne.colorCase = colorCase;
         setStartPose(new Pose2d(61.5, 57.87,Math.toRadians(180)), colorCase);
     }
 
     public static Trajectory shootTrajectory(Pose2d pose2d) {
-
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
-                .lineTo(new Vector2d(60, 62))
-                .splineToLinearHeading(shootPose, Math.toRadians(270))
-                .addTemporalMarker(0.5, AutoUtil::startShooting)
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+                .lineToSplineHeading(shootPose)
+                .addTemporalMarker(0.5, () -> {
+                    AutoUtil.startShooting();
+                })
                 .build();
     }
 
-    public static Trajectory firstParkTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
-                .lineTo(new Vector2d(-30, 62))
-                .build();
-    }
-    public static Trajectory secondParkTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
-                .splineToLinearHeading(parkPose, Math.toRadians(0))
+    public static Trajectory ParkTrajectory(Pose2d pose2d) {
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+                .lineToSplineHeading(parkPose)
                 .build();
     }
 }

@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoScenes;
 import org.firstinspires.ftc.teamcode.Autonomous.Initializations;
-import org.firstinspires.ftc.teamcode.Autonomous.PowerShotsAdrian;
-import org.firstinspires.ftc.teamcode.Autonomous.PowerShotsTRY;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
+import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
@@ -23,9 +23,13 @@ public class Intermediate2RED extends LinearOpMode {
         Initializations.AutoInit(this, armCase.LEFT, TrajIntermTwo.getStartPose());
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
-        PowerShotsTRY.initialization(Trajectories.getDrive(),this);
+        PowerShots.initialization(Trajectories.getDrive(),this);
 
         DiskAmountDetection.stopDetection();
-        PowerShotsTRY.run();
+        PowerShots.run();
+        AutoCase.Intake();
+        AutoCase.Shoot();
+        DetectionCase.autoCase.releaseFirstWobble();
+        AutoCase.Park();
     }
 }
