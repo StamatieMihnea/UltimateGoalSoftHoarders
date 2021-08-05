@@ -23,7 +23,7 @@ public class Intermediate2RED extends LinearOpMode {
         Initializations.AutoInit(this, armCase.LEFT, TrajIntermTwo.getStartPose());
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
-        PowerShotsAdrian.initialization(Trajectories.getDrive(),this);
+        PowerShotsTRY.initialization(Trajectories.getDrive(),this);
 
         DiskAmountDetection.stopDetection();
         PowerShotsTRY.run();
