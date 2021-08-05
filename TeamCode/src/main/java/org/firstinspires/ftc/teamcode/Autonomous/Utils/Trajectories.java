@@ -1,28 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous.Utils;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
-import org.firstinspires.ftc.teamcode.Autonomous.A;
-import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
-import org.firstinspires.ftc.teamcode.Autonomous.B;
-import org.firstinspires.ftc.teamcode.Autonomous.C;
-import org.firstinspires.ftc.teamcode.Autonomous.GeneralAutoParameters;
-import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
-import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
-import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
-import org.firstinspires.ftc.teamcode.Utils.Logics.CmToInch;
-
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeAcc;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeVel;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeX;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.intakeY;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootAngle;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootPoseX;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.shootPoseY;
-import static org.firstinspires.ftc.teamcode.Autonomous.AutoCase.wobbleMidPosition;
 
 public class Trajectories {
     public static Trajectory returnBack, trajectory;//,returnBack1,returnBack2;
@@ -41,7 +22,9 @@ public class Trajectories {
         Trajectories.drive = drive;
         NormalizeImuAngle.setDrive(drive);
     }
-
+    public static MyMecanumDrive getDrive(){
+        return drive;
+    }
 //
 //    public static Trajectory rightPowerShot(Pose2d pose2d) {
 //        return drive.trajectoryBuilder(pose2d)

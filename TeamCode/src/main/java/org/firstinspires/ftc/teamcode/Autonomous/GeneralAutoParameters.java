@@ -4,8 +4,8 @@ import com.acmerobotics.dashboard.config.Config;
 
 @Config
 public class GeneralAutoParameters {
-    public static double intakeX = 19;
-    public static double intakeY = 31.5;
+    public static double intakeX = 20;
+    public static double intakeY = 33.5;
     public static double intakeVel = 35;
     public static double intakeAcc = 25;
 
@@ -26,5 +26,5 @@ public class GeneralAutoParameters {
     public static double shootAngle = 180;
 
     public static double intakeAngle = 0.5;
-    public static double shooterAngleTower = 0.66; //era 0.59, valoarea aste este pt REDintermediate1 TODO
+    public static double shooterAngleTower = 0.68; //era 0.59, valoarea aste este pt REDintermediate1 TODO
 }

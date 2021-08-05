@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 
-@Config
 public class GyroPID {
 
 /*    private static final double P = 0.025;

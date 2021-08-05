@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoIntakeShoot;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
@@ -14,7 +15,6 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
-@Config
 public class C extends AutoCase {
 //
 //    public static double firstWobbleX = -157f; // -160f
@@ -36,12 +36,13 @@ public class C extends AutoCase {
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.releaseCTrajectory(drive.getPoseEstimate()));
                 Wobble.motorArmToPosition(true, wobblePosition.MID);
+                break;
+            case INTERMEDIATE2:
+//                drive.followTrajectory(TrajIntermTwo.releaseCTrajectory(drive.getPoseEstimate()));
+//                Wobble.motorArmToPosition(true, wobblePosition.MID);
                 //opMode.sleep(wobbleArmSleep);
                 //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
                 //opMode.sleep(wobbleArmSleep);
-                break;
-            case INTERMEDIATE2:
-
                 break;
             case WORST:
 
@@ -52,31 +53,33 @@ public class C extends AutoCase {
         //opMode.sleep(wobbleArmSleep);
     }
 
-
-
-
-
     @Override
-    public void releaseSecondWobble() {
-        switch (autoScene) {
+    public void returnBack() {
+        switch (autoScene){
             case FULL:
 
                 break;
             case INTERMEDIATE1:
 
-
                 break;
             case INTERMEDIATE2:
-
+                //drive.followTrajectory(TrajIntermTwo.returnBackC(drive.getPoseEstimate()));
                 break;
             case WORST:
 
                 break;
         }
+    }
+
+    @Override
+    public void releaseSecondWobble() {
+
+    }
+
+
 //        Hardware.wall_left.setPosition(AutoUtil.leftWallDown);
 //        drive.followTrajectory(Trajectories.secondWobbleReleaseC(drive.getPoseEstimate()));
 //        Wobble.wobbleRelease();
-    }
 
     public C(LinearOpMode opMode) {
         this.opMode = opMode;

@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -13,7 +14,6 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
-@Config
 public class A extends AutoCase {
 
     public static double firstWobbleX = -70f;
@@ -35,12 +35,13 @@ public class A extends AutoCase {
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.releaseATrajectory(drive.getPoseEstimate()));
                 Wobble.motorArmToPosition(true, wobblePosition.MID);
+                break;
+            case INTERMEDIATE2:
+//                drive.followTrajectory(TrajIntermTwo.releaseATrajectory(drive.getPoseEstimate()));
+//                Wobble.motorArmToPosition(true, wobblePosition.MID);
                 //opMode.sleep(wobbleArmSleep);
                 //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
                 //opMode.sleep(wobbleArmSleep);
-                break;
-            case INTERMEDIATE2:
-
                 break;
             case WORST:
 
@@ -56,6 +57,24 @@ public class A extends AutoCase {
     }
 
     @Override
+    public void returnBack() {
+        switch (autoScene){
+            case FULL:
+
+                break;
+            case INTERMEDIATE1:
+
+                break;
+            case INTERMEDIATE2:
+                //drive.followTrajectory(TrajIntermTwo.returnBackA(drive.getPoseEstimate()));
+                break;
+            case WORST:
+
+                break;
+        }
+    }
+
+    @Override
     public void releaseSecondWobble() {
         switch (autoScene){
             case FULL:
@@ -65,7 +84,6 @@ public class A extends AutoCase {
 
                 break;
             case INTERMEDIATE2:
-
                 break;
             case WORST:
 

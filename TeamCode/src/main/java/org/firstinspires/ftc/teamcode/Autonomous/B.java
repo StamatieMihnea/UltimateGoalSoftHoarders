@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoIntakeShoot;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
@@ -13,7 +14,6 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
 
-@Config
 public class B extends AutoCase {
 
 //    public static double firstWobbleX = -120f;
@@ -35,13 +35,16 @@ public class B extends AutoCase {
             case INTERMEDIATE1:
 //                Wobble.motorArmToPosition(true, wobblePosition.MID);
                 drive.followTrajectory(TrajIntermOne.releaseBTrajectory(drive.getPoseEstimate()));
+                Wobble.motorArmToPosition(true, wobblePosition.MID);
+                break;
+
+            case INTERMEDIATE2:
+//                drive.followTrajectory(TrajIntermTwo.releaseBTrajectory(drive.getPoseEstimate()));
+//                Wobble.motorArmToPosition(true, wobblePosition.MID);
+                break;
                 //opMode.sleep(wobbleArmSleep);
                 //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
                 //opMode.sleep(wobbleArmSleep);
-                break;
-            case INTERMEDIATE2:
-
-                break;
             case WORST:
 
                 break;
@@ -51,7 +54,23 @@ public class B extends AutoCase {
 //        opMode.sleep(wobbleArmSleep);
     }
 
+    @Override
+    public void returnBack() {
+        switch (autoScene){
+            case FULL:
 
+                break;
+            case INTERMEDIATE1:
+
+                break;
+            case INTERMEDIATE2:
+                //drive.followTrajectory(TrajIntermTwo.returnBackB(drive.getPoseEstimate()));
+                break;
+            case WORST:
+
+                break;
+        }
+    }
 
 
     @Override

@@ -6,6 +6,8 @@ import com.sun.tools.javac.Main;
 
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
@@ -52,7 +54,10 @@ public abstract class AutoCase {
 
     public abstract void releaseFirstWobble();
 
-    static void collectSecondWobble(LinearOpMode opMode) {
+    public abstract void returnBack();
+
+
+    //static void collectSecondWobble(LinearOpMode opMode) {
 
 //        Wobble.motorArmToPosition(true, wobbleCollectPosition);
 //        switch (DetectionCase.diskAmount) {
@@ -73,7 +78,7 @@ public abstract class AutoCase {
 ////        drive.followTrajectory(Trajectories.returnBack2);
 //        drive.followTrajectory(Trajectories.secondWobbleCollect(drive.getPoseEstimate()));
 //       // opMode.sleep(sleepForGrabbing);
-    }
+   // }
 
     public static void Intake() {
         switch (autoScene){
@@ -84,7 +89,8 @@ public abstract class AutoCase {
 
                 break;
             case INTERMEDIATE2:
-
+//                AutoUtil.startIntake();
+//                drive.followTrajectory(TrajIntermTwo.diskCollect(drive.getPoseEstimate()));
                 break;
             case WORST:
 
@@ -105,10 +111,17 @@ public abstract class AutoCase {
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
-
+//                AutoUtil.shooterAngle(shooterState.SHOOT);
+//                drive.followTrajectory(TrajIntermTwo.shootPoseTrajectory(drive.getPoseEstimate()));
+//                AutoUtil.shoot3Disks();
+//                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case WORST:
-
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
         }
     }
@@ -127,7 +140,8 @@ public abstract class AutoCase {
 
                 break;
             case WORST:
-
+                drive.followTrajectory(TrajWorst.firstParkTrajectory(drive.getPoseEstimate()));
+                drive.followTrajectory(TrajWorst.secondParkTrajectory(drive.getPoseEstimate()));
                 break;
         }
 

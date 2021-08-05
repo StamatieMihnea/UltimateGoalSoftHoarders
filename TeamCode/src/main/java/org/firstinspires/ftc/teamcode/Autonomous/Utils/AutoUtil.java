@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
-import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
+import org.firstinspires.ftc.teamcode.Autonomous.PowerShotsAdrian;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
@@ -14,8 +14,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
-import static org.firstinspires.ftc.teamcode.Autonomous.PowerShots.shootingSpeed;
-import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.intakeBooster_left;
+import static org.firstinspires.ftc.teamcode.Autonomous.PowerShotsAdrian.shootingSpeed;
 import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.shooter_left;
 import static org.firstinspires.ftc.teamcode.HardwarePack.HardwareDeclarations.shooter_right;
 
@@ -74,7 +73,7 @@ public class AutoUtil {
                 ChangeShootingAngle.AngleControl(AutoCase.shooterAngleTower);
                 break;
             case POWER_SHOTS:
-                ChangeShootingAngle.AngleControl(PowerShots.shooterAnglePowerShoot);
+                ChangeShootingAngle.AngleControl(PowerShotsAdrian.shooterAnglePowerShoot);
                 break;
             case INTAKE:
                 ChangeShootingAngle.AngleControl(AutoCase.intakeAngle);
