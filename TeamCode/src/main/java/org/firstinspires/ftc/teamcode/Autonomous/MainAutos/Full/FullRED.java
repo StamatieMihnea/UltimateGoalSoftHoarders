@@ -9,8 +9,10 @@ import org.firstinspires.ftc.teamcode.Autonomous.Initializations;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
 @Autonomous(name = "FullRED")
@@ -19,20 +21,22 @@ public class FullRED extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        TrajIntermOne.initSpecificTraj(ColorCase.RED);
-        Initializations.AutoInit(this, armCase.LEFT, TrajIntermOne.getStartPose());
+        TrajFull.initSpecificTraj(ColorCase.RED);
+        Initializations.AutoInit(this, armCase.RIGHT, TrajFull.getStartPose());
         waitForStart();
+        PowerShots.initialization(Trajectories.getDrive(), this);
 
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.FULL);
-
+        DetectionCase.setAutoCase("C",this);
         PowerShots.run();
+
         AutoCase.Intake();
         AutoCase.Shoot();
         DetectionCase.autoCase.releaseFirstWobble();
         DetectionCase.autoCase.returnBack();
-        DetectionCase.autoCase.releaseSecondWobble();
-        AutoCase.Park();
+        //DetectionCase.autoCase.releaseSecondWobble();
+        //AutoCase.Park();
 
 
 

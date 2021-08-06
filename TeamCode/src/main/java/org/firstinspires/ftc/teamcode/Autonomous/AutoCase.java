@@ -103,13 +103,6 @@ public abstract class AutoCase {
 
     public static void Shoot() {
         switch (autoScene){
-            case FULL:
-                AutoUtil.shooterAngle(shooterState.SHOOT);
-                //hopefully it will be in a good enough position in order to shoot
-                //drive.followTrajectory(TrajFull.shootPoseTrajectory(drive.getPoseEstimate()));
-                AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
-                break;
             case INTERMEDIATE1:
                 AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shooterAngle(shooterState.SHOOT);
@@ -117,12 +110,13 @@ public abstract class AutoCase {
                 AutoUtil.shoot3Disks();
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
+            case FULL:
             case INTERMEDIATE2:
                 AutoUtil.shooterAngle(shooterState.SHOOT);
-                //hopefully it will be in a good enough position in order to shoot
-                //drive.followTrajectory(TrajIntermTwo.shootPoseTrajectory(drive.getPoseEstimate()));
+                AutoUtil.startShooting();
                 AutoUtil.shoot3Disks();
                 AutoUtil.wallPosition(wallState.INSIDE);
+                AutoUtil.stopShooting();
                 break;
             case WORST:
                 AutoUtil.wallPosition(wallState.VERTICAL);

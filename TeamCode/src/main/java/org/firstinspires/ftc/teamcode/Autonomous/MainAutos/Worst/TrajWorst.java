@@ -5,7 +5,6 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
@@ -18,7 +17,7 @@ public class TrajWorst extends Trajectories {
     public static ColorCase colorCase;
 
     public static void initSpecificTraj(ColorCase colorCase){
-        TrajIntermOne.colorCase = colorCase;
+        TrajWorst.colorCase = colorCase;
         setStartPose(new Pose2d(61.5, 57.87,Math.toRadians(180)), colorCase);
     }
 

@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.firstinspires.ftc.teamcode.Autonomous.GeneralAutoParameters;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
 import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
@@ -15,14 +20,14 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 public class TrajFull extends Trajectories {
 
     public static ColorCase colorCase;
-    public static Pose2d diskCollectPose = new Pose2d(0, 0, 0);//TODO
+    public static Pose2d diskCollectPose = new Pose2d(-2, 33.46, Math.toRadians(180));
     //public static Pose2d shootPose = new Pose2d(0,0,Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-5,52,Math.toRadians(60));//TODO
     public static Pose2d releaseBPose = new Pose2d(-40,52,Math.toRadians(180));//TODO
-    public static Pose2d releaseCPose = new Pose2d(-48,52,Math.toRadians(50));//TODO
+    public static Pose2d releaseCPose = new Pose2d(-53,33.46,Math.toRadians(250));
     public static Pose2d backAPose = new Pose2d(0,0,Math.toRadians(0));//TODO
     public static Pose2d backBPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d backCPose = new Pose2d(0,0,Math.toRadians(0));//TODO
+    public static Pose2d backCPose = new Pose2d(5,33.46,Math.toRadians(180));//TODO
     public static Pose2d secWobbleAPose = new Pose2d(0,0,Math.toRadians(0));//TODO
     public static Pose2d secWobbleBPose = new Pose2d(0,0,Math.toRadians(0));//TODO
     public static Pose2d secWobbleCPose = new Pose2d(0,0,Math.toRadians(0));//TODO
@@ -30,14 +35,14 @@ public class TrajFull extends Trajectories {
 
 
     public static void initSpecificTraj(ColorCase colorCase) {
-        TrajIntermOne.colorCase = colorCase;
-        setStartPose(new Pose2d(0, 0, Math.toRadians(180)), colorCase);//TODO
+        TrajFull.colorCase = colorCase;
+        setStartPose(new Pose2d(61.5, 33.46, Math.toRadians(180)), colorCase);
     }
 
     public static Trajectory diskCollectTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(diskCollectPose)
-                .addTemporalMarker(0.1, AutoUtil::startIntake) //TODO verify this
+                .addTemporalMarker(0.1, AutoUtil::startIntake)
                 .build();
     }
 
@@ -83,18 +88,18 @@ public class TrajFull extends Trajectories {
                 .build();
     }
 
-    public static Trajectory returnBackA(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(backAPose)
-                .build();
-    }
-
-    public static Trajectory returnBackB(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(backBPose)
-                .build();
-    }
-
+//    public static Trajectory returnBackA(Pose2d pose2d) {
+//        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+//                .lineToSplineHeading(backAPose)
+//                .build();
+//    }
+//
+//    public static Trajectory returnBackB(Pose2d pose2d) {
+//        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+//                .lineToSplineHeading(backBPose)
+//                .build();
+//    }
+//
     public static Trajectory returnBackC(Pose2d pose2d) {
         return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
                 .lineToSplineHeading(backCPose)
@@ -131,7 +136,37 @@ public class TrajFull extends Trajectories {
 
 //    public static Trajectory intakeTrajectory(Pose2d pose2d) {
 //        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-//                .lineToSplineHeading(intakePose)
+//                .lineToSplineHeading(GeneralAutoParameters.intakePose)
 //                .build();
 //    }
+
+    public static Trajectory returnBackA(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(pose2d.getX(), 36, Math.toRadians(180)),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .splineToConstantHeading(new Vector2d(38, 20), Math.toRadians(0),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .addTemporalMarker(2, () -> {
+                    AutoUtil.wallPosition(wallState.VERTICAL);
+                })
+                .build();
+    }
+
+
+    public static Trajectory returnBackB(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(new Pose2d(pose2d.getX(), 20, Math.toRadians(180)),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .splineToConstantHeading(new Vector2d(38, 20), Math.toRadians(0),
+                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(35))
+                .addTemporalMarker(2, () -> {
+                    AutoUtil.wallPosition(wallState.VERTICAL);
+                })
+                .build();
+    }
+
 }

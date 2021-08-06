@@ -24,7 +24,7 @@ public class AutoUtil {
     private static final double idlerShootPosition = 0.72;
     private static final double idlerFreePosition = 1.0;
     private static final int shootTime = 100;
-    private static final int returnTime = 100;
+    private static final int returnTime = 200;
 
     private static final int speedTolerance = 41;
 

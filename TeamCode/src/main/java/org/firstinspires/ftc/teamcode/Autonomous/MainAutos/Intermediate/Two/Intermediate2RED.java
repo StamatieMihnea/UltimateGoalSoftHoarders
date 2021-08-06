@@ -24,8 +24,9 @@ public class Intermediate2RED extends LinearOpMode {
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
         PowerShots.initialization(Trajectories.getDrive(),this);
-
         DiskAmountDetection.stopDetection();
+        DetectionCase.setAutoCase("C",this);
+
         PowerShots.run();
         AutoCase.Intake();
         AutoCase.Shoot();
