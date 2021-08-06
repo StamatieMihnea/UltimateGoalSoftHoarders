@@ -6,8 +6,8 @@ import com.acmerobotics.dashboard.config.Config;
 public class GeneralAutoParameters {
     public static double intakeX = 20;
     public static double intakeY = 33.5;
-    public static double intakeVel = 35;
-    public static double intakeAcc = 25;
+    public static double intakeVel = 23; //todo it was 25
+    public static double intakeAcc = 20;
 
     public static int wobble2ArmPosition = 500;
     public static int wobbleMidPosition = 600;
@@ -26,5 +26,5 @@ public class GeneralAutoParameters {
     public static double shootAngle = 180;
 
     public static double intakeAngle = 0.5;
-    public static double shooterAngleTower = 0.68; //era 0.59, valoarea aste este pt REDintermediate1 TODO
+    public static double shooterAngleTower = 0.64; //0.68 //era 0.59, valoarea aste este pt REDintermediate1 TODO
 }

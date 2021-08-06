@@ -25,7 +25,7 @@ public class Intermediate2RED extends LinearOpMode {
         waitForStart();
         PowerShots.initialization(Trajectories.getDrive(),this);
         DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("C",this);
+        DetectionCase.setAutoCase("A",this);
 
         PowerShots.run();
         AutoCase.Intake();

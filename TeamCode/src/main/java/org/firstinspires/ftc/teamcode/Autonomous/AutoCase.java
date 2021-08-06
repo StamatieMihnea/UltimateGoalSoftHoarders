@@ -5,10 +5,19 @@ import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.Traj
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
+import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
+import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
+import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
+
+import static java.lang.Thread.sleep;
+
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
 public abstract class AutoCase {
 
@@ -48,7 +57,23 @@ public abstract class AutoCase {
 
     public abstract void releaseFirstWobble();
 
-    public abstract void returnBack();
+    public static void returnBack() throws InterruptedException {
+        switch (autoScene){
+            case FULL:
+                drive.followTrajectory(TrajFull.returnBack(drive.getPoseEstimate()));
+                Wobble.SetGrabberPosition(grabberPosition.GRAB);
+                sleep(700);
+                Wobble.motorArmToPosition(wobblePosition.UP);
+                break;
+            case INTERMEDIATE1:
+                break;
+            case INTERMEDIATE2:
+                break;
+            case WORST:
+                break;
+        }
+    }
+
 
 
     //static void collectSecondWobble(LinearOpMode opMode) {
@@ -130,10 +155,13 @@ public abstract class AutoCase {
 
     public abstract void releaseSecondWobble();
 
+
+
     public static void Park() {
         switch (autoScene){
             case FULL:
-
+                //Wobble.motorArmToPosition(wobblePosition.UP);
+                drive.followTrajectory(TrajFull.parkTrajectory(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.parkTrajectory(drive.getPoseEstimate()));
@@ -147,5 +175,6 @@ public abstract class AutoCase {
         }
 
     }
+
 
 }

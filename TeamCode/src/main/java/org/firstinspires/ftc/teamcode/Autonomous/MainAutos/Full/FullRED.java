@@ -31,12 +31,14 @@ public class FullRED extends LinearOpMode {
         DetectionCase.setAutoCase("C",this);
         PowerShots.run();
 
-        AutoCase.Intake();
-        AutoCase.Shoot();
+        if (DetectionCase.diskAmount!=0) {
+            AutoCase.Intake();
+            AutoCase.Shoot();
+        }
         DetectionCase.autoCase.releaseFirstWobble();
-        DetectionCase.autoCase.returnBack();
-        //DetectionCase.autoCase.releaseSecondWobble();
-        //AutoCase.Park();
+        AutoCase.returnBack();
+        DetectionCase.autoCase.releaseSecondWobble();
+        AutoCase.Park();
 
 
 

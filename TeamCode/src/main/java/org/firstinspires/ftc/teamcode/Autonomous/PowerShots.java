@@ -17,10 +17,10 @@ public class PowerShots {
     private static MyMecanumDrive drive;
     private static LinearOpMode opMode;
 
-    public static double shooterAnglePowerShoot = 0.62; //0.67
+    public static double shooterAnglePowerShoot = 0.58; //0.67
     public static int firstRotation = -3;
     public static int secondRotation = -4;
-    public static int shootingSpeed = 1270;
+    public static int shootingSpeed = 1270; //todo maybe 1260
 
     public static Pose2d powerShotsPose = new Pose2d(42, 33.46,Math.toRadians(196)); //195
 

@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
 import org.firstinspires.ftc.teamcode.Autonomous.GeneralAutoParameters;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
@@ -20,19 +21,19 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 public class TrajFull extends Trajectories {
 
     public static ColorCase colorCase;
-    public static Pose2d diskCollectPose = new Pose2d(-2, 33.46, Math.toRadians(180));
+    public static Pose2d diskCollectPose = new Pose2d(14, 33.46, Math.toRadians(180));
     //public static Pose2d shootPose = new Pose2d(0,0,Math.toRadians(180));
-    public static Pose2d releaseAPose = new Pose2d(-5,52,Math.toRadians(60));//TODO
-    public static Pose2d releaseBPose = new Pose2d(-40,52,Math.toRadians(180));//TODO
-    public static Pose2d releaseCPose = new Pose2d(-53,33.46,Math.toRadians(250));
-    public static Pose2d backAPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d backBPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d backCPose = new Pose2d(5,33.46,Math.toRadians(180));//TODO
-    public static Pose2d secWobbleAPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d secWobbleBPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d secWobbleCPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-    public static Pose2d parkPose = new Pose2d(0,0,Math.toRadians(0));//TODO
-
+    public static Pose2d releaseAPose = new Pose2d(-6, 48, Math.toRadians(250));
+    public static Pose2d releaseBPose = new Pose2d(-28, 27, Math.toRadians(250));
+    public static Pose2d releaseCPose = new Pose2d(-53, 39, Math.toRadians(250));
+    public static Pose2d backPose = new Pose2d(41, 20, Math.toRadians(180));
+//    public static Pose2d backBPose = new Pose2d(41, 32, Math.toRadians(180));
+//    public static Pose2d backCPose = new Pose2d(41, 32, Math.toRadians(180));
+    public static Pose2d collectSecondWobblePose = new Pose2d(41, 35, Math.toRadians(180));
+    public static Pose2d secWobbleAPose = new Pose2d(-4, 39, Math.toRadians(250));
+    public static Pose2d secWobbleBPose = new Pose2d(-26, 19, Math.toRadians(250));
+    public static Pose2d secWobbleCPose = new Pose2d(-51, 48, Math.toRadians(250));
+    public static Pose2d parkPose = new Pose2d(-1, 30, Math.toRadians(180));
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajFull.colorCase = colorCase;
@@ -41,7 +42,9 @@ public class TrajFull extends Trajectories {
 
     public static Trajectory diskCollectTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .lineToSplineHeading(diskCollectPose)
+                .lineToSplineHeading(diskCollectPose,
+                        MyMecanumDrive.getVelocityConstraint(AutoCase.intakeVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(AutoCase.intakeAcc))
                 .addTemporalMarker(0.1, AutoUtil::startIntake)
                 .build();
     }
@@ -53,7 +56,7 @@ public class TrajFull extends Trajectories {
 //    }
 
     public static Trajectory releaseATrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
                 .lineToSplineHeading(releaseAPose)
                 .addTemporalMarker(0.7, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
@@ -65,7 +68,7 @@ public class TrajFull extends Trajectories {
     }
 
     public static Trajectory releaseBTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
                 .lineToSplineHeading(releaseBPose)
                 .addTemporalMarker(0.7, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
@@ -77,7 +80,7 @@ public class TrajFull extends Trajectories {
     }
 
     public static Trajectory releaseCTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
                 .lineToSplineHeading(releaseCPose)
                 .addTemporalMarker(1.5, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
@@ -87,24 +90,36 @@ public class TrajFull extends Trajectories {
                 })
                 .build();
     }
-
+    public static Trajectory returnBack(Pose2d pose2d) {
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+                .lineToSplineHeading(backPose)
+                .splineToLinearHeading(collectSecondWobblePose, Math.toRadians(0)) // spline to
+                //TODO Domi - fix the issue with A trajectory, arm hitting the 2nd wobble on return - solution, spline back with Spline heading
+                //.splineToLinearHeading(backPose, Math.toRadians(10)) // spline to
+                //.splineToLinearHeading(collectSecondWobblePose, Math.toRadians(0))
+                //Error: User code threw an uncaught exception: PathContinuityViolationException
+                .build();
+    }
 //    public static Trajectory returnBackA(Pose2d pose2d) {
 //        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-//                .lineToSplineHeading(backAPose)
+//                .lineToSplineHeading(backPose)
+//                .splineToLinearHeading(collectSecondWobblePose, Math.toRadians(0))
 //                .build();
 //    }
 //
 //    public static Trajectory returnBackB(Pose2d pose2d) {
 //        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-//                .lineToSplineHeading(backBPose)
+//                .lineToSplineHeading(backPose)
+//                .splineToLinearHeading(collectSecondWobblePose, Math.toRadians(0))
 //                .build();
 //    }
 //
-    public static Trajectory returnBackC(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(backCPose)
-                .build();
-    }
+//    public static Trajectory returnBackC(Pose2d pose2d) {
+//        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
+//                .lineToSplineHeading(backPose)
+//                .splineToLinearHeading(collectSecondWobblePose, Math.toRadians(0))
+//                .build();
+//    }
 
     public static Trajectory secondWobbleTrajA(Pose2d pose2d) {
         return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
@@ -125,9 +140,9 @@ public class TrajFull extends Trajectories {
     }
 
     public static Trajectory parkTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d,colorCase))
+        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
                 .lineToSplineHeading(parkPose)
-                .addTemporalMarker(0.7, () ->{
+                .addTemporalMarker(0.7, () -> {
                     Wobble.SetGrabberPosition(grabberPosition.GRAB);
                     Wobble.motorArmToPosition(wobblePosition.UP);
                 })
@@ -140,33 +155,5 @@ public class TrajFull extends Trajectories {
 //                .build();
 //    }
 
-    public static Trajectory returnBackA(Pose2d pose2d) {
-        return drive.trajectoryBuilder(pose2d)
-                .lineToSplineHeading(new Pose2d(pose2d.getX(), 36, Math.toRadians(180)),
-                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        MyMecanumDrive.getAccelerationConstraint(35))
-                .splineToConstantHeading(new Vector2d(38, 20), Math.toRadians(0),
-                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        MyMecanumDrive.getAccelerationConstraint(35))
-                .addTemporalMarker(2, () -> {
-                    AutoUtil.wallPosition(wallState.VERTICAL);
-                })
-                .build();
-    }
-
-
-    public static Trajectory returnBackB(Pose2d pose2d) {
-        return drive.trajectoryBuilder(pose2d)
-                .lineToSplineHeading(new Pose2d(pose2d.getX(), 20, Math.toRadians(180)),
-                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        MyMecanumDrive.getAccelerationConstraint(35))
-                .splineToConstantHeading(new Vector2d(38, 20), Math.toRadians(0),
-                        MyMecanumDrive.getVelocityConstraint(60, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
-                        MyMecanumDrive.getAccelerationConstraint(35))
-                .addTemporalMarker(2, () -> {
-                    AutoUtil.wallPosition(wallState.VERTICAL);
-                })
-                .build();
-    }
 
 }

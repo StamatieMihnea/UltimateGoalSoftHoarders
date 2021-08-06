@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
+import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
 import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
@@ -58,28 +59,18 @@ public class A extends AutoCase {
     }
 
     @Override
-    public void returnBack() {
-        switch (autoScene){
-            case FULL:
-                drive.followTrajectory(TrajFull.returnBackA(drive.getPoseEstimate()));
-                break;
-            case INTERMEDIATE1:
-
-                break;
-            case INTERMEDIATE2:
-                //drive.followTrajectory(TrajIntermTwo.returnBackA(drive.getPoseEstimate()));
-                break;
-            case WORST:
-
-                break;
-        }
-    }
-
-    @Override
     public void releaseSecondWobble() {
         switch (autoScene){
             case FULL:
                 drive.followTrajectory(TrajFull.secondWobbleTrajA(drive.getPoseEstimate()));
+                Wobble.motorArmToPosition(wobblePosition.DOWN);
+                opMode.sleep(500);
+                Wobble.wobbleRelease();
+                opMode.sleep(800);
+                Wobble.motorArmToPosition(wobblePosition.UP);
+                opMode.sleep(200);
+                Wobble.SetGrabberPosition(grabberPosition.GRAB);
+                opMode.sleep(700);
                 break;
             case INTERMEDIATE1:
 
