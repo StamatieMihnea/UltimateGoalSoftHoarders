@@ -18,6 +18,7 @@ import static java.lang.Thread.sleep;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 public abstract class AutoCase {
 
@@ -99,11 +100,12 @@ public abstract class AutoCase {
 //       // opMode.sleep(sleepForGrabbing);
    // }
 
-    public static void Intake() {
+    public static void Intake() throws InterruptedException {
         switch (autoScene){
             case FULL:
                 AutoUtil.startIntake();
                 drive.followTrajectory(TrajFull.diskCollectTrajectory(drive.getPoseEstimate()));
+                sleep(200);
                 AutoUtil.stopIntakeMotor();
                 AutoUtil.stopIntakeServo();
                 break;
@@ -162,15 +164,19 @@ public abstract class AutoCase {
             case FULL:
                 //Wobble.motorArmToPosition(wobblePosition.UP);
                 drive.followTrajectory(TrajFull.parkTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.parkTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
                 drive.followTrajectory(TrajIntermTwo.parkTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case WORST:
                 drive.followTrajectory(TrajWorst.ParkTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.INSIDE);
                 break;
         }
 

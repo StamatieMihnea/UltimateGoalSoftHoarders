@@ -10,6 +10,10 @@ public class VisualizerTest {
         Pose2d startPose = new Pose2d(-61.5, -14.6, Math.toRadians(180));
         // Declare a MeepMeep instance
         // With a field size of 800 pixels
+        Pose2d powerShotsPose1 = new Pose2d(40.5, 33.46, Math.toRadians(196));
+        Pose2d powerShotsPose2 = new Pose2d(40.5, 33.46, Math.toRadians(192));
+        Pose2d powerShotsPose3 = new Pose2d(40.5, 33.46, Math.toRadians(187));
+
         MeepMeep mm = new MeepMeep(800)
                 // Set field image
                 .setBackground(MeepMeep.Background.FIELD_ULTIMATE_GOAL_DARK)
@@ -23,11 +27,18 @@ public class VisualizerTest {
                 .setStartPose(new Pose2d(-61.5, -14.6, Math.toRadians(180)))
                 .followTrajectorySequence(drive ->
                         {
-                            return drive.trajectorySequenceBuilder(new Pose2d(10, 30, Math.toRadians(180)))
-                                    .lineToSplineHeading(new Pose2d(10, 36, java.lang.Math.toRadians(180)))
-                                    .splineToConstantHeading(new Vector2d(38, 21), java.lang.Math.toRadians(20))
+                            return drive.trajectorySequenceBuilder(new Pose2d(-61.5, -33.46, Math.toRadians(180)))
+                                    .lineToSplineHeading(powerShotsPose1)
+                                    .waitSeconds(0.5)
+                                    .splineToSplineHeading(powerShotsPose2, Math.toRadians(0))
+                                    .waitSeconds(0.5)
+                                    .splineToSplineHeading(powerShotsPose3, Math.toRadians(0))
+                                    .waitSeconds(0.5)
+                                    //Error: User code threw an uncaught exception: PathContinuityViolationException
+                                    //.lineToSplineHeading(new Pose2d(10, 36, java.lang.Math.toRadians(180)))
+                                    //.splineToConstantHeading(new Vector2d(38, 21), java.lang.Math.toRadians(20))
 
-                                    .waitSeconds(0.2)
+                                    //.waitSeconds(0.2)
 
 
 //                                    .lineToConstantHeading(new Vector2d(-39, -40))

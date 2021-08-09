@@ -23,13 +23,16 @@ public class Intermediate2RED extends LinearOpMode {
         Initializations.AutoInit(this, armCase.LEFT, TrajIntermTwo.getStartPose());
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
-        PowerShots.initialization(Trajectories.getDrive(),this);
+        PowerShots.initialization(Trajectories.getDrive(), this);
         DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("A",this);
+        DetectionCase.setAutoCase("C", this);
 
         PowerShots.run();
-        AutoCase.Intake();
-        AutoCase.Shoot();
+        if (DetectionCase.diskAmount != 0) { //stamatescu
+            AutoCase.Intake();
+            AutoCase.Shoot();
+        }
+
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();
     }

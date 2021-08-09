@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.Traj
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.Functionalities.PoseStorage;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
@@ -32,6 +33,7 @@ public class A extends AutoCase {
     public void releaseFirstWobble() {
         switch (autoScene){
             case FULL:
+                AutoUtil.stopShooting();
                 drive.followTrajectory(TrajFull.releaseATrajectory(drive.getPoseEstimate()));
                 break;
             case INTERMEDIATE1:
@@ -39,6 +41,7 @@ public class A extends AutoCase {
                 //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 break;
             case INTERMEDIATE2:
+                AutoUtil.wallPosition(wallState.INSIDE);
                 drive.followTrajectory(TrajIntermTwo.releaseATrajectory(drive.getPoseEstimate()));
                 //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 //opMode.sleep(wobbleArmSleep);

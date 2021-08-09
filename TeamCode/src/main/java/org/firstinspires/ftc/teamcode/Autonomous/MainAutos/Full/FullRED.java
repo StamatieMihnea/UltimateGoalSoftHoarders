@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
 @Autonomous(name = "FullRED")
@@ -28,20 +29,16 @@ public class FullRED extends LinearOpMode {
 
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.FULL);
-        DetectionCase.setAutoCase("C",this);
+        DetectionCase.setAutoCase("C", this);
         PowerShots.run();
-
-        if (DetectionCase.diskAmount!=0) {
+        /**if (DetectionCase.diskAmount != 0) { //stamatescu
             AutoCase.Intake();
             AutoCase.Shoot();
         }
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.returnBack();
         DetectionCase.autoCase.releaseSecondWobble();
-        AutoCase.Park();
-
-
-
+        AutoCase.Park();*/
     }
 
 }

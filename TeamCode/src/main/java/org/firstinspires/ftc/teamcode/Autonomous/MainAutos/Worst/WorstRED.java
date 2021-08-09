@@ -17,13 +17,13 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 public class WorstRED extends LinearOpMode {
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
 
         TrajWorst.initSpecificTraj(ColorCase.RED);
         Initializations.AutoInit(this, armCase.LEFT, TrajWorst.getStartPose());
         waitForStart();
         DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("C",this);
+        DetectionCase.setAutoCase("C", this);
         AutoCase.setAutoScene(AutoScenes.WORST);
 
         AutoCase.Shoot();
