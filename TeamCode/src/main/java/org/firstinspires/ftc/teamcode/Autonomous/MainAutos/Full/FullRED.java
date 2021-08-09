@@ -14,10 +14,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
-import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
-import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
-import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 @Autonomous(name = "FullRED")
 public class FullRED extends LinearOpMode {
@@ -39,10 +36,6 @@ public class FullRED extends LinearOpMode {
             AutoCase.Shoot();
         }
         DetectionCase.autoCase.releaseFirstWobble();
-//        Wobble.setGrabberCase(armCase.LEFT);
-//        Wobble.motorArmToPosition(wobblePosition.DOWN);
-//        sleep(500);
-//        Wobble.SetGrabberPosition(grabberPosition.FREE);
         AutoCase.returnBack();
         DetectionCase.autoCase.releaseSecondWobble();
         AutoCase.Park();

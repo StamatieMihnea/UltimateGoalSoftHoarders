@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 @Autonomous(name = "Intermediate1BLUE")
 public class Intermediate1BLUE extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         TrajIntermOne.initSpecificTraj(ColorCase.BLUE);
         Initializations.AutoInit(this, armCase.RIGHT, TrajIntermOne.getStartPose());
         waitForStart();

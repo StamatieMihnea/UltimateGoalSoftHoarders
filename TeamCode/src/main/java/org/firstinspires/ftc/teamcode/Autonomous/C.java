@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
 import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 import static org.firstinspires.ftc.teamcode.Autonomous.Initializations.drive;
-import static java.lang.Thread.sleep;
 
 public class C extends AutoCase {
 //

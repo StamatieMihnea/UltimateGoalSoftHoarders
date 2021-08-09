@@ -14,18 +14,15 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 @Autonomous(name = "WorstBLUE")
 public class WorstBLUE extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         TrajWorst.initSpecificTraj(ColorCase.BLUE);
         Initializations.AutoInit(this, armCase.RIGHT, TrajWorst.getStartPose());
         waitForStart();
-
         DiskAmountDetection.stopDetection();
         DetectionCase.setAutoCase("C", this);
         AutoCase.setAutoScene(AutoScenes.WORST);
 
         AutoCase.Shoot();
         AutoCase.Park();
-
     }
-
 }

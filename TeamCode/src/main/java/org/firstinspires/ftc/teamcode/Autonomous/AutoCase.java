@@ -61,9 +61,7 @@ public abstract class AutoCase {
     public static void returnBack() throws InterruptedException {
         switch (autoScene){
             case FULL:
-                drive.followTrajectory(TrajFull.linearReturnBack(drive.getPoseEstimate()));
-///                drive.followTrajectory(TrajFull.returnBack(drive.getPoseEstimate()));
-///                drive.followTrajectory(TrajFull.collectSecondWobble(drive.getPoseEstimate()));
+                drive.followTrajectory(TrajFull.returnBack(drive.getPoseEstimate()));
                 Wobble.SetGrabberPosition(grabberPosition.GRAB);
                 sleep(700);
                 Wobble.motorArmToPosition(wobblePosition.UP);

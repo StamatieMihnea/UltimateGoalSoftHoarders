@@ -16,12 +16,11 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 @Autonomous(name = "Intermediate2BLUE")
 public class Intermediate2BLUE extends LinearOpMode {
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         TrajIntermTwo.initSpecificTraj(ColorCase.BLUE);
         Initializations.AutoInit(this, armCase.RIGHT, TrajIntermTwo.getStartPose());
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
-
         PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
         DiskAmountDetection.stopDetection();
         DetectionCase.setAutoCase("C", this);
@@ -34,6 +33,5 @@ public class Intermediate2BLUE extends LinearOpMode {
 
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();
-
     }
 }

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 public class WorstRED extends LinearOpMode {
 
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() {
 
         TrajWorst.initSpecificTraj(ColorCase.RED);
         Initializations.AutoInit(this, armCase.LEFT, TrajWorst.getStartPose());

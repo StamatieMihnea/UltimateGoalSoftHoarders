@@ -15,6 +15,9 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 public class TrajIntermTwo extends Trajectories {
 
+    //public static Pose2d powerShotsPose = new Pose2d(42, 33.46,Math.toRadians(195)); //195
+
+    //public static Pose2d shootPose = new Pose2d(0, 0, Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-5, 52, Math.toRadians(50));
     public static Pose2d releaseBPose = new Pose2d(-28, 32, Math.toRadians(50));
     public static Pose2d releaseCPose = new Pose2d(-48, 52, Math.toRadians(50));
