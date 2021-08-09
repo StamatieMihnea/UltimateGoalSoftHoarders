@@ -28,7 +28,7 @@ public class TrajFull extends Trajectories {
     public static Pose2d releaseBPose = new Pose2d(-28, 27, Math.toRadians(250));
     public static Pose2d releaseCPose = new Pose2d(-53, 39, Math.toRadians(250));
     public static Pose2d backPose = new Pose2d(35.5, 22, Math.toRadians(180));
-//    public static Pose2d backAPose = new Pose2d(41, 32, Math.toRadians(180));
+    //    public static Pose2d backAPose = new Pose2d(41, 32, Math.toRadians(180));
 //    public static Pose2d backBPose = new Pose2d(41, 32, Math.toRadians(180));
 //    public static Pose2d backCPose = new Pose2d(41, 32, Math.toRadians(180));
     public static Pose2d collectSecondWobblePose = new Pose2d(42, 34, Math.toRadians(180));
@@ -39,7 +39,13 @@ public class TrajFull extends Trajectories {
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajFull.colorCase = colorCase;
-        setStartPose(new Pose2d(61.5, 33.46, Math.toRadians(180)), colorCase);
+        if (colorCase==ColorCase.RED) {
+            setStartPose(new Pose2d(61.5, 33.46, Math.toRadians(180)), colorCase);
+        }
+        else {
+            setStartPose(new Pose2d(61.5, 33.46 - 3, Math.toRadians(180)), colorCase);
+        }
+
     }
 
     public static Trajectory diskCollectTrajectory(Pose2d pose2d) {
@@ -92,10 +98,16 @@ public class TrajFull extends Trajectories {
                 })
                 .build();
     }
+
     public static Trajectory returnBack(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .splineToSplineHeading(PositonCaseModifier.correct(backPose, colorCase), Math.toRadians(20))
-                .splineToLinearHeading(PositonCaseModifier.correct(collectSecondWobblePose, colorCase), Math.toRadians(90))
+                .lineToSplineHeading(PositonCaseModifier.correct(backPose, colorCase))
+                .build();
+    }
+
+    public static Trajectory collectSecondWobbleTrajectory(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(PositonCaseModifier.correct(collectSecondWobblePose, colorCase))
                 .build();
     }
 //    public static Trajectory returnBackA(Pose2d pose2d) {

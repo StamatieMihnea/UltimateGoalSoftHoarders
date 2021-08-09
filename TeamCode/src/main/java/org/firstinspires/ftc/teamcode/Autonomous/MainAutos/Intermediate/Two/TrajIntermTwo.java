@@ -27,7 +27,12 @@ public class TrajIntermTwo extends Trajectories {
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajIntermTwo.colorCase = colorCase;
-        setStartPose(new Pose2d(61.5, 33.46, Math.toRadians(180)), colorCase);
+        if (colorCase==ColorCase.RED) {
+            setStartPose(new Pose2d(61.5, 33.46, Math.toRadians(180)), colorCase);
+        }
+        else {
+            setStartPose(new Pose2d(61.5, 33.46 - 3, Math.toRadians(180)), colorCase);
+        }
     }
 
 

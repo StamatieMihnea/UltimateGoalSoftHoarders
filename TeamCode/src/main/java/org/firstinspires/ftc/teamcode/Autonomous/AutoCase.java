@@ -62,6 +62,7 @@ public abstract class AutoCase {
         switch (autoScene){
             case FULL:
                 drive.followTrajectory(TrajFull.returnBack(drive.getPoseEstimate()));
+                drive.followTrajectory(TrajFull.collectSecondWobbleTrajectory(drive.getPoseEstimate()));
                 Wobble.SetGrabberPosition(grabberPosition.GRAB);
                 sleep(700);
                 Wobble.motorArmToPosition(wobblePosition.UP);
