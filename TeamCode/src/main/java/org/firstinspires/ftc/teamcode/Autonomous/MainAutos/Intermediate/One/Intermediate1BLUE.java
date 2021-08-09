@@ -1,4 +1,28 @@
 package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One;
 
-public class Intermediate1BLUE {
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoScenes;
+import org.firstinspires.ftc.teamcode.Autonomous.Initializations;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
+import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
+
+@Autonomous(name = "Intermediate1BLUE")
+public class Intermediate1BLUE extends LinearOpMode {
+    @Override
+    public void runOpMode() throws InterruptedException{
+        TrajIntermOne.initSpecificTraj(ColorCase.BLUE);
+        Initializations.AutoInit(this, armCase.RIGHT, TrajIntermOne.getStartPose());
+        waitForStart();
+        DiskAmountDetection.stopDetection();
+        AutoCase.setAutoScene(AutoScenes.INTERMEDIATE1);
+
+        AutoCase.Shoot();
+        DetectionCase.autoCase.releaseFirstWobble();
+        AutoCase.Park();
+    }
 }

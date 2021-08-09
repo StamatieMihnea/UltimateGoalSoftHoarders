@@ -22,8 +22,8 @@ public class TrajWorst extends Trajectories {
     }
 
     public static Trajectory shootTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(shootPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(shootPose, colorCase))
                 .addTemporalMarker(0.5, () -> {
                     AutoUtil.startShooting();
                 })
@@ -31,8 +31,8 @@ public class TrajWorst extends Trajectories {
     }
 
     public static Trajectory ParkTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(parkPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(parkPose, colorCase))
                 .build();
     }
 }

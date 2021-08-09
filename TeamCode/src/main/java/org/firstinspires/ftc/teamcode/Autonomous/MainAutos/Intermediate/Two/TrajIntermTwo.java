@@ -15,9 +15,6 @@ import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
 
 public class TrajIntermTwo extends Trajectories {
 
-    //public static Pose2d powerShotsPose = new Pose2d(42, 33.46,Math.toRadians(195)); //195
-
-    //public static Pose2d shootPose = new Pose2d(0, 0, Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-5, 52, Math.toRadians(50));
     public static Pose2d releaseBPose = new Pose2d(-28, 32, Math.toRadians(50));
     public static Pose2d releaseCPose = new Pose2d(-48, 52, Math.toRadians(50));
@@ -32,8 +29,8 @@ public class TrajIntermTwo extends Trajectories {
 
 
     public static Trajectory releaseATrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(releaseAPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(releaseAPose, colorCase))
                 .addTemporalMarker(1.5, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
                 })
@@ -44,8 +41,8 @@ public class TrajIntermTwo extends Trajectories {
     }
 
     public static Trajectory releaseBTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(releaseBPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(releaseBPose, colorCase))
                 .addTemporalMarker(1.3, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
                 })
@@ -56,8 +53,8 @@ public class TrajIntermTwo extends Trajectories {
     }
 
     public static Trajectory releaseCTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(releaseCPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(releaseCPose, colorCase))
                 .addTemporalMarker(2.2, () -> {
                     Wobble.motorArmToPosition(wobblePosition.DOWN);
                 })
@@ -69,7 +66,7 @@ public class TrajIntermTwo extends Trajectories {
 
     public static Trajectory diskCollectTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .lineToSplineHeading(diskCollectPose)
+                .lineToSplineHeading(PositonCaseModifier.correct(diskCollectPose, colorCase))
                 .addTemporalMarker(0.1, AutoUtil::startIntake)
                 .build();
     }
@@ -80,8 +77,8 @@ public class TrajIntermTwo extends Trajectories {
 //    }
 
     public static Trajectory parkTrajectory(Pose2d pose2d) {
-        return drive.trajectoryBuilder(PositonCaseModifier.correct(pose2d, colorCase))
-                .lineToSplineHeading(parkPose)
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(parkPose, colorCase))
                 .addTemporalMarker(0.7, () -> {
                     Wobble.SetGrabberPosition(grabberPosition.GRAB);
                     Wobble.motorArmToPosition(wobblePosition.UP);

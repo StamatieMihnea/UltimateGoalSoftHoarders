@@ -10,9 +10,7 @@ public class VisualizerTest {
         Pose2d startPose = new Pose2d(-61.5, -14.6, Math.toRadians(180));
         // Declare a MeepMeep instance
         // With a field size of 800 pixels
-        Pose2d powerShotsPose1 = new Pose2d(40.5, 33.46, Math.toRadians(196));
-        Pose2d powerShotsPose2 = new Pose2d(40.5, 33.46, Math.toRadians(192));
-        Pose2d powerShotsPose3 = new Pose2d(40.5, 33.46, Math.toRadians(187));
+        Pose2d pickSecondWobble = new Pose2d(-30, -47, Math.toRadians(250));
 
         MeepMeep mm = new MeepMeep(800)
                 // Set field image
@@ -27,13 +25,8 @@ public class VisualizerTest {
                 .setStartPose(new Pose2d(-61.5, -14.6, Math.toRadians(180)))
                 .followTrajectorySequence(drive ->
                         {
-                            return drive.trajectorySequenceBuilder(new Pose2d(-61.5, -33.46, Math.toRadians(180)))
-                                    .lineToSplineHeading(powerShotsPose1)
-                                    .waitSeconds(0.5)
-                                    .splineToSplineHeading(powerShotsPose2, Math.toRadians(0))
-                                    .waitSeconds(0.5)
-                                    .splineToSplineHeading(powerShotsPose3, Math.toRadians(0))
-                                    .waitSeconds(0.5)
+                            return drive.trajectorySequenceBuilder(new Pose2d(53, -44, Math.toRadians(250)))
+                                    .lineToLinearHeading(pickSecondWobble)
                                     //Error: User code threw an uncaught exception: PathContinuityViolationException
                                     //.lineToSplineHeading(new Pose2d(10, 36, java.lang.Math.toRadians(180)))
                                     //.splineToConstantHeading(new Vector2d(38, 21), java.lang.Math.toRadians(20))
