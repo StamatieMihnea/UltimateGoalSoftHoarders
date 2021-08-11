@@ -22,7 +22,7 @@ import org.opencv.core.Mat;
 public class TrajFull extends Trajectories {
 
     public static ColorCase colorCase;
-    public static Pose2d diskCollectPose = new Pose2d(10, 33.46, Math.toRadians(180));
+    public static Pose2d diskCollectPose = new Pose2d(14, 33.46, Math.toRadians(180)); //10
     //public static Pose2d shootPose = new Pose2d(0,0,Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-6, 48, Math.toRadians(250));
     public static Pose2d releaseBPose = new Pose2d(-28, 27, Math.toRadians(250));

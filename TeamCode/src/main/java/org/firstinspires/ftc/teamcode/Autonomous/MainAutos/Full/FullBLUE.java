@@ -28,6 +28,7 @@ public class FullBLUE extends LinearOpMode {
         DetectionCase.setAutoCase("C", this);
 
         PowerShots.run();
+
         if (DetectionCase.diskAmount != 0) { //stamatescu
             AutoCase.Intake();
             AutoCase.Shoot();

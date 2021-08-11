@@ -56,6 +56,7 @@ public class PowerShots {
         drive.followTrajectory(powerShotsTrajectory(drive.getPoseEstimate()));
         AutoUtil.shoot(true, true);
         GyroPID.rotate(firstRotation, opMode.telemetry, opMode);
+        //AutoUtil.shooterAngle(shooterState.POWER_SHOTS-);
         //drive.turn(Math.toRadians(firstRotation));
         //drive.followTrajectory(powerShotsTrajectory2(drive.getPoseEstimate()));
         AutoUtil.shoot(true, true);
