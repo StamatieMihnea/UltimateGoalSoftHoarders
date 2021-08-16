@@ -23,7 +23,8 @@ public class Intermediate1RED extends LinearOpMode {
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE1);
 
-        AutoCase.Shoot();
+
+        DetectionCase.autoCase.Shoot();
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();
 

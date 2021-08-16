@@ -26,7 +26,8 @@ public class WorstRED extends LinearOpMode {
         DetectionCase.setAutoCase("C", this);
         AutoCase.setAutoScene(AutoScenes.WORST);
 
-        AutoCase.Shoot();
+
+        DetectionCase.autoCase.Shoot();
         AutoCase.Park();
     }
 }

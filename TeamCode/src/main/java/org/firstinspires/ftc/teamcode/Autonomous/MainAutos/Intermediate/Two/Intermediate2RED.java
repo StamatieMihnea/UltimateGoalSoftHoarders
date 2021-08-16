@@ -30,7 +30,7 @@ public class Intermediate2RED extends LinearOpMode {
         PowerShots.run();
         if (DetectionCase.diskAmount != 0) { //stamatescu
             AutoCase.Intake();
-            AutoCase.Shoot();
+            DetectionCase.autoCase.Shoot();
         }
 
         DetectionCase.autoCase.releaseFirstWobble();

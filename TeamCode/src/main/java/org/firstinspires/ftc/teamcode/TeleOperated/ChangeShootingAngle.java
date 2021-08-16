@@ -12,7 +12,7 @@ public class ChangeShootingAngle {
 
     public static final double shootPosition = 0.66;
     public static final double genericPosition = 0.562;
-    public static final double rightOffset = 0.105;
+    public static final double rightOffset = 0.105; //0.105
 
     private static final double incrementValue = 0.03;
     private static final double upperLimit = 0.7;

@@ -6,9 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoIntakeShoot;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
@@ -27,6 +30,37 @@ public class B extends AutoCase {
 //    public static double secondWobbleHeading = 300f;
 
     private final LinearOpMode opMode;
+
+    @Override
+    public void Shoot(){
+        switch (autoScene){
+            case INTERMEDIATE1:
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
+                break;
+            case FULL:
+            case INTERMEDIATE2:
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                AutoUtil.startShooting();
+                drive.followTrajectory(TrajFull.ShootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shoot(true,true);
+                AutoUtil.wallPosition(wallState.INSIDE);
+                break;
+            case WORST:
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
+                break;
+        }
+
+
+    }
 
     @Override
     public void releaseFirstWobble() {

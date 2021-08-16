@@ -21,18 +21,19 @@ public class FullBLUE extends LinearOpMode {
         TrajFull.initSpecificTraj(ColorCase.BLUE);
         Initializations.AutoInit(this, armCase.LEFT, TrajFull.getStartPose());
         waitForStart();
-        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
 
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.FULL);
-        DetectionCase.setAutoCase("C", this);
+        DetectionCase.setAutoCase("B", this);
 
+
+        DetectionCase.autoCase.Shoot();
+        if (DetectionCase.diskAmount!=0) {
+            AutoCase.Intake();
+        }
+        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
         PowerShots.run();
 
-        if (DetectionCase.diskAmount != 0) { //stamatescu
-            AutoCase.Intake();
-            AutoCase.Shoot();
-        }
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.returnBack();
         DetectionCase.autoCase.releaseSecondWobble();

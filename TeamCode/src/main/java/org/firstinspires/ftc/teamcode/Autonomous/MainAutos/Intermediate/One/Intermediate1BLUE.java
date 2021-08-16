@@ -21,8 +21,23 @@ public class Intermediate1BLUE extends LinearOpMode {
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.INTERMEDIATE1);
 
-        AutoCase.Shoot();
+
+        DetectionCase.autoCase.Shoot();
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();
     }
 }
+
+//TODO date nationala
+//23 august zoom
+//hibrid
+//juriz online 28 aug
+//5copii+mentor in sala
+//m multi?? org
+//2 de joc + 1 antr
+//fara stand, doar masa+priza+scaune
+//rollup/banner
+//fara piese rezerva de la natie
+//+ringuri bune
+//cazare de la noi
+//polivalenta - parc tineretului

@@ -20,11 +20,11 @@ public class GeneralAutoParameters {
     public static double wobbleVel = 20;
     public static double wobbleAcc = 20;
 
-    public static double shootSpeed = 1300;
+    public static double shootSpeed = 1300;//1300
     public static double shootPoseX = 10.5;
     public static double shootPoseY = 35;
     public static double shootAngle = 180;
 
     public static double intakeAngle = 0.5;
-    public static double shooterAngleTower = 0.60; //0.68 //era 0.59, valoarea aste este pt REDintermediate1 TODO
+    public static double shooterAngleTower = 0.62; //0.68 //era 0.59, valoarea aste este pt REDintermediate1 TODO
 }

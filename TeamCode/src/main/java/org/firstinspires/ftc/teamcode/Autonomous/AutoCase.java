@@ -116,6 +116,7 @@ public abstract class AutoCase {
             case INTERMEDIATE2:
                 AutoUtil.startIntake();
                 drive.followTrajectory(TrajIntermTwo.diskCollectTrajectory(drive.getPoseEstimate()));
+                sleep(200);
                 AutoUtil.stopIntakeMotor();
                 AutoUtil.stopIntakeServo();
                 //maybe trajectory 2 for the 4th disk
@@ -129,32 +130,35 @@ public abstract class AutoCase {
         }
     }
 
-    public static void Shoot() {
-        switch (autoScene){
-            case INTERMEDIATE1:
-                AutoUtil.wallPosition(wallState.VERTICAL);
-                AutoUtil.shooterAngle(shooterState.SHOOT);
-                drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
-                AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
-                break;
-            case FULL:
-            case INTERMEDIATE2:
-                AutoUtil.shooterAngle(shooterState.SHOOT);
-                AutoUtil.startShooting();
-                AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
-                AutoUtil.stopShooting();
-                break;
-            case WORST:
-                AutoUtil.wallPosition(wallState.VERTICAL);
-                AutoUtil.shooterAngle(shooterState.SHOOT);
-                drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
-                AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
-                break;
-        }
-    }
+
+    public abstract void Shoot();
+
+//    public static void Shoot() {
+//        switch (autoScene){
+//            case INTERMEDIATE1:
+//                AutoUtil.wallPosition(wallState.VERTICAL);
+//                AutoUtil.shooterAngle(shooterState.SHOOT);
+//                drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
+//                AutoUtil.shoot3Disks();
+//                AutoUtil.wallPosition(wallState.INSIDE);
+//                break;
+//            case FULL:
+//            case INTERMEDIATE2:
+//                AutoUtil.shooterAngle(shooterState.SHOOT);
+//                AutoUtil.startShooting();
+//                AutoUtil.shoot3Disks();
+//                AutoUtil.wallPosition(wallState.INSIDE);
+//                AutoUtil.stopShooting();
+//                break;
+//            case WORST:
+//                AutoUtil.wallPosition(wallState.VERTICAL);
+//                AutoUtil.shooterAngle(shooterState.SHOOT);
+//                drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
+//                AutoUtil.shoot3Disks();
+//                AutoUtil.wallPosition(wallState.INSIDE);
+//                break;
+//        }
+//    }
 
     public abstract void releaseSecondWobble();
 

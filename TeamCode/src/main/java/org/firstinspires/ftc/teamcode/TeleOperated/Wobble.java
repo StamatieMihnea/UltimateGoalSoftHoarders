@@ -32,7 +32,7 @@ public class Wobble {
     private static wobblePosition currentPose = wobblePosition.UP;
 
     private static int wobbleUpPose = 0;
-    private static int wobbleDownPose = 1680;
+    private static int wobbleDownPose = 1480;
     private static int wobbleMidPose = 580;
 
     private static final OneTap sumUp = new OneTap();

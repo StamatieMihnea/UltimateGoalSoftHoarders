@@ -3,12 +3,15 @@ package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.PowerShotsAdrian;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
 import org.firstinspires.ftc.teamcode.TeleOperated.wobblePosition;
@@ -20,9 +23,9 @@ public class TrajIntermTwo extends Trajectories {
     //public static Pose2d shootPose = new Pose2d(0, 0, Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-5, 52, Math.toRadians(50));
     public static Pose2d releaseBPose = new Pose2d(-28, 32, Math.toRadians(50));
-    public static Pose2d releaseCPose = new Pose2d(-48, 52, Math.toRadians(50));
+    public static Pose2d releaseCPose = new Pose2d(-45, 49, Math.toRadians(50));
     public static Pose2d parkPose = new Pose2d(-5, 30, Math.toRadians(180));
-    public static Pose2d diskCollectPose = new Pose2d(14, 33.46, Math.toRadians(180));
+    public static Pose2d diskCollectPose = new Pose2d(15.5, 33.46, Math.toRadians(180));
     public static ColorCase colorCase;
 
     public static void initSpecificTraj(ColorCase colorCase) {
@@ -72,9 +75,12 @@ public class TrajIntermTwo extends Trajectories {
                 .build();
     }
 
+
     public static Trajectory diskCollectTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .lineToSplineHeading(PositonCaseModifier.correct(diskCollectPose, colorCase))
+                .lineToSplineHeading(PositonCaseModifier.correct(diskCollectPose, colorCase),
+                        MyMecanumDrive.getVelocityConstraint(AutoCase.intakeVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
+                        MyMecanumDrive.getAccelerationConstraint(AutoCase.intakeAcc))
                 .addTemporalMarker(0.1, AutoUtil::startIntake)
                 .build();
     }
