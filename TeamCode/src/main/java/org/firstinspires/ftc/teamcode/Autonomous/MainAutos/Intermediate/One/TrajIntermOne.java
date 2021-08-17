@@ -80,7 +80,7 @@ public class TrajIntermOne extends Trajectories {
     public static Trajectory parkTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(PositonCaseModifier.correct(parkPose,colorCase))
-                .addTemporalMarker(0.7, () ->{
+                .addTemporalMarker(1, () ->{
                     Wobble.SetGrabberPosition(grabberPosition.GRAB);
                     Wobble.motorArmToPosition(wobblePosition.UP);
                 })

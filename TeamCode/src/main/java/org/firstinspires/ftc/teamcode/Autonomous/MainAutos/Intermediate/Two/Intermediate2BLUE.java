@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.apache.commons.math3.analysis.function.Pow;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoCase;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoScenes;
 import org.firstinspires.ftc.teamcode.Autonomous.Initializations;
@@ -17,20 +18,22 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 public class Intermediate2BLUE extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+
         TrajIntermTwo.initSpecificTraj(ColorCase.BLUE);
         Initializations.AutoInit(this, armCase.RIGHT, TrajIntermTwo.getStartPose());
-        AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
         waitForStart();
-        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
-        DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("C", this);
 
-        PowerShots.run();
+        DiskAmountDetection.stopDetection();
+        AutoCase.setAutoScene(AutoScenes.INTERMEDIATE2);
+        DetectionCase.setAutoCase("A", this);
+
+        DetectionCase.autoCase.Shoot();
         if (DetectionCase.diskAmount != 0) { //stamatescu
             AutoCase.Intake();
-
-            DetectionCase.autoCase.Shoot();
         }
+
+        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
+        PowerShots.run();
 
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.Park();

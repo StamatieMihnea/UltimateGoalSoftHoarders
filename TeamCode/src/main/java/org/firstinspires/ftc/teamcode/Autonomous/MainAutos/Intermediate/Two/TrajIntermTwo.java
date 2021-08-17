@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PositonCaseModifier;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
@@ -20,12 +21,13 @@ public class TrajIntermTwo extends Trajectories {
 
     //public static Pose2d powerShotsPose = new Pose2d(42, 33.46,Math.toRadians(195)); //195
 
-    //public static Pose2d shootPose = new Pose2d(0, 0, Math.toRadians(180));
+    public static Pose2d shootPose = new Pose2d(42, 33.46,Math.toRadians(180));
     public static Pose2d releaseAPose = new Pose2d(-5, 52, Math.toRadians(50));
     public static Pose2d releaseBPose = new Pose2d(-28, 32, Math.toRadians(50));
     public static Pose2d releaseCPose = new Pose2d(-45, 49, Math.toRadians(50));
     public static Pose2d parkPose = new Pose2d(-5, 30, Math.toRadians(180));
-    public static Pose2d diskCollectPose = new Pose2d(15.5, 33.46, Math.toRadians(180));
+    //public static Pose2d diskCollectPose = new Pose2d(15.5, 33.46, Math.toRadians(180));
+    public static Pose2d diskCollectPose = new Pose2d(10, 32, Math.toRadians(180));
     public static ColorCase colorCase;
 
     public static void initSpecificTraj(ColorCase colorCase) {
@@ -100,4 +102,18 @@ public class TrajIntermTwo extends Trajectories {
                 .build();
     }
 
+    public static Trajectory goToDiskCollectPoseWithoutIntake(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(diskCollectPose, colorCase))
+                .build();
+    }
+
+    public static Trajectory ShootTrajectory(Pose2d pose2d) {
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositonCaseModifier.correct(shootPose, colorCase))
+                .addTemporalMarker(0.7, () -> {
+                    AutoUtil.wallPosition(wallState.VERTICAL);
+                })
+                .build();
+    }
 }

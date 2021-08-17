@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
-@Autonomous (name = "FullBLUE")
+@Autonomous(name = "FullBLUE")
 public class FullBLUE extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,13 +24,13 @@ public class FullBLUE extends LinearOpMode {
 
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.FULL);
-        DetectionCase.setAutoCase("B", this);
-
+        DetectionCase.setAutoCase("A", this);
 
         DetectionCase.autoCase.Shoot();
-        if (DetectionCase.diskAmount!=0) {
+        if (DetectionCase.diskAmount != 0) {
             AutoCase.Intake();
         }
+
         PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.BLUE);
         PowerShots.run();
 

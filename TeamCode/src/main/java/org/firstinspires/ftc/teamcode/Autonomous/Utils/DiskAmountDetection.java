@@ -97,7 +97,7 @@ public class DiskAmountDetection {
             //TODO : increase the multiplier (18-19) and make the result 0 when all the mat is white
 
             double redAmount = (int) Core.sumElems(finalMat).val[0];
-            DetectionCase.diskAmount = 1; //getDiskAmount(redAmount); //TODO nu merge detectarea ta adriene
+            DetectionCase.diskAmount = 4; //getDiskAmount(redAmount); //TODO nu merge detectarea ta adriene
             DetectionCase.updateAutoCase(opMode);
             telemetry.addData("The red amount is:", redAmount);
             telemetry.addData("The number of disks is:", DetectionCase.diskAmount);

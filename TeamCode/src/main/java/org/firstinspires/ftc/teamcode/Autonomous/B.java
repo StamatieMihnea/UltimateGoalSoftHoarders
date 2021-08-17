@@ -42,10 +42,17 @@ public class B extends AutoCase {
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case FULL:
-            case INTERMEDIATE2:
                 AutoUtil.shooterAngle(shooterState.SHOOT);
                 AutoUtil.startShooting();
                 drive.followTrajectory(TrajFull.ShootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.wallPosition(wallState.VERTICAL);
+                AutoUtil.shoot(true,true);
+                AutoUtil.wallPosition(wallState.INSIDE);
+                break;
+            case INTERMEDIATE2:
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                AutoUtil.startShooting();
+                drive.followTrajectory(TrajIntermTwo.ShootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shoot(true,true);
                 AutoUtil.wallPosition(wallState.INSIDE);

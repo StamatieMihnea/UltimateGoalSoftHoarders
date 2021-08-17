@@ -33,8 +33,8 @@ public class C extends AutoCase {
     private final LinearOpMode opMode;
 
     @Override
-    public void Shoot(){
-        switch (autoScene){
+    public void Shoot() {
+        switch (autoScene) {
             case INTERMEDIATE1:
                 AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shooterAngle(shooterState.SHOOT);
@@ -43,14 +43,20 @@ public class C extends AutoCase {
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case FULL:
-            case INTERMEDIATE2:
                 AutoUtil.shooterAngle(shooterState.SHOOT);
                 AutoUtil.startShooting();
                 drive.followTrajectory(TrajFull.ShootTrajectory(drive.getPoseEstimate()));
-
                 AutoUtil.shoot3Disks();
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
+            case INTERMEDIATE2:
+                AutoUtil.shooterAngle(shooterState.SHOOT);
+                AutoUtil.startShooting();
+                drive.followTrajectory(TrajIntermTwo.ShootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
+                AutoUtil.wallPosition(wallState.INSIDE);
+                break;
+
             case WORST:
                 AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shooterAngle(shooterState.SHOOT);
@@ -65,7 +71,7 @@ public class C extends AutoCase {
 
     @Override
     public void releaseFirstWobble() {
-        switch (autoScene){
+        switch (autoScene) {
             case FULL:
                 drive.followTrajectory(TrajFull.releaseCTrajectory(drive.getPoseEstimate()));
                 break;
@@ -79,7 +85,6 @@ public class C extends AutoCase {
                 //opMode.sleep(wobbleArmSleep);
                 break;
             case WORST:
-
                 break;
         }
 //        drive.followTrajectory(Trajectories.firstWobbleReleaseC(drive.getPoseEstimate()));
@@ -89,7 +94,7 @@ public class C extends AutoCase {
 
     @Override
     public void releaseSecondWobble() {
-        switch (autoScene){
+        switch (autoScene) {
             case FULL:
                 drive.followTrajectory(TrajFull.secondWobbleTrajC(drive.getPoseEstimate()));
                 Wobble.motorArmToPosition(wobblePosition.DOWN);

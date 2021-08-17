@@ -17,9 +17,9 @@ public class Wobble {
     private static int lastLeftGrabberPosition = 0;
     private static int lastRightGrabberPosition = 0;
 
-    private static final double grabRightBlocker = 0.30;
+    private static final double grabRightBlocker = 0.28;
     private static final double freeRightBlocker = 0.50;
-    private static final double grabLeftBlocker = 0.83;
+    private static final double grabLeftBlocker = 0.85;
     private static final double freeLeftBlocker = 0.60;
 
     private static final double leftGrabPosition = 0.82f;

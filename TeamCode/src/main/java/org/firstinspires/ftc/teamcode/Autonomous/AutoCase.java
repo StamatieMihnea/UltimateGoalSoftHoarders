@@ -66,6 +66,7 @@ public abstract class AutoCase {
                 Wobble.SetGrabberPosition(grabberPosition.GRAB);
                 sleep(700);
                 Wobble.motorArmToPosition(wobblePosition.UP);
+                //sleep(700);
                 break;
             case INTERMEDIATE1:
                 break;

@@ -25,21 +25,34 @@ public class FullRED extends LinearOpMode {
         TrajFull.initSpecificTraj(ColorCase.RED);
         Initializations.AutoInit(this, armCase.RIGHT, TrajFull.getStartPose());
         waitForStart();
-        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.RED);
+        //PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.RED);
 
         DiskAmountDetection.stopDetection();
         AutoCase.setAutoScene(AutoScenes.FULL);
         DetectionCase.setAutoCase("C", this);
-        PowerShots.run();
-        if (DetectionCase.diskAmount != 0) { //stamatescu
-            AutoCase.Intake();
 
-            DetectionCase.autoCase.Shoot();
+        DetectionCase.autoCase.Shoot();
+        if (DetectionCase.diskAmount != 0) {
+            AutoCase.Intake();
         }
+        PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.RED);
+        PowerShots.run();
+
         DetectionCase.autoCase.releaseFirstWobble();
         AutoCase.returnBack();
         DetectionCase.autoCase.releaseSecondWobble();
         AutoCase.Park();
+
+        //        PowerShots.run();
+//        if (DetectionCase.diskAmount != 0) { //stamatescu
+//            AutoCase.Intake();
+//
+//            DetectionCase.autoCase.Shoot();
+//        }
+//        DetectionCase.autoCase.releaseFirstWobble();
+//        AutoCase.returnBack();
+//        DetectionCase.autoCase.releaseSecondWobble();
+//        AutoCase.Park();
     }
 
 }

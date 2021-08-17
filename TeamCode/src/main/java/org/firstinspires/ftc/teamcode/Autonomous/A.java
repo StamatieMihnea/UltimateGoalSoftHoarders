@@ -42,8 +42,10 @@ public class A extends AutoCase {
                 AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case FULL:
-            case INTERMEDIATE2:
                 drive.followTrajectory(TrajFull.goToDiskCollectPoseWithoutIntake(drive.getPoseEstimate()));
+                break;
+            case INTERMEDIATE2:
+                drive.followTrajectory(TrajIntermTwo.goToDiskCollectPoseWithoutIntake(drive.getPoseEstimate()));
                 break;
             case WORST:
                 AutoUtil.wallPosition(wallState.VERTICAL);

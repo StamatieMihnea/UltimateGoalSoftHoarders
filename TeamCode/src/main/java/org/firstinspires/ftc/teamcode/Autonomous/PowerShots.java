@@ -22,8 +22,8 @@ public class PowerShots {
     public static double shooterAnglePowerShoot = 0.55;
 
     public static int firstRotationRED = 21;
-    public static int secondRotationRED = -3;
-    public static int thirdRotationRED = -4;
+    public static int secondRotationRED = -5;
+    public static int thirdRotationRED = -5;
 
     public static int firstRotationBLUE = -21;
     public static int secondRotationBLUE = 5;
@@ -57,6 +57,7 @@ public class PowerShots {
 
     public static void run() {
         AutoUtil.startShooting();
+        opMode.sleep(500);
        // drive.followTrajectory(powerShotsTrajectory(drive.getPoseEstimate()));
         GyroPID.rotate(firstRotation, opMode.telemetry, opMode);
         opMode.sleep(100);
@@ -72,7 +73,12 @@ public class PowerShots {
 //                .lineToSplineHeading(PositonCaseModifier.correct(powerShotsPose, colorCase))
 //                .build();
 //    }
+
 }
+
+
+
+
 
 /**package org.firstinspires.ftc.teamcode.Autonomous;
 

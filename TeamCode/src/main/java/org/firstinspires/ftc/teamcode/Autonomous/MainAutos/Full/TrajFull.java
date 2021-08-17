@@ -27,7 +27,7 @@ public class TrajFull extends Trajectories {
     public static Pose2d releaseAPose = new Pose2d(-6, 48, Math.toRadians(250));
     public static Pose2d releaseBPose = new Pose2d(-28, 27, Math.toRadians(250));
     public static Pose2d releaseCPose = new Pose2d(-53, 39, Math.toRadians(250));
-    public static Pose2d backPose = new Pose2d(35.5, 22, Math.toRadians(180));
+    public static Pose2d backPose = new Pose2d(42, 22, Math.toRadians(180));//x=35.5
     //    public static Pose2d backAPose = new Pose2d(41, 32, Math.toRadians(180));
 //    public static Pose2d backBPose = new Pose2d(41, 32, Math.toRadians(180));
 //    public static Pose2d backCPose = new Pose2d(41, 32, Math.toRadians(180));
@@ -35,7 +35,7 @@ public class TrajFull extends Trajectories {
     public static Pose2d secWobbleAPose = new Pose2d(-4, 39, Math.toRadians(250));
     public static Pose2d secWobbleBPose = new Pose2d(-26, 19, Math.toRadians(250));
     public static Pose2d secWobbleCPose = new Pose2d(-51, 45, Math.toRadians(250));
-    public static Pose2d parkPose = new Pose2d(-1, 30, Math.toRadians(180));
+    public static Pose2d parkPose = new Pose2d(-7, 22, Math.toRadians(180));
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajFull.colorCase = colorCase;
