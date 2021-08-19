@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.HardwarePack;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -21,6 +22,7 @@ public class HardwareDeclarations {
     public static WebcamName webcam;
     public static BNO055IMU imu;
     public static BNO055IMU imu1;
+    public static ModernRoboticsI2cGyro gyro;
     public static int cameraMonitorViewId;
     public static Servo wall_left, wall_right;
     public static DistanceSensor disk_distance;

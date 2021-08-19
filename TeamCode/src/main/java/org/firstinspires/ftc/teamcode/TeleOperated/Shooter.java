@@ -21,7 +21,7 @@ public class Shooter {
     public static final double push = 0.72;
     public static double shootTargetVelocity;
     public static final double free = 1;
-    public static final double shootSpeed = 1550; //1550
+    public static final double shootSpeed = 1450; //1550
     private static final int shootTime = 100;
     private static final int returnTime = 125;
     private static final OneTap idlerSequential = new OneTap();

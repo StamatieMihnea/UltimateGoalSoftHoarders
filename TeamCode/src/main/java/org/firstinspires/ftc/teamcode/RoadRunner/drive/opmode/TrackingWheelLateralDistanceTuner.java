@@ -6,10 +6,13 @@ import com.acmerobotics.roadrunner.util.Angle;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.RobotLog;
 
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.MyMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.Odometry;
+import org.firstinspires.ftc.teamcode.RoadRunner.util.Encoder;
 
 /**
  * Opmode designed to assist the user in tuning the `StandardTrackingWheelLocalizer`'s
@@ -71,6 +74,10 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         MyMecanumDrive drive = new MyMecanumDrive(hardwareMap);
+//        Encoder rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "back_left"));
+//        Encoder leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "front_left"));
+//        Encoder frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "back_right"));
+
 
         if (!(drive.getLocalizer() instanceof Odometry)) {
             RobotLog.setGlobalErrorMsg("StandardTrackingWheelLocalizer is not being set in the "
@@ -124,6 +131,8 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
         telemetry.addLine("Localizer's total heading: " + Math.toDegrees(headingAccumulator) + "°");
         telemetry.addLine("Effective LATERAL_DISTANCE: " +
                 (headingAccumulator / (NUM_TURNS * Math.PI * 2)) * Odometry.LATERAL_DISTANCE);
+// telemetry.addLine("Left " +leftEncoder.getCurrentPosition() +"     "+"Right "+rightEncoder.getCurrentPosition());
+
 
         telemetry.update();
 

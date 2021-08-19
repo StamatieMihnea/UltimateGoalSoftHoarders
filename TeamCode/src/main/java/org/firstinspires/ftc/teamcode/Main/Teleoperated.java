@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.NormalizeAngleGyro;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
 import org.firstinspires.ftc.teamcode.Debugs.Debugs;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -72,8 +73,11 @@ public class Teleoperated extends LinearOpMode {
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
-
-            GoToPoint.HighGoalAutoOrientation(gamepad1.back, drive);
+            Pose2d estimatedPose = drive.getPoseEstimate();
+            double estimatedX= estimatedPose.getX();
+            double estimatedY=estimatedPose.getY();
+            drive.setPoseEstimate(new Pose2d(estimatedX,estimatedY, Math.toRadians(NormalizeAngleGyro.Normalize(Hardware.imu))));
+            GoToPoint.HighGoalAutoOrientationImu(gamepad1.back, drive);
 
             GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false);
             GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true);
@@ -91,7 +95,7 @@ public class Teleoperated extends LinearOpMode {
             //SHOOT ANGLE
             ChangeShootingAngle.AngleControl(gamepad2);
             //ChangeShootingAngle.AutomaticDistanceAngle(gamepad2);
-            ChangeShootingAngle.AutomaticDistanceAngle();
+
 
             //INTAKE
             Intake.IntakeOneSpeed(gamepad1);
@@ -105,7 +109,7 @@ public class Teleoperated extends LinearOpMode {
             Debugs.shouldIntakeDebug(telemetry, false);
             Debugs.distanceSensorDebug(telemetry, false);
             Movement.localize(false);
-            telemetry.addLine("ANGLE CONTROL POS :" + String.valueOf(Hardware.angle_control_left_s.getPosition()));
+            //telemetry.addLine("ANGLE CONTROL POS :" + String.valueOf(Hardware.angle_control_left_s.getPosition()));
 
             /*Instruction.Commands(telemetry, false);
             telemetry.addData("grabber pos is: ", Hardware.grabber.getCurrentPosition());

@@ -17,6 +17,8 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryMarker;
 import com.acmerobotics.roadrunner.util.NanoClock;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.NormalizeAngleGyro;
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.sequencesegment.SequenceSegment;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.sequencesegment.TrajectorySegment;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.sequencesegment.TurnSegment;
@@ -194,6 +196,9 @@ public class TrajectorySequenceRunner {
 
         packet.put("x", poseEstimate.getX());
         packet.put("y", poseEstimate.getY());
+        packet.put("imu angle", Hardware.imu1.getAngularOrientation().firstAngle);
+        packet.put("imu normalized", NormalizeAngleGyro.Normalize( Hardware.imu1));
+        packet.put("two imu normalized", NormalizeAngleGyro.Normalize(Hardware.imu1,Hardware.imu));
         packet.put("heading (deg)", Math.toDegrees(poseEstimate.getHeading()));
 
         packet.put("xError", getLastPoseError().getX());

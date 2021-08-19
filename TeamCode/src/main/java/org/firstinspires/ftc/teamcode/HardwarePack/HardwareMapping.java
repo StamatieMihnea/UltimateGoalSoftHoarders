@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.HardwarePack;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
@@ -27,6 +28,7 @@ public class HardwareMapping extends HardwareDeclarations {
 
         imu = getIMU("imu", hardwareMap);
         imu1 = getIMU("imu1", hardwareMap);
+        gyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyro");
 
         angle_control_left_s = getServo("angle_control_left_s", hardwareMap);
         angle_control_right_s = getServo("angle_control_right_s", hardwareMap);

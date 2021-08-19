@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.GyroPID;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.Gyro.NormalizeAngleGyro;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.NormalizeImuAngle;
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Main.Teleoperated;
 import org.firstinspires.ftc.teamcode.Main.driveCase;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
@@ -21,10 +24,12 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 @Config
 public class GoToPoint {
     private static LinearOpMode opMode;
-    private static final Vector2d towerCoordinates = new Vector2d(-74, 37);
-    public static double a = -0.0018;
-    public static double b = 0.76;
-    public static double allowedDistance = 15f;
+    public static double towerX = -15;//ASTA
+    public static double towerY = 12;//ASTA
+    public static Vector2d towerCoordinates = new Vector2d(towerX, towerY);
+    public static double a = -0.0035; //-0.0018 ASTA
+    public static double b = 0.76; // 0.76 TODO: ASTA
+    public static double allowedDistance = 10f;
 
     public static void init(LinearOpMode opMode, MyMecanumDrive drive) {
         GyroPID.setDrive(drive);
@@ -141,7 +146,9 @@ public class GoToPoint {
     public static void HighGoalAutoOrientation(boolean button, MyMecanumDrive drive) {
         OneTap oneTap = new OneTap();
         if (oneTap.onPress(button)) {
-
+            if (drive.getPoseEstimate().getX() > 0) {
+                ChangeShootingAngle.AutomaticDistanceAngle();
+            }
             Pose2d robotPosition = drive.getPoseEstimate();
             double absolutRotationNeeded = Math.atan((robotPosition.getY() - towerCoordinates.getY()) / (robotPosition.getX() - towerCoordinates.getX()));
             double neededForStraightening = 180 - Math.toDegrees(Teleoperated.drive.getPoseEstimate().getHeading());
@@ -151,6 +158,41 @@ public class GoToPoint {
 
         }
     }
+
+    public static void HighGoalAutoOrientationImu(boolean button, MyMecanumDrive drive) {
+        OneTap oneTap = new OneTap();
+        if (oneTap.onPress(button)) {
+            if (drive.getPoseEstimate().getX() > 0) {
+                ChangeShootingAngle.AutomaticDistanceAngle();
+            }
+            Pose2d robotPosition = drive.getPoseEstimate();
+            double absolutRotationNeeded = Math.atan((robotPosition.getY() - towerCoordinates.getY()) / (robotPosition.getX() - towerCoordinates.getX()));
+//            double neededForStraightening = 180 - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
+            double neededForStraightening = 180 - NormalizeAngleGyro.Normalize( Hardware.imu1);
+            opMode.telemetry.addData("ANGLE FOR TURN!!!!!!! ", neededForStraightening + absolutRotationNeeded);
+            opMode.telemetry.update();
+            GyroPID.rotate(neededForStraightening + Math.toDegrees(absolutRotationNeeded), opMode.telemetry, opMode);
+
+        }
+    }
+
+    public static void HighGoalAutoOrientationGyro(boolean button, MyMecanumDrive drive) {
+        OneTap oneTap = new OneTap();
+        if (oneTap.onPress(button)) {
+            if (drive.getPoseEstimate().getX() > 0) {
+                ChangeShootingAngle.AutomaticDistanceAngle();
+            }
+            Pose2d robotPosition = drive.getPoseEstimate();
+            double absolutRotationNeeded = Math.atan((robotPosition.getY() - towerCoordinates.getY()) / (robotPosition.getX() - towerCoordinates.getX()));
+//            double neededForStraightening = 180 - NormalizeImuAngle.convert(Hardware.imu.getAngularOrientation().firstAngle);
+            double neededForStraightening = 180 - (360 - Hardware.gyro.getHeading());
+            opMode.telemetry.addData("ANGLE FOR TURN!!!!!!! ", neededForStraightening + absolutRotationNeeded);
+            opMode.telemetry.update();
+            GyroPID.rotate(neededForStraightening + Math.toDegrees(absolutRotationNeeded), opMode.telemetry, opMode);
+
+        }
+    }
+
 
     public static double shootingAngleForDistance() {
         //double a = -0.0015;

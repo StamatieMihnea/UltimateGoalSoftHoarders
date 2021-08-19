@@ -47,11 +47,12 @@ public class Movement {
     }
 
     public static void slowMovement(Gamepad gamepad, int factor) {
-        if (gamepad.right_trigger > 0.01 || GoToPoint.FieldWallDistanceCheck(drive)) {
+        slowFactor = 1;
+       /* if (gamepad.right_trigger > 0.01 || GoToPoint.FieldWallDistanceCheck(drive)) {
             slowFactor = factor;
         } else {
             slowFactor = 1;
-        }
+        }*/
     }
 
 }

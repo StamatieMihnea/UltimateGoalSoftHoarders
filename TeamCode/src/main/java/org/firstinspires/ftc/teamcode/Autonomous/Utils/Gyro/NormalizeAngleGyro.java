@@ -11,16 +11,19 @@ public class NormalizeAngleGyro { //Gyro
     private static final double NormalizeValue = 180f;
 
     public static double GetAngle(MyMecanumDrive drive) {
-       // return (Normalize(Hardware.imu));
+        // return (Normalize(Hardware.imu));
         return Math.toDegrees(drive.getPoseEstimate().getHeading());
     }
 
-    public static double GetRawAngle(BNO055IMU imu) {
-        return imu.getAngularOrientation().firstAngle;
+    public static double GetRawAngle(BNO055IMU imu1, BNO055IMU imu2) {
+        return (imu1.getAngularOrientation().firstAngle + imu2.getAngularOrientation().firstAngle) / 2;
     }
 
-    private static double Normalize(BNO055IMU imu) {
-
-        return GetRawAngle(imu) + NormalizeValue;
+    public static double Normalize(BNO055IMU imu1, BNO055IMU imu2) {
+        return GetRawAngle(imu1, imu2) + NormalizeValue;
     }
+    public static double Normalize(BNO055IMU imu1) {
+        return imu1.getAngularOrientation().firstAngle + NormalizeValue;
+    }
+
 }

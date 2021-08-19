@@ -21,8 +21,8 @@ public class PowerShots {
 
     public static double shooterAnglePowerShoot = 0.55;
 
-    public static int firstRotationRED = 21;
-    public static int secondRotationRED = -5;
+    public static int firstRotationRED = 20;
+    public static int secondRotationRED = -4;
     public static int thirdRotationRED = -5;
 
     public static int firstRotationBLUE = -21;
