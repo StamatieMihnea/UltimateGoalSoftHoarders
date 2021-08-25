@@ -37,11 +37,11 @@ public class A extends AutoCase {
     public void Shoot(){
         switch (autoScene){
             case INTERMEDIATE1:
-                AutoUtil.wallPosition(wallState.VERTICAL);
+               // AutoUtil.wallPosition(wallState.VERTICAL);
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.intermediate1ShooterAngle);
                 drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case FULL:
                 drive.followTrajectory(TrajFull.goToDiskCollectPoseWithoutIntake(drive.getPoseEstimate()));
@@ -54,14 +54,14 @@ public class A extends AutoCase {
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.worstShooterAngle);
                 drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
+               // AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case QuantumExterior:
                 //AutoUtil.wallPosition(wallState.VERTICAL);
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.worstShooterAngle);
                 drive.followTrajectory(TrajQuantumExterior.ShootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case QuantumInterior:
                 break;
@@ -82,7 +82,7 @@ public class A extends AutoCase {
                 //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 break;
             case INTERMEDIATE2:
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 drive.followTrajectory(TrajIntermTwo.releaseATrajectory(drive.getPoseEstimate()));
                 //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 //opMode.sleep(wobbleArmSleep);

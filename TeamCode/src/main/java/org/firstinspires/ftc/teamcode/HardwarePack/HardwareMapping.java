@@ -40,8 +40,8 @@ public class HardwareMapping extends HardwareDeclarations {
         HardwareUtil.InitializeIMU(imu);
         HardwareUtil.InitializeIMU(imu1);
 
-        wall_left = getServo("wall_left", hardwareMap);
-        wall_right = getServo("wall_right", hardwareMap);
+        //wall_left = getServo("wall_left", hardwareMap);
+        //wall_right = getServo("wall_right", hardwareMap);
 
         disk_distance = getDistanceSensor("disk_distance", hardwareMap);
 

@@ -13,6 +13,7 @@ public class ChangeShootingAngle {
 
     public static final double powershotPosition = ConstantsTeleoperated.powershotPosition;
     public static final double shootPosition = ConstantsTeleoperated.shootPosition;
+    public static final double shootPositionBack = ConstantsTeleoperated.shootPositionBack;
     public static final double rightOffset = ConstantsTeleoperated.rightOffset; //0.105
 
     private static final double incrementValue = ConstantsTeleoperated.incrementValue;
@@ -77,13 +78,14 @@ public class ChangeShootingAngle {
     }
 
     public static void AngleControl(@NotNull Gamepad gamepad) {
-        OneTap oneTap = new OneTap();
+        changeAngle(gamepad.a,shootPosition);
+        changeAngle(gamepad.y,shootPositionBack);
+        update();
+       /* OneTap oneTap = new OneTap();
         if (oneTap.onPress(gamepad.a)) {
             LimitAngle();
             AngleControl(absPosition);
-        }
-        //generalPose(gamepad.a);
-        //SequentialIncrement(gamepad.start, gamepad.back);
+        }*/
     }
 
 //    public static void AutomaticDistanceAngle(Gamepad gamepad) {

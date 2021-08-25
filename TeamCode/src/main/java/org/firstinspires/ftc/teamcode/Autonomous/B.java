@@ -1,20 +1,14 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.ExteriorLine.TrajQuantumExterior;
-import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.InteriorLine.TrajQuantumInterior;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoIntakeShoot;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.shooterState;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
-import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.TeleOperated.grabberPosition;
@@ -42,30 +36,30 @@ public class B extends AutoCase {
                 AutoUtil.startShooting(ConstantsAutonomous.intermediate1ShootingSpeed);
                 drive.followTrajectory(TrajIntermOne.shootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case FULL:
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.fullShooterAngle);
                 AutoUtil.startShooting(ConstantsAutonomous.fullShootingSpeed);
                 drive.followTrajectory(TrajFull.ShootTrajectory(drive.getPoseEstimate()));
-                AutoUtil.wallPosition(wallState.VERTICAL);
+                //AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shoot(true,true);
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.intermediate2ShooterAngle);
                 AutoUtil.startShooting(ConstantsAutonomous.intermediate2ShootingSpeed);
                 drive.followTrajectory(TrajIntermTwo.ShootTrajectory(drive.getPoseEstimate()));
-                AutoUtil.wallPosition(wallState.VERTICAL);
+                //AutoUtil.wallPosition(wallState.VERTICAL);
                 AutoUtil.shoot(true,true);
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case WORST:
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.worstShooterAngle);
                 AutoUtil.startShooting(ConstantsAutonomous.worstShootingSpeed);
                 drive.followTrajectory(TrajWorst.shootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
-                AutoUtil.wallPosition(wallState.INSIDE);
+              //  AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case QuantumInterior:
                 ChangeShootingAngle.AngleControl(ConstantsAutonomous.interiorShooterAngle);
@@ -73,9 +67,10 @@ public class B extends AutoCase {
                 //drive.followTrajectory(TrajQuantumInterior.shootPose(drive.getPoseEstimate()));
                 break;
             case QuantumExterior:
-                ChangeShootingAngle.AngleControl(ConstantsAutonomous.exteriorShooterAngle);
-                AutoUtil.startShooting(ConstantsAutonomous.exteriorShootingSpeed);
+                ChangeShootingAngle.AngleControl(ConstantsAutonomous.exteriorShooterAngleB);
+                AutoUtil.startShooting(ConstantsAutonomous.exteriorShootingSpeedB);
                 drive.followTrajectory(TrajQuantumExterior.ShootTrajectory(drive.getPoseEstimate()));
+                AutoUtil.shoot3Disks();
                 break;
         }
 
@@ -156,7 +151,7 @@ public class B extends AutoCase {
             case QuantumInterior:
                 break;
             case QuantumExterior:
-                AutoUtil.startShooting();
+                AutoUtil.startShooting(ConstantsAutonomous.exteriorShootingSpeedB);
                 AutoUtil.shoot3Disks();
                 break;
         }

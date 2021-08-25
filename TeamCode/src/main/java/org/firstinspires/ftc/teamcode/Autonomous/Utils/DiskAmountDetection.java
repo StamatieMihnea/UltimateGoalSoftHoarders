@@ -21,6 +21,8 @@ public class DiskAmountDetection {
 
     public static double multiplyVal = 19f;
     public static double redMeanThreshold = 7; // it was 6.3
+    public static int xOffset = 0;
+    public static  int yOffset = 0;
 
     public static void stopDetection() {
         try {
@@ -46,7 +48,7 @@ public class DiskAmountDetection {
     // 1 -- 123
 
     // 4 -- 130
-
+   @Config
     public static class UltimateGoalPipeline extends OpenCvPipeline {
 
         Telemetry telemetry;
@@ -75,7 +77,7 @@ public class DiskAmountDetection {
             //    telemetry.addData("mat size is: ", n + " " + m);
             // Point firstPoint = new Point(n / 2 - 20 + pointDiff, m / 2 - 10 + pointDiff),
             //       secondPoint = new Point(n / 2 + 20 + pointDiff, m / 2 + 30 + pointDiff);
-            Point firstPoint = new Point(n / 2 - 35, m / 2 + 40), secondPoint = new Point(n / 2, m / 2);
+            Point firstPoint = new Point(n / 2 - 35 + xOffset, m / 2 + 40 + yOffset), secondPoint = new Point(n / 2 + xOffset, m / 2 + yOffset);
             Mat finalMat = new Mat(RedMat, new Rect(firstPoint,secondPoint));
 
             Imgproc.rectangle(

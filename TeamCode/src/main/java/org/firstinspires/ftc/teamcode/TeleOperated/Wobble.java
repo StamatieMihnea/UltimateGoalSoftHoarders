@@ -186,6 +186,7 @@ public class Wobble {
         motorArmToPosition(gamepad.dpad_up, wobblePosition.UP);
         motorArmToPosition(gamepad.dpad_right, wobblePosition.MID);
         motorArmToPosition(gamepad.dpad_down, wobblePosition.DOWN);
+        changeGrabberCaseByButton(gamepad.x);
         correctPostion(gamepad);
         if (gamepad.dpad_down || gamepad.dpad_right || gamepad.dpad_up) {
             positionUpdate();
@@ -193,7 +194,6 @@ public class Wobble {
     }
 
     public static void wobbleGrabberControl(Gamepad gamepad) {
-        changeGrabberCaseByButton(gamepad.y);
         servoPositions(gamepad.x);
     }
 

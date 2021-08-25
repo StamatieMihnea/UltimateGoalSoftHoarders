@@ -23,7 +23,7 @@ public class Initializations {
     private static void UtilsInit(LinearOpMode opMode, armCase armCase){
         AutoUtil.setOpMode(opMode);
         AutoUtil.initialization(armCase);
-        AutoUtil.wallPosition(wallState.INSIDE);
+       // AutoUtil.wallPosition(wallState.INSIDE);
     }
 
     private static void HardwareInit(LinearOpMode  opMode){

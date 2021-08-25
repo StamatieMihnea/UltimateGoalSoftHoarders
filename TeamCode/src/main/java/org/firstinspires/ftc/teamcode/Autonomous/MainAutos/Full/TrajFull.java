@@ -68,7 +68,7 @@ public class TrajFull extends Trajectories {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(PositionCaseModifier.correct(shootPose, colorCase))
                 .addTemporalMarker(0.7, () -> {
-                    AutoUtil.wallPosition(wallState.VERTICAL);
+                    //AutoUtil.wallPosition(wallState.VERTICAL);
                 })
                 .build();
     }

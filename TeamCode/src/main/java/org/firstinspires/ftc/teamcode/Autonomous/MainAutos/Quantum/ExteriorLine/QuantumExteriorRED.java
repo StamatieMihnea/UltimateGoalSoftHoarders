@@ -24,7 +24,7 @@ public class QuantumExteriorRED extends LinearOpMode {
         waitForStart();
 
         DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("C", this);
+        DetectionCase.setAutoCase("B", this);
         AutoCase.setAutoScene(AutoScenes.QuantumExterior);
 
         DetectionCase.autoCase.Shoot();

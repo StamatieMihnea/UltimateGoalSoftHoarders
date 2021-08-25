@@ -80,22 +80,22 @@ public class AutoUtil {
         }
     }
 
-    public static void wallPosition(wallState state) {
-        switch (state) {
-            case DOWN:
-                Hardware.wall_left.setPosition(leftWallDown);
-                Hardware.wall_right.setPosition(rightWallDown);
-                break;
-            case INSIDE:
-                Hardware.wall_left.setPosition(leftWallInside);
-                Hardware.wall_right.setPosition(rightWallInside);
-                break;
-            case VERTICAL:
-                Hardware.wall_left.setPosition(leftWallVertical);
-                Hardware.wall_right.setPosition(rightWallVertical);
-                break;
-        }
-    }
+//    public static void wallPosition(wallState state) {
+//        switch (state) {
+//            case DOWN:
+//                Hardware.wall_left.setPosition(leftWallDown);
+//                Hardware.wall_right.setPosition(rightWallDown);
+//                break;
+//            case INSIDE:
+//                Hardware.wall_left.setPosition(leftWallInside);
+//                Hardware.wall_right.setPosition(rightWallInside);
+//                break;
+//            case VERTICAL:
+//                Hardware.wall_left.setPosition(leftWallVertical);
+//                Hardware.wall_right.setPosition(rightWallVertical);
+//                break;
+//        }
+//    }
 
     public static void startShooting() {
         shoot_rightEX.setVelocity(shootingSpeed);

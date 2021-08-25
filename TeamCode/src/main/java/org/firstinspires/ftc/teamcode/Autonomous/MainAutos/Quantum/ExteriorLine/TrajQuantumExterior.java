@@ -23,9 +23,9 @@ public class TrajQuantumExterior extends Trajectories {
     public static Pose2d backAfter4thDiskPose = new Pose2d(10, 32, Math.toRadians(178)); //10
     public static Pose2d shootPose = new Pose2d(42, 35, Math.toRadians(178));
     public static Pose2d releaseAPose = new Pose2d(-6, 48, Math.toRadians(250));
-    public static Pose2d releaseBPose = new Pose2d(-28, 27, Math.toRadians(250));
+    public static Pose2d releaseBPose = new Pose2d(-18, 45, Math.toRadians(300));
     public static Pose2d releaseCPose = new Pose2d(-50, 46, Math.toRadians(220));
-    public static Pose2d parkPose = new Pose2d(2, 56, Math.toRadians(180));
+    public static Pose2d parkPose = new Pose2d(-2, 56, Math.toRadians(180));
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajQuantumExterior.colorCase = colorCase;
@@ -42,7 +42,7 @@ public class TrajQuantumExterior extends Trajectories {
                         MyMecanumDrive.getVelocityConstraint(AutoCase.intakeVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         MyMecanumDrive.getAccelerationConstraint(AutoCase.intakeAcc))
                 .addTemporalMarker(0.7, () -> {
-                    AutoUtil.wallPosition(wallState.VERTICAL);
+                   // AutoUtil.wallPosition(wallState.VERTICAL);
                 })
                 .build();
     }

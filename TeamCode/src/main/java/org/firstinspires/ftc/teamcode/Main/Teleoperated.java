@@ -28,8 +28,6 @@ public class Teleoperated extends LinearOpMode {
     public static MyMecanumDrive drive;
     public static driveCase currentCase = driveCase.DRIVE;
     public static ColorCase colorCase;
-    //public static Pose2d shootPose =  new Pose2d(8, 5, Math.toRadians(163));
-    public static double wobbleX = 58;
 
 
     private void movementInitialization() {
@@ -44,7 +42,7 @@ public class Teleoperated extends LinearOpMode {
     private void initialization() {
         Hardware.init(hardwareMap, telemetry);
         Wobble.initialization();
-        Wall.initialization();
+        //Wall.initialization();
         Shooter.shooterInitialization(this);
         movementInitialization();
         NormalizeImuAngle.setDrive(drive);
@@ -69,23 +67,20 @@ public class Teleoperated extends LinearOpMode {
         }
 
         while (!isStopRequested() && opModeIsActive()) {
-            drive.update();
-
-            Pose2d estimatedPose = drive.getPoseEstimate();
-            double estimatedX = estimatedPose.getX();
-            double estimatedY = estimatedPose.getY();
-            drive.setPoseEstimate(new Pose2d(estimatedX, estimatedY, Math.toRadians(NormalizeAngleGyro.Normalize(Hardware.imu))));
 
             //WOBBLE
             Wobble.wobbleArmControl(gamepad2);
             Wobble.wobbleGrabberControl(gamepad1);
 
             //ROAD RUNNER
-            // GoToPoint.strafe(gamepad1.dpad_right, 8, 6, NormalizeImuAngle.heading(160, true), drive, 35, 60, false); //Old shoot pose
-            //  GoToPoint.strafe(gamepad1.dpad_up, wobbleX, drive.getPoseEstimate().getY(), NormalizeImuAngle.heading(90, true), drive, 40, 70, true); //Old wobble pose
-            // GoToPoint.POWERSHOTS(gamepad2.dpad_left, drive); //Old powershots routine
+            //GoToPoint.HighGoalAutoOrientationImu(gamepad1.back, drive);
 
             //MOVEMENT
+            drive.update();
+            Pose2d estimatedPose = drive.getPoseEstimate();
+            double estimatedX = estimatedPose.getX();
+            double estimatedY = estimatedPose.getY();
+            drive.setPoseEstimate(new Pose2d(estimatedX, estimatedY, Math.toRadians(NormalizeAngleGyro.Normalize(Hardware.imu))));
             if (currentCase == driveCase.DRIVE) {
                 Movement.slowMovement(gamepad1, ConstantsTeleoperated.onPressSlowFactor);
                 Movement.driving(gamepad1);
@@ -97,16 +92,10 @@ public class Teleoperated extends LinearOpMode {
             //SHOOT ANGLE
             ChangeShootingAngle.AngleControl(gamepad2);
 
-            //GoToPoint.HighGoalAutoOrientation(gamepad1.back, drive);
-            GoToPoint.HighGoalAutoOrientationImu(gamepad1.back, drive);
-
             //INTAKE
             Intake.IntakeOneSpeed(gamepad1);
             Intake.OutTakeOneSpeed(gamepad2);
             distanceSensor.update();
-
-            //WALL
-            Wall.wallControl(gamepad2);
 
             //DEBUGS
             Debugs.shouldIntakeDebug(telemetry, false);
@@ -114,15 +103,12 @@ public class Teleoperated extends LinearOpMode {
             Movement.localize(false);
             telemetry.addLine("ANGLE CONTROL POS :" + String.valueOf(Hardware.angle_control_left_s.getPosition()));
             //Instruction.Commands(telemetry, false);
-
             telemetry.addData("IMU RAW: ", Hardware.imu.getAngularOrientation().firstAngle);
             telemetry.addData("Normalize imu", NormalizeAngleGyro.Normalize(Hardware.imu));
             telemetry.addData("RoadRunner Angle", Math.toDegrees(drive.getPoseEstimate().getHeading()));
             telemetry.addData("Raw grabber current position", Hardware.grabber.getCurrentPosition());
             telemetry.addData("Raw grabber target position", Hardware.grabber.getTargetPosition());
             telemetry.update();
-
-
         }
 
     }

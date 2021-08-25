@@ -62,7 +62,7 @@ public class PowerShots {
         AutoUtil.shoot(true, true);
         GyroPID.rotate(thirdRotation, opMode.telemetry, opMode);
         AutoUtil.shoot(true, true);
-        AutoUtil.wallPosition(wallState.INSIDE);
+       // AutoUtil.wallPosition(wallState.INSIDE);
     }
 //    public static Trajectory powerShotsTrajectory(Pose2d pose2d) {
 //        return drive.trajectoryBuilder(pose2d)

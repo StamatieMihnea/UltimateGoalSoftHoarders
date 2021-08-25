@@ -50,7 +50,7 @@ public class Intake {
             Hardware.shooter_booster.setPower(0);
             ((DcMotorEx) (Hardware.shooter_left)).setVelocity(Shooter.shootSpeed);
             ((DcMotorEx) (Hardware.shooter_right)).setVelocity(Shooter.shootSpeed);
-            Wall.Vertical();
+           // Wall.Vertical();
         }
 
     }

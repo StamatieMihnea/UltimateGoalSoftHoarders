@@ -195,15 +195,15 @@ public abstract class AutoCase {
                 break;
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.parkTrajectory(drive.getPoseEstimate()));
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case INTERMEDIATE2:
                 drive.followTrajectory(TrajIntermTwo.parkTrajectory(drive.getPoseEstimate()));
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case WORST:
                 drive.followTrajectory(TrajWorst.ParkTrajectory(drive.getPoseEstimate()));
-                AutoUtil.wallPosition(wallState.INSIDE);
+                //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case QuantumExterior:
                 drive.followTrajectory(TrajQuantumExterior.parkTrajectory(drive.getPoseEstimate()));

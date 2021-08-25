@@ -22,7 +22,6 @@ public class HardwareDeclarations {
     public static BNO055IMU imu;
     public static BNO055IMU imu1;
     public static int cameraMonitorViewId;
-    public static Servo wall_left, wall_right;
     public static DistanceSensor disk_distance;
     public static OpenCvCamera cvCamera;
     public static CRServo intakeBooster_left,intakeBooster_right;

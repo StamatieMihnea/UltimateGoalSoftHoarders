@@ -95,7 +95,7 @@ public class GoToPoint {
         if (oneTap.onPress(button)) {
             if (wobble) {
                 Wobble.motorArmToPosition(true, wobblePosition.UP);
-                Wall.wallClose(true);
+               // Wall.wallClose(true);
             }
             Pose2d poseEstimate = drive.getPoseEstimate();
             Trajectory trajectory = drive.trajectoryBuilder(poseEstimate)
