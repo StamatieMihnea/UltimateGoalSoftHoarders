@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.ExteriorLine.TrajQuantumExterior;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.InteriorLine.TrajQuantumInterior;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.wallState;
@@ -91,7 +92,7 @@ public class C extends AutoCase {
             case WORST:
                 break;
             case QuantumInterior:
-
+                drive.followTrajectory(TrajQuantumInterior.releaseCTrajectory(drive.getPoseEstimate()));
                 break;
             case QuantumExterior:
                 drive.followTrajectory(TrajQuantumExterior.releaseCTrajectory(drive.getPoseEstimate()));

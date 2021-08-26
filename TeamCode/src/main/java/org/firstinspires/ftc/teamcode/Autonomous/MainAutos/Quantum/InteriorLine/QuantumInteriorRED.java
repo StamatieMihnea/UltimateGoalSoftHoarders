@@ -9,9 +9,11 @@ import org.firstinspires.ftc.teamcode.Autonomous.Initializations;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.DetectionCase;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.ExteriorLine.TrajQuantumExterior;
 import org.firstinspires.ftc.teamcode.Autonomous.PowerShots;
+import org.firstinspires.ftc.teamcode.Autonomous.PowerShotsInteriorLine;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ColorCase;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.DiskAmountDetection;
+import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
 import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
 
 
@@ -24,12 +26,13 @@ import org.firstinspires.ftc.teamcode.TeleOperated.armCase;
             waitForStart();
 
             DiskAmountDetection.stopDetection();
-            DetectionCase.setAutoCase("C", this);
+            DetectionCase.setAutoCase("A", this);
             AutoCase.setAutoScene(AutoScenes.QuantumInterior);
 
             DetectionCase.autoCase.releaseFirstWobble();
             AutoCase.ReturnToPowerShots();
-            PowerShots.run();
+            PowerShots.initialization(Trajectories.getDrive(), this, ColorCase.RED);
+            PowerShotsInteriorLine.run();
             AutoCase.Park();
 
         }

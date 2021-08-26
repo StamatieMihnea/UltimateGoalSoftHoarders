@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Full.TrajFull;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.One.TrajIntermOne;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Intermediate.Two.TrajIntermTwo;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.ExteriorLine.TrajQuantumExterior;
+import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Quantum.InteriorLine.TrajQuantumInterior;
 import org.firstinspires.ftc.teamcode.Autonomous.MainAutos.Worst.TrajWorst;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.Trajectories;
@@ -65,6 +66,7 @@ public class A extends AutoCase {
                 //AutoUtil.wallPosition(wallState.INSIDE);
                 break;
             case QuantumInterior:
+
                 break;
         }
 
@@ -80,16 +82,9 @@ public class A extends AutoCase {
                 break;
             case INTERMEDIATE1:
                 drive.followTrajectory(TrajIntermOne.releaseATrajectory(drive.getPoseEstimate()));
-                //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
                 break;
             case INTERMEDIATE2:
-                //AutoUtil.wallPosition(wallState.INSIDE);
                 drive.followTrajectory(TrajIntermTwo.releaseATrajectory(drive.getPoseEstimate()));
-                //TODO inspect here Wobble.motorArmToPosition(true, wobblePosition.MID);
-                //opMode.sleep(wobbleArmSleep);
-                //Wobble.setGrabberPosition(grabberposition.free\grabpos.grab);
-                //opMode.sleep(wobbleArmSleep);
-                break;
             case WORST:
                 break;
             case QuantumExterior:
@@ -97,6 +92,10 @@ public class A extends AutoCase {
                 drive.followTrajectory(TrajQuantumExterior.releaseATrajectory(drive.getPoseEstimate()));
                 break;
             case QuantumInterior:
+                drive.followTrajectory(TrajQuantumInterior.goForwardA(drive.getPoseEstimate()));
+                drive.followTrajectory(TrajQuantumInterior.releaseATrajectory(drive.getPoseEstimate()));
+                opMode.sleep(300);
+                drive.followTrajectory(TrajQuantumInterior.goForwardA(drive.getPoseEstimate()));
                 break;
         }
 
