@@ -24,18 +24,25 @@ public class QuantumExteriorRED extends LinearOpMode {
         waitForStart();
 
         DiskAmountDetection.stopDetection();
-        DetectionCase.setAutoCase("B", this);
+        DetectionCase.setAutoCase("C", this);
         AutoCase.setAutoScene(AutoScenes.QuantumExterior);
 
         DetectionCase.autoCase.Shoot();
         //if (DetectionCase.diskAmount != 0) {
-        if(true){
+        if(true){  //B si C
             AutoCase.Intake();
             sleep(400);
             DetectionCase.autoCase.ShootSecondHighGoal();
         }
 
         DetectionCase.autoCase.releaseFirstWobble();
+
+        if(false)//CAZUL A DOAR
+        {
+            AutoCase.ParkAQuantum();
+            sleep(13000);
+        }
+
         AutoCase.Park();
 
     }

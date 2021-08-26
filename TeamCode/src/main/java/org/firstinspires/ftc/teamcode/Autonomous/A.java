@@ -58,7 +58,8 @@ public class A extends AutoCase {
                 break;
             case QuantumExterior:
                 //AutoUtil.wallPosition(wallState.VERTICAL);
-                ChangeShootingAngle.AngleControl(ConstantsAutonomous.worstShooterAngle);
+                AutoUtil.startShooting(ConstantsAutonomous.exteriorShootingSpeedA);
+                ChangeShootingAngle.AngleControl(ConstantsAutonomous.exteriorShooterAngleA);
                 drive.followTrajectory(TrajQuantumExterior.ShootTrajectory(drive.getPoseEstimate()));
                 AutoUtil.shoot3Disks();
                 //AutoUtil.wallPosition(wallState.INSIDE);

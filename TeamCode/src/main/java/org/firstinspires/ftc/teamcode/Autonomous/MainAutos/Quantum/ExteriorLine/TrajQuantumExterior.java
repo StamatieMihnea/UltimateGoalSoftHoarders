@@ -22,10 +22,11 @@ public class TrajQuantumExterior extends Trajectories {
     public static Pose2d collect4thDiskPose = new Pose2d(3, 32, Math.toRadians(178)); //10
     public static Pose2d backAfter4thDiskPose = new Pose2d(10, 32, Math.toRadians(178)); //10
     public static Pose2d shootPose = new Pose2d(42, 35, Math.toRadians(178));
-    public static Pose2d releaseAPose = new Pose2d(-6, 48, Math.toRadians(250));
+    public static Pose2d releaseAPose = new Pose2d(9, 54, Math.toRadians(270));
     public static Pose2d releaseBPose = new Pose2d(-18, 45, Math.toRadians(300));
     public static Pose2d releaseCPose = new Pose2d(-50, 46, Math.toRadians(220));
-    public static Pose2d parkPose = new Pose2d(-2, 56, Math.toRadians(180));
+    public static Pose2d parkPose = new Pose2d(-2, 38, Math.toRadians(180));
+    public static Pose2d returnParkPose = new Pose2d(50, 48, Math.toRadians(270));
 
     public static void initSpecificTraj(ColorCase colorCase) {
         TrajQuantumExterior.colorCase = colorCase;
@@ -35,15 +36,12 @@ public class TrajQuantumExterior extends Trajectories {
             setStartPose(new Pose2d(61.5, 57.87 - 3, Math.toRadians(180)), colorCase);
         }
     }
-
+//20 seconds remaining A case
     public static Trajectory ShootTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(PositionCaseModifier.correct(shootPose, colorCase),
                         MyMecanumDrive.getVelocityConstraint(AutoCase.intakeVel, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH),
                         MyMecanumDrive.getAccelerationConstraint(AutoCase.intakeAcc))
-                .addTemporalMarker(0.7, () -> {
-                   // AutoUtil.wallPosition(wallState.VERTICAL);
-                })
                 .build();
     }
 
@@ -97,7 +95,7 @@ public class TrajQuantumExterior extends Trajectories {
     public static Trajectory parkTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(PositionCaseModifier.correct(parkPose, colorCase))
-                .addTemporalMarker(0.7, () -> {
+                .addTemporalMarker(0.2, () -> {
                     Wobble.SetGrabberPosition(grabberPosition.GRAB);
                     Wobble.motorArmToPosition(wobblePosition.UP);
                 })
@@ -113,6 +111,16 @@ public class TrajQuantumExterior extends Trajectories {
     public static Trajectory backAfter4thDisk(Pose2d pose2d){
         return drive.trajectoryBuilder(pose2d)
                 .lineToSplineHeading(PositionCaseModifier.correct(backAfter4thDiskPose, colorCase))
+                .build();
+    }
+
+    public static Trajectory returnBackPark(Pose2d pose2d){
+        return drive.trajectoryBuilder(pose2d)
+                .lineToSplineHeading(PositionCaseModifier.correct(returnParkPose, colorCase))
+                .addTemporalMarker(0.2, () -> {
+                    Wobble.SetGrabberPosition(grabberPosition.GRAB);
+                    Wobble.motorArmToPosition(wobblePosition.UP);
+                })
                 .build();
     }
 }

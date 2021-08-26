@@ -228,5 +228,13 @@ public abstract class AutoCase {
         }
     }
 
+    public static void ParkAQuantum(){
+        switch (autoScene){
+            case QuantumExterior:
+                drive.followTrajectory(TrajQuantumExterior.returnBackPark(drive.getPoseEstimate()));
+                break;
+        }
+    }
+
 
 }

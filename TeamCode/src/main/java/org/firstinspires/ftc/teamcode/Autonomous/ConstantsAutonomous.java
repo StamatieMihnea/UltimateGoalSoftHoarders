@@ -35,8 +35,10 @@ public class ConstantsAutonomous {
     public static double exteriorShooterAngleC = 0.59;
     public static double secondHighGoalShooterAngle = 0.57;
     public static int secondHighGoalShootingSpeed = 1330;
-    public static int exteriorShootingSpeedB = 1350;
+    public static int exteriorShootingSpeedB = 1320;
     public static double exteriorShooterAngleB = 0.59;
+    public static int exteriorShootingSpeedA = 1320;
+    public static double exteriorShooterAngleA = 0.59;
     //--------------------------------------------------------------------------------------------------------------------//
     // TODO: QuantumInterior
     //--------------------------------------------------------------------------------------------------------------------//

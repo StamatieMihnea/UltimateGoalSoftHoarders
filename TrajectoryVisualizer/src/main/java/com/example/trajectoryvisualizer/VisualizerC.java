@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.core.colorscheme.scheme.ColorSchemeRedDark;
 
-public class VisualizerC {
+public class  VisualizerC {
     public static void main(String[] args) {
         Pose2d startPose = new Pose2d(-61.5, -14.6, Math.toRadians(180));
         // Declare a MeepMeep instance
